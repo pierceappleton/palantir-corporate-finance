@@ -18,5 +18,125 @@
     "file": "pltr_companyfacts.json",
     "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001321655.json",
     "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "file": "data\\raw\\pltr_2025_10k_issuer.html",
+    "url": "https://d18rn0p25nwr6d.cloudfront.net/CIK-0001321655/dc4b4ecd-85db-48ad-8253-35559c2544b1.html",
+    "publication": "2026-02-17",
+    "reporting_period": "2025-12-31",
+    "retrieval_recorded_utc": "2026-10-06T22:35:19.647564+00:00",
+    "sha256": "043e8908bd77fd52aa55f750174135cbd1cc9c83fbbf9154a3b510380cf31c3e",
+    "units": "USD thousands in filing"
+  },
+  {
+    "file": "data\\raw\\pltr_2026q2_10q_issuer.html",
+    "url": "https://d18rn0p25nwr6d.cloudfront.net/CIK-0001321655/ab61767c-4b7d-411b-98ef-3d91705369ba.html",
+    "publication": "2026-08-04",
+    "reporting_period": "2026-06-30",
+    "retrieval_recorded_utc": "2026-10-06T22:35:19.651493+00:00",
+    "sha256": "9269cdd4b07cb0d133707bd4c14201b4a41e76759cfa8a60f2b6afc3fe6c8e60",
+    "units": "USD thousands in filing"
+  },
+  {
+    "id": "riskfree",
+    "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_yield_curve",
+    "asof": "2026-10-05",
+    "location": "10-year column, October5 row",
+    "transcription_recorded_utc": "2026-10-06T22:50:03.110740+00:00",
+    "access": "research browser; reproducible retrieval URL, not a fabricated raw download"
+  },
+  {
+    "id": "erp",
+    "url": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/home.htm",
+    "asof": "2026-10-01",
+    "location": "Trailing12month adjusted-payout implied ERP",
+    "transcription_recorded_utc": "2026-10-06T22:50:03.110740+00:00",
+    "access": "research browser; reproducible retrieval URL, not a fabricated raw download"
+  },
+  {
+    "id": "pltr_q2_release",
+    "url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm",
+    "asof": "2026-08-03",
+    "location": "FY2026 revenue guidance and GAAP/nonGAAP definitions",
+    "transcription_recorded_utc": "2026-10-06T22:50:03.110740+00:00",
+    "access": "research browser; reproducible retrieval URL, not a fabricated raw download"
+  },
+  {
+    "id": "price_pltr",
+    "url": "https://public.com/stocks/pltr/after-hours",
+    "asof": "2026-10-05",
+    "location": "Regular close189.40, not afterhours quote",
+    "transcription_recorded_utc": "2026-10-06T22:50:03.110740+00:00",
+    "access": "research browser; reproducible retrieval URL, not a fabricated raw download"
+  },
+  {
+    "id": "price_crm",
+    "url": "https://public.com/stocks/crm/after-hours",
+    "asof": "2026-10-05",
+    "location": "Historical regular close row229.79; exclude October6",
+    "transcription_recorded_utc": "2026-10-06T22:50:03.110740+00:00",
+    "access": "research browser; reproducible retrieval URL, not a fabricated raw download"
+  },
+  {
+    "id": "price_now",
+    "url": "https://public.com/stocks/now/after-hours",
+    "asof": "2026-10-05",
+    "location": "Historical regular close row136.08; split-adjusted",
+    "transcription_recorded_utc": "2026-10-06T22:50:03.110740+00:00",
+    "access": "research browser; reproducible retrieval URL, not a fabricated raw download"
+  },
+  {
+    "id": "NOW_source_q",
+    "url": "https://investor.servicenow.com/news/news-details/2026/ServiceNow-Reports-Second-Quarter-2026-Financial-Results/default.aspx",
+    "publication": "2026-07-22",
+    "reporting_period": "2026-06-30",
+    "location": "Condensed operations/balance sheets; H1current and prior; units USDmillions",
+    "transcription_recorded_utc": "2026-10-06T22:50:03.110740+00:00",
+    "access": "research browser; bulk HTTP403 retained; fact transcription in peer_inputs.json"
+  },
+  {
+    "id": "NOW_source_fy",
+    "url": "https://investor.servicenow.com/news/news-details/2026/ServiceNow-Reports-Fourth-Quarter-and-Full-Year-2025-Financial-Results-Board-of-Directors-Authorizes-Additional-5B-for-Share-Repurchase-Program/default.aspx",
+    "publication": "2026-01-28",
+    "reporting_period": "2025-12-31",
+    "location": "FYoperations table; annual revenue and GAAP NI",
+    "transcription_recorded_utc": "2026-10-06T22:50:03.110740+00:00",
+    "access": "research browser; bulk HTTP403 retained; fact transcription in peer_inputs.json"
+  },
+  {
+    "id": "NOW_shares_source",
+    "url": "https://www.sec.gov/Archives/edgar/data/1373715/000137371526000076/now-20260630.htm",
+    "publication": null,
+    "reporting_period": "2026-06-30",
+    "location": "Cover page point-in-time shares; publication date not separately recorded",
+    "transcription_recorded_utc": "2026-10-06T22:50:03.110740+00:00",
+    "access": "research browser; bulk HTTP403 retained; fact transcription in peer_inputs.json"
+  },
+  {
+    "id": "CRM_source_q",
+    "url": "https://investor.salesforce.com/news/news-details/2026/Salesforce-Delivers-Record-Second-Quarter-Fiscal-2027-Results/default.aspx",
+    "publication": "2026-08-26",
+    "reporting_period": "2026-07-31",
+    "location": "Condensed operations/balance sheets; H1current and prior; units USDmillions",
+    "transcription_recorded_utc": "2026-10-06T22:50:03.110740+00:00",
+    "access": "research browser; bulk HTTP403 retained; fact transcription in peer_inputs.json"
+  },
+  {
+    "id": "CRM_source_fy",
+    "url": "https://investor.salesforce.com/news/news-details/2026/Salesforce-Delivers-Record-Fourth-Quarter-Fiscal-2026-Results/default.aspx",
+    "publication": "2026-02-25",
+    "reporting_period": "2026-01-31",
+    "location": "FYoperations table; annual revenue and GAAP NI",
+    "transcription_recorded_utc": "2026-10-06T22:50:03.110740+00:00",
+    "access": "research browser; bulk HTTP403 retained; fact transcription in peer_inputs.json"
+  },
+  {
+    "id": "CRM_shares_source",
+    "url": "https://www.sec.gov/Archives/edgar/data/1108524/000110852426000190/crm-20260731.htm",
+    "publication": null,
+    "reporting_period": "2026-07-31",
+    "location": "Cover page point-in-time shares; publication date not separately recorded",
+    "transcription_recorded_utc": "2026-10-06T22:50:03.110740+00:00",
+    "access": "research browser; bulk HTTP403 retained; fact transcription in peer_inputs.json"
   }
 ]

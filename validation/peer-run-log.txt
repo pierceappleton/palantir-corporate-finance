@@ -1,0 +1,50 @@
+[
+  {
+    "ticker": "NOW",
+    "price": 136.08,
+    "price_asof": "2026-10-05",
+    "shares": 1034,
+    "shares_asof": "2026-06-30",
+    "ttm_end": "2026-06-30",
+    "ttm_revenue": 14732,
+    "ttm_gaap_common_income": 1670,
+    "market_cap": 140706.72,
+    "ev": 141516.72,
+    "ev_revenue": 9.606076568015204,
+    "pe": 84.25552095808384,
+    "private_portfolio_excluded_from_ev_bridge": 2073,
+    "qualification": "Book/face debt approximation; operating leases excluded with lease expense retained; strategic equity holdings receive zero separate credit, contaminate GAAP earnings. Latest balance/share dates differ from price date."
+  },
+  {
+    "ticker": "CRM",
+    "price": 229.79,
+    "price_asof": "2026-10-05",
+    "shares": 823,
+    "shares_asof": "2026-08-20",
+    "ttm_end": "2026-07-31",
+    "ttm_revenue": 43938,
+    "ttm_gaap_common_income": 9662,
+    "market_cap": 189117.16999999998,
+    "ev": 217214.16999999998,
+    "ev_revenue": 4.9436517365378485,
+    "pe": 19.573294348996065,
+    "private_portfolio_excluded_from_ev_bridge": 11324,
+    "qualification": "Book/face debt approximation; operating leases excluded with lease expense retained; strategic equity holdings receive zero separate credit, contaminate GAAP earnings. Latest balance/share dates differ from price date."
+  },
+  {
+    "ticker": "PLTR",
+    "price": 189.4,
+    "price_asof": "2026-10-05",
+    "shares": 2402.897,
+    "shares_asof": "2026-06-30",
+    "ttm_end": "2026-06-30",
+    "ttm_revenue": 6155.941000000001,
+    "ttm_gaap_common_income": 3016.692,
+    "market_cap": 455108.69180000003,
+    "ev": 445810.2828,
+    "ev_revenue": 72.4195184456771,
+    "pe": 150.86349279276772,
+    "private_portfolio_excluded_from_ev_bridge": 167,
+    "qualification": "Book/face debt approximation; operating leases excluded with lease expense retained; strategic equity holdings receive zero separate credit, contaminate GAAP earnings. Latest balance/share dates differ from price date."
+  }
+]

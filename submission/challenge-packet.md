@@ -1,0 +1,2 @@
+# Fresh-eyes challenge packet
+AI independent work; no real partner feedback recorded. Ask a named course partner to challenge: duration of commercial growth; terminal maturity after2030; whether cash replacement/old award dilution duplicates or understates cost; lease and working-capital approximations; why peer P/E varies with investments/taxes; whether upside evidence can justify market price. Preserve the partner's actual words, name, date, proposed change and evidence; quantify accepted changes after independent freeze.

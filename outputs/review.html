@@ -1,0 +1,656 @@
+<!doctype html><meta charset="utf-8"><title>Palantir finance review</title><style>body{font:16px system-ui;margin:40px;color:#1b2735}table{border-collapse:collapse;font-size:13px;display:block;overflow:auto}td,th{padding:7px;border:1px solid #ccd3dc}pre{white-space:pre-wrap;line-height:1.5}h2{margin-top:35px}</style><h1>Palantir — independent finance review</h1><p>Valuation date October5,2026 | Provisional DCF range $16–$65 | Conditional action: do not initiate at $189.40</p><p>All currency and shares in millions; DCF values diluted, peer-relative values basic. Required course and human gates pending.</p><h2>Case results</h2><pre>{
+  &quot;created_utc&quot;: &quot;2026-10-06T22:51:03.855464+00:00&quot;,
+  &quot;valuation_date&quot;: &quot;2026-10-05&quot;,
+  &quot;status&quot;: &quot;Independent provisional analysis: course training-case, human locked test, partner review and submission requirements pending&quot;,
+  &quot;cases&quot;: {
+    &quot;low&quot;: {
+      &quot;explicit_pv&quot;: 10874.852408272147,
+      &quot;terminal_pv&quot;: 21571.994069234115,
+      &quot;enterprise_value&quot;: 32446.84647750626,
+      &quot;equity_value&quot;: 42751.00609750626,
+      &quot;per_share&quot;: 16.44512979710698,
+      &quot;terminal_share&quot;: 0.6648410064808263,
+      &quot;terminal_revenue&quot;: 16847.034163006872,
+      &quot;terminal_nopat&quot;: 3790.582686676546,
+      &quot;terminal_fcff&quot;: 3487.3360717424225,
+      &quot;action&quot;: &quot;do_not_initiate&quot;
+    },
+    &quot;base&quot;: {
+      &quot;explicit_pv&quot;: 17807.421350923047,
+      &quot;terminal_pv&quot;: 49242.61305527987,
+      &quot;enterprise_value&quot;: 67050.03440620292,
+      &quot;equity_value&quot;: 77354.19402620292,
+      &quot;per_share&quot;: 29.75601926677717,
+      &quot;terminal_share&quot;: 0.7344159252321629,
+      &quot;terminal_revenue&quot;: 24662.374349691236,
+      &quot;terminal_nopat&quot;: 6473.873266793949,
+      &quot;terminal_fcff&quot;: 5697.008474778676,
+      &quot;action&quot;: &quot;do_not_initiate&quot;
+    },
+    &quot;high&quot;: {
+      &quot;explicit_pv&quot;: 27636.368795293813,
+      &quot;terminal_pv&quot;: 132283.5471436939,
+      &quot;enterprise_value&quot;: 159919.91593898772,
+      &quot;equity_value&quot;: 170224.0755589877,
+      &quot;per_share&quot;: 65.4804944420569,
+      &quot;terminal_share&quot;: 0.8271861973349361,
+      &quot;terminal_revenue&quot;: 37818.31054101812,
+      &quot;terminal_nopat&quot;: 11345.493162305438,
+      &quot;terminal_fcff&quot;: 9530.214256336567,
+      &quot;action&quot;: &quot;do_not_initiate&quot;
+    }
+  },
+  &quot;reverse_dcf&quot;: {
+    &quot;commercial_growth_multiplier&quot;: 4.584305279324997,
+    &quot;annual_growths&quot;: [
+      2.521367903628749,
+      1.833722111729999,
+      1.3752915837974993,
+      1.0085471614514994
+    ],
+    &quot;price_target&quot;: 189.4,
+    &quot;other_drivers&quot;: &quot;base held fixed; mechanical expectation, not forecast&quot;
+  },
+  &quot;historical_checks&quot;: [
+    {
+      &quot;period&quot;: &quot;annual_2025&quot;,
+      &quot;check&quot;: &quot;assets&quot;,
+      &quot;residual&quot;: 0.0
+    },
+    {
+      &quot;period&quot;: &quot;annual_2025&quot;,
+      &quot;check&quot;: &quot;liabilities&quot;,
+      &quot;residual&quot;: 0.0
+    },
+    {
+      &quot;period&quot;: &quot;annual_2025&quot;,
+      &quot;check&quot;: &quot;balance&quot;,
+      &quot;residual&quot;: -5.115907697472721e-13
+    },
+    {
+      &quot;period&quot;: &quot;annual_2025&quot;,
+      &quot;check&quot;: &quot;cash&quot;,
+      &quot;residual&quot;: -2.2737367544323206e-13
+    },
+    {
+      &quot;period&quot;: &quot;interim_2026h1&quot;,
+      &quot;check&quot;: &quot;assets&quot;,
+      &quot;residual&quot;: 0.0
+    },
+    {
+      &quot;period&quot;: &quot;interim_2026h1&quot;,
+      &quot;check&quot;: &quot;liabilities&quot;,
+      &quot;residual&quot;: -2.2737367544323206e-13
+    },
+    {
+      &quot;period&quot;: &quot;interim_2026h1&quot;,
+      &quot;check&quot;: &quot;balance&quot;,
+      &quot;residual&quot;: 5.115907697472721e-13
+    },
+    {
+      &quot;period&quot;: &quot;interim_2026h1&quot;,
+      &quot;check&quot;: &quot;cash&quot;,
+      &quot;residual&quot;: -4.547473508864641e-13
+    }
+  ],
+  &quot;caveats&quot;: [
+    &quot;H1 balance sheet used at Oct5; no reported Q3 cash available.&quot;,
+    &quot;2026 H2 normalized cash flows allocated uniformly after Oct5.&quot;,
+    &quot;Current lease included within aggregated working capital; noncurrent operating lease and ROU held constant.&quot;,
+    &quot;Existing awards assumed full vesting/exercise; SAR treated as full-share upper bound.&quot;,
+    &quot;Future compensation modeled as cash replacement; old award service cost removed to avoid duplication.&quot;
+  ]
+}</pre><h2>Five-year base integrated forecast</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>cost_of_revenue</th>
+      <th>gross_profit</th>
+      <th>sales_marketing</th>
+      <th>research_development</th>
+      <th>general_administrative</th>
+      <th>annual_interest</th>
+      <th>annual_other_income</th>
+      <th>annual_tax</th>
+      <th>annual_net_income</th>
+      <th>year</th>
+      <th>commercial_revenue</th>
+      <th>government_revenue</th>
+      <th>revenue</th>
+      <th>ebit_before_old_award_adjustment</th>
+      <th>existing_award_service_adjustment</th>
+      <th>ebit</th>
+      <th>period_ebit</th>
+      <th>period_interest</th>
+      <th>period_tax</th>
+      <th>period_net_income</th>
+      <th>da</th>
+      <th>capex</th>
+      <th>delta_nwc</th>
+      <th>fcff</th>
+      <th>valued_fcff</th>
+      <th>cash</th>
+      <th>investments</th>
+      <th>ar</th>
+      <th>prepaid</th>
+      <th>ppe</th>
+      <th>rou</th>
+      <th>other_assets</th>
+      <th>ap_accrued</th>
+      <th>contract_current</th>
+      <th>contract_noncurrent</th>
+      <th>lease_noncurrent</th>
+      <th>other_liabilities</th>
+      <th>assets</th>
+      <th>liabilities</th>
+      <th>equity</th>
+      <th>nci</th>
+      <th>cfo</th>
+      <th>cfi</th>
+      <th>cff</th>
+      <th>balance_residual</th>
+      <th>cash_residual</th>
+      <th>period_label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1223.100</td>
+      <td>6930.900</td>
+      <td>1431.027</td>
+      <td>795.015</td>
+      <td>954.018</td>
+      <td>286.196</td>
+      <td>160.045</td>
+      <td>634.088</td>
+      <td>3761.881</td>
+      <td>2026</td>
+      <td>3929.785</td>
+      <td>4224.215</td>
+      <td>8154.000</td>
+      <td>3750.840</td>
+      <td>198.888</td>
+      <td>3949.728</td>
+      <td>2283.726</td>
+      <td>142.297</td>
+      <td>606.506</td>
+      <td>1819.517</td>
+      <td>50.247</td>
+      <td>75.893</td>
+      <td>171.328</td>
+      <td>1515.821</td>
+      <td>716.719</td>
+      <td>3652.590</td>
+      <td>7379.052</td>
+      <td>1630.800</td>
+      <td>163.080</td>
+      <td>87.049</td>
+      <td>230.268</td>
+      <td>287.38</td>
+      <td>407.700</td>
+      <td>1060.020</td>
+      <td>34.259</td>
+      <td>211.4</td>
+      <td>12.439</td>
+      <td>13430.219</td>
+      <td>1725.818</td>
+      <td>11593.711</td>
+      <td>110.69</td>
+      <td>1698.436</td>
+      <td>-75.893</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-0.0</td>
+      <td>2026 H2 modeled flows; annual revenue/EBIT</td>
+    </tr>
+    <tr>
+      <td>1769.079</td>
+      <td>10024.779</td>
+      <td>2069.822</td>
+      <td>1149.901</td>
+      <td>1379.881</td>
+      <td>330.949</td>
+      <td>0.000</td>
+      <td>1537.664</td>
+      <td>4612.993</td>
+      <td>2027</td>
+      <td>6091.167</td>
+      <td>5702.690</td>
+      <td>11793.857</td>
+      <td>5425.174</td>
+      <td>394.533</td>
+      <td>5819.708</td>
+      <td>5819.708</td>
+      <td>330.949</td>
+      <td>1537.664</td>
+      <td>4612.993</td>
+      <td>94.351</td>
+      <td>141.526</td>
+      <td>145.594</td>
+      <td>4172.011</td>
+      <td>4172.011</td>
+      <td>8072.813</td>
+      <td>7379.052</td>
+      <td>2358.771</td>
+      <td>235.877</td>
+      <td>134.224</td>
+      <td>230.268</td>
+      <td>287.38</td>
+      <td>589.693</td>
+      <td>1533.201</td>
+      <td>34.259</td>
+      <td>211.4</td>
+      <td>12.439</td>
+      <td>18698.386</td>
+      <td>2380.992</td>
+      <td>16206.704</td>
+      <td>110.69</td>
+      <td>4561.749</td>
+      <td>-141.526</td>
+      <td>0.0</td>
+      <td>-0.0</td>
+      <td>-0.0</td>
+      <td>full year</td>
+    </tr>
+    <tr>
+      <td>2374.062</td>
+      <td>13453.016</td>
+      <td>2848.874</td>
+      <td>1582.708</td>
+      <td>1899.249</td>
+      <td>463.556</td>
+      <td>0.000</td>
+      <td>1995.069</td>
+      <td>5985.206</td>
+      <td>2028</td>
+      <td>8527.634</td>
+      <td>7299.443</td>
+      <td>15827.077</td>
+      <td>7122.185</td>
+      <td>394.533</td>
+      <td>7516.718</td>
+      <td>7516.718</td>
+      <td>463.556</td>
+      <td>1995.069</td>
+      <td>5985.206</td>
+      <td>126.617</td>
+      <td>189.925</td>
+      <td>161.329</td>
+      <td>5412.901</td>
+      <td>5412.901</td>
+      <td>13833.381</td>
+      <td>7379.052</td>
+      <td>3165.415</td>
+      <td>316.542</td>
+      <td>197.533</td>
+      <td>230.268</td>
+      <td>287.38</td>
+      <td>791.354</td>
+      <td>2057.520</td>
+      <td>34.259</td>
+      <td>211.4</td>
+      <td>12.439</td>
+      <td>25409.571</td>
+      <td>3106.972</td>
+      <td>22191.909</td>
+      <td>110.69</td>
+      <td>5950.493</td>
+      <td>-189.925</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>full year</td>
+    </tr>
+    <tr>
+      <td>2998.687</td>
+      <td>16992.558</td>
+      <td>3778.345</td>
+      <td>2099.081</td>
+      <td>2518.897</td>
+      <td>636.373</td>
+      <td>0.000</td>
+      <td>2330.452</td>
+      <td>6991.356</td>
+      <td>2029</td>
+      <td>11085.925</td>
+      <td>8905.320</td>
+      <td>19991.245</td>
+      <td>8596.235</td>
+      <td>89.200</td>
+      <td>8685.435</td>
+      <td>8685.435</td>
+      <td>636.373</td>
+      <td>2330.452</td>
+      <td>6991.356</td>
+      <td>159.930</td>
+      <td>239.895</td>
+      <td>166.567</td>
+      <td>6267.545</td>
+      <td>6267.545</td>
+      <td>20578.206</td>
+      <td>7379.052</td>
+      <td>3998.249</td>
+      <td>399.825</td>
+      <td>277.498</td>
+      <td>230.268</td>
+      <td>287.38</td>
+      <td>999.562</td>
+      <td>2598.862</td>
+      <td>34.259</td>
+      <td>211.4</td>
+      <td>12.439</td>
+      <td>33150.477</td>
+      <td>3856.522</td>
+      <td>29183.265</td>
+      <td>110.69</td>
+      <td>6984.719</td>
+      <td>-239.895</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>full year</td>
+    </tr>
+    <tr>
+      <td>3591.608</td>
+      <td>20352.445</td>
+      <td>4848.671</td>
+      <td>2693.706</td>
+      <td>3232.447</td>
+      <td>838.718</td>
+      <td>0.000</td>
+      <td>2626.385</td>
+      <td>7879.154</td>
+      <td>2030</td>
+      <td>13524.828</td>
+      <td>10419.225</td>
+      <td>23944.053</td>
+      <td>9577.621</td>
+      <td>89.200</td>
+      <td>9666.821</td>
+      <td>9666.821</td>
+      <td>838.718</td>
+      <td>2626.385</td>
+      <td>7879.154</td>
+      <td>191.552</td>
+      <td>287.329</td>
+      <td>158.112</td>
+      <td>6996.227</td>
+      <td>6996.227</td>
+      <td>28203.471</td>
+      <td>7379.052</td>
+      <td>4788.811</td>
+      <td>478.881</td>
+      <td>373.274</td>
+      <td>230.268</td>
+      <td>287.38</td>
+      <td>1197.203</td>
+      <td>3112.727</td>
+      <td>34.259</td>
+      <td>211.4</td>
+      <td>12.439</td>
+      <td>41741.137</td>
+      <td>4568.027</td>
+      <td>37062.419</td>
+      <td>110.69</td>
+      <td>7912.594</td>
+      <td>-287.329</td>
+      <td>0.0</td>
+      <td>-0.0</td>
+      <td>-0.0</td>
+      <td>full year</td>
+    </tr>
+  </tbody>
+</table><h2>WACC–growth sensitivity</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>wacc</th>
+      <th>growth</th>
+      <th>per_share</th>
+      <th>terminal_share</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.080</td>
+      <td>0.02</td>
+      <td>38.557</td>
+      <td>0.789</td>
+    </tr>
+    <tr>
+      <td>0.080</td>
+      <td>0.03</td>
+      <td>42.898</td>
+      <td>0.812</td>
+    </tr>
+    <tr>
+      <td>0.080</td>
+      <td>0.04</td>
+      <td>49.375</td>
+      <td>0.839</td>
+    </tr>
+    <tr>
+      <td>0.090</td>
+      <td>0.02</td>
+      <td>33.580</td>
+      <td>0.760</td>
+    </tr>
+    <tr>
+      <td>0.090</td>
+      <td>0.03</td>
+      <td>36.434</td>
+      <td>0.781</td>
+    </tr>
+    <tr>
+      <td>0.090</td>
+      <td>0.04</td>
+      <td>40.403</td>
+      <td>0.805</td>
+    </tr>
+    <tr>
+      <td>0.105</td>
+      <td>0.02</td>
+      <td>28.306</td>
+      <td>0.718</td>
+    </tr>
+    <tr>
+      <td>0.105</td>
+      <td>0.03</td>
+      <td>29.962</td>
+      <td>0.736</td>
+    </tr>
+    <tr>
+      <td>0.105</td>
+      <td>0.04</td>
+      <td>32.107</td>
+      <td>0.756</td>
+    </tr>
+    <tr>
+      <td>0.120</td>
+      <td>0.02</td>
+      <td>24.612</td>
+      <td>0.680</td>
+    </tr>
+    <tr>
+      <td>0.120</td>
+      <td>0.03</td>
+      <td>25.640</td>
+      <td>0.695</td>
+    </tr>
+    <tr>
+      <td>0.120</td>
+      <td>0.04</td>
+      <td>26.909</td>
+      <td>0.712</td>
+    </tr>
+    <tr>
+      <td>0.130</td>
+      <td>0.02</td>
+      <td>22.708</td>
+      <td>0.656</td>
+    </tr>
+    <tr>
+      <td>0.130</td>
+      <td>0.03</td>
+      <td>23.476</td>
+      <td>0.669</td>
+    </tr>
+    <tr>
+      <td>0.130</td>
+      <td>0.04</td>
+      <td>24.401</td>
+      <td>0.684</td>
+    </tr>
+  </tbody>
+</table><h2>Comparables</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ticker</th>
+      <th>price</th>
+      <th>price_asof</th>
+      <th>shares</th>
+      <th>shares_asof</th>
+      <th>ttm_end</th>
+      <th>ttm_revenue</th>
+      <th>ttm_gaap_common_income</th>
+      <th>market_cap</th>
+      <th>ev</th>
+      <th>ev_revenue</th>
+      <th>pe</th>
+      <th>private_portfolio_excluded_from_ev_bridge</th>
+      <th>qualification</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>NOW</td>
+      <td>136.08</td>
+      <td>2026-10-05</td>
+      <td>1034.000</td>
+      <td>2026-06-30</td>
+      <td>2026-06-30</td>
+      <td>14732.000</td>
+      <td>1670.000</td>
+      <td>140706.720</td>
+      <td>141516.720</td>
+      <td>9.606</td>
+      <td>84.256</td>
+      <td>2073</td>
+      <td>Book/face debt approximation; operating leases excluded with lease expense retained; strategic equity holdings receive zero separate credit, contaminate GAAP earnings. Latest balance/share dates differ from price date.</td>
+    </tr>
+    <tr>
+      <td>CRM</td>
+      <td>229.79</td>
+      <td>2026-10-05</td>
+      <td>823.000</td>
+      <td>2026-08-20</td>
+      <td>2026-07-31</td>
+      <td>43938.000</td>
+      <td>9662.000</td>
+      <td>189117.170</td>
+      <td>217214.170</td>
+      <td>4.944</td>
+      <td>19.573</td>
+      <td>11324</td>
+      <td>Book/face debt approximation; operating leases excluded with lease expense retained; strategic equity holdings receive zero separate credit, contaminate GAAP earnings. Latest balance/share dates differ from price date.</td>
+    </tr>
+    <tr>
+      <td>PLTR</td>
+      <td>189.40</td>
+      <td>2026-10-05</td>
+      <td>2402.897</td>
+      <td>2026-06-30</td>
+      <td>2026-06-30</td>
+      <td>6155.941</td>
+      <td>3016.692</td>
+      <td>455108.692</td>
+      <td>445810.283</td>
+      <td>72.420</td>
+      <td>150.863</td>
+      <td>167</td>
+      <td>Book/face debt approximation; operating leases excluded with lease expense retained; strategic equity holdings receive zero separate credit, contaminate GAAP earnings. Latest balance/share dates differ from price date.</td>
+    </tr>
+  </tbody>
+</table><h2>Relative valuation</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>peer</th>
+      <th>ev_revenue_implied_basic_price</th>
+      <th>pe_implied_basic_price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>NOW</td>
+      <td>28.479</td>
+      <td>105.778</td>
+    </tr>
+    <tr>
+      <td>CRM</td>
+      <td>16.535</td>
+      <td>24.573</td>
+    </tr>
+  </tbody>
+</table><h2>Named stresses</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>scenario</th>
+      <th>value</th>
+      <th>current_action</th>
+      <th>conditional_price</th>
+      <th>conditional_action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Procurement delay and AI deployment failure</td>
+      <td>14.099</td>
+      <td>do_not_initiate</td>
+      <td>20</td>
+      <td>do_not_initiate</td>
+    </tr>
+    <tr>
+      <td>Commercial conversion slowdown</td>
+      <td>16.445</td>
+      <td>do_not_initiate</td>
+      <td>20</td>
+      <td>do_not_initiate</td>
+    </tr>
+    <tr>
+      <td>Maturity deferred to2035 with five-year fade</td>
+      <td>35.229</td>
+      <td>do_not_initiate</td>
+      <td>20</td>
+      <td>initiate_candidate</td>
+    </tr>
+  </tbody>
+</table><h2>Committee memo</h2><pre># Palantir independent committee memo — provisional
+Created 2026-10-06T22:51:04.173178+00:00. AI-generated after the official checkpoint; not official EditionA or Pierce&#x27;s original judgment.
+
+Conditional action: **do not initiate at the October5,2026 regular close of $189.40 under this evidence and model.** Fundamental DCF case range is approximately **$16–$65 per diluted economic share**, with base around $30. This is a judgment-dependent interval, not a statistical confidence interval or a universal price ceiling. Senior analysts retain sector strategy; Pierce must review the material assumptions. Course and human validations remain pending.
+
+The fund has no position. Intended user: buy-side analyst group and portfolio manager. Decision horizon:3–5 years. Security: NASDAQ PLTR ClassA; USD; count ClassA/B/F economic ownership, distinguish point-in-time basic from weighted-average EPS shares. Palantir sells software and services with identifiable operating revenue, costs, working capital and reinvestment; operating-company enterprise FCFF is appropriate. It is not a regulated financial intermediary or property trust. No trading execution or public publishing is authorized by this analysis.
+
+## Evidence and accounting
+2025 annual10K published February17,2026 supplies the audited base. June30,2026 10Q published August4 supplies separate interim statements and the bridge. October5 close is the valuation/information cutoff; October6 quotes are excluded. Cash and awards remain latest reported June30 amounts, not claims of an October5 balance. Management&#x27;s August3 guidance midpoint is a forecast input, not realized revenue. Every raw source and its failures are in the source manifest; peer snapshots have reproducible primary URLs when bulk downloads were blocked.
+
+Retain ongoing stock-compensation costs through cash-replacement economics; explicitly dilute existing awards and remove their remaining service expense before future replacement costs. Full award vesting and SAR full-share treatment are conservative approximations, not option pricing. Exclude restricted cash from distributable equity credit. Normalize operating cash taxes to25%; remove non-operating interest/investment income from FCFF. Operating lease expense remains within EBIT, so lease liabilities are not arbitrarily treated as financial debt. No hidden funding plug: cash is generated by the cash-flow roll-forward and an explicit deficit would fail.
+
+## Cases and expectations
+Low: commercial conversion slows, government procurement delays, margins compress and collections absorb cash. Base: strong commercial adoption decelerates; government growth moderates; margin fades toward maturity. High: repeatable deployment extends strong adoption and efficient cash collection. Terminal PV accounts for about 66%–83% of EV. The high case is especially maturity-dependent. Five-year immediate maturity is a major assumption: delaying maturity to2035 in a separate terminal fade produces roughly $35; it still does not support the observed price in this specification.
+
+Base WACC10.56%=Treasury10-year5.31% on October5 + assumed operating beta1.25 times October1 implied ERP4.20%. The beta is analyst judgment, not a completed regression. WACC8–13% sensitivity is reported; no borrowed precision from a provider beta. Terminal growth2–4%, terminal margins30–40%, mature ROIC25%; reinvestment is explicitly growth/ROIC. The terminal convention can still understate intangible reinvestment and competitive fade.
+
+Reverse DCF holds base margins, government growth, tax, WACC and maturity fixed and scales commercial growth until price matches. It implies commercial growth of approximately 252%, 183%, 138%, 101% over2027–30. This isolates one burden of expectations; it is not the only combination consistent with market price. A longer competitive-growth runway or different risk/terminal assumptions could redistribute that burden.
+
+## Relative valuation and disagreement
+Policy was recorded before name selection. NOW provides a workflow/platform comparison; CRM provides a mature enterprise-application comparison. Their latest TTM periods end June30 and July31; that one-month fiscal-calendar mismatch is exposed rather than presented as identical. All prices use October5 regular close and all numerators use point-in-time basic share counts. Balances and shares precede prices. EV/revenue uses debt less cash and marketable securities; operating leases stay in operating costs. Strategic equity portfolios receive no separate credit consistently, which is conservative and economically imperfect. GAAP P/E includes investment gains and discrete tax effects; it is a qualified comparison.
+
+Peer EV/revenue implies roughly $17–$28 per basic PLTR share. Peer GAAP P/E implies roughly $25–$106. Do not average these or splice basic-share relative results into diluted DCF values. Revenue multiples suppress differences in growth and economic margin. P/E can reward unusually low taxes and investment gains; CRM&#x27;s investment gains and NOW&#x27;s tax release make earnings denominators poor clean operating anchors. DCF explicitly prices fade, compensation and reinvestment; relative methods reflect what buyers currently pay for different companies. Disagreement is evidence about assumptions and accounting, not a reason to average numbers.
+
+No transaction multiple is forced into the analysis: control, synergy, integration and timing differences lack a defensible PLTR bridge.
+
+## Conditions, reversals and monitoring
+Revisit after reported commercial/government sales and collection evidence, not options-inclusive deal value alone. Require funded commitments and realizable conversion; distinguish RPO from cancellable RDV/TCV. Monitor GAAP margin, ongoing compensation payroll, award issuance, cash taxes, hosting commitments, capex, receivable concentration and competitive pricing. Two consecutive quarters of realized adoption above the high-case path warrant a rebuilt runway/maturity model rather than mechanically moving a single multiple. A materially lower market price or independently evidenced longer profitable runway can reverse the decision. Under a hypothetical future $20 price, base economics support an initiate candidate while the conversion/procurement downside reverses that action; this is a conditional downside, not a forecast of a price decline.
+
+## Validation limits and human work
+Arithmetic and boundary tests pass; this is not proof of sound investment judgment. Published starter reconciliation, genuine locked prediction/test, attributed partner challenges, actual recordings/transcripts, official rubric/checklist and comparison with Pierce&#x27;s existing work remain pending. Independent research has not been substituted for the official EditionA receipt. No complete course-compliant submission is claimed.
+</pre>

@@ -1,0 +1,164 @@
+{
+  "valuation_date": "2026-10-05",
+  "information_cutoff": "2026-10-05T16:00:00-04:00",
+  "security": "NASDAQ:PLTR Class A; all economic share classes counted",
+  "currency": "USD",
+  "horizon": "3-5 years",
+  "price": 189.4,
+  "price_source": "https://public.com/stocks/pltr/after-hours",
+  "price_asof": "2026-10-05 regular close",
+  "remaining_days": 87,
+  "cashflow_days_h2": 184,
+  "tax": 0.25,
+  "interest_yield": 0.03,
+  "capex_ratio": 0.012,
+  "da_ratio": 0.008,
+  "terminal_roic": 0.25,
+  "terminal_margin": 0.35,
+  "growth": 0.03,
+  "wacc": 0.1056,
+  "wacc_basis": "WACC=cost of equity=5.31%+1.25*4.20%=10.56%",
+  "cash_reserve": 500,
+  "private_investment_credit": 0,
+  "sbc_treatment": "Cash replacement: future SBC treated as ongoing cash compensation within GAAP-like EBIT, with no SBC cashflow add-back or future issuance. Existing awards diluted separately; conservative full vesting RSU/options; SAR approximation reserved.",
+  "base_2026_revenue": 8154,
+  "base_2026_basis": "August 3 release FY guidance midpoint; guidance not fact",
+  "cases": {
+    "low": {
+      "commercial_growth": [
+        0,
+        0.3,
+        0.25,
+        0.2,
+        0.15
+      ],
+      "government_growth": [
+        0,
+        0.2,
+        0.18,
+        0.15,
+        0.12
+      ],
+      "margins": [
+        0.42,
+        0.4,
+        0.38,
+        0.36,
+        0.34
+      ],
+      "terminal_margin": 0.3,
+      "wacc": 0.12,
+      "growth": 0.02,
+      "nwc_ratio": 0.1,
+      "narrative": "AI commercialization slows, government procurement delays and implementation costs compress margins; receivables absorb cash."
+    },
+    "base": {
+      "commercial_growth": [
+        0,
+        0.55,
+        0.4,
+        0.3,
+        0.22
+      ],
+      "government_growth": [
+        0,
+        0.35,
+        0.28,
+        0.22,
+        0.17
+      ],
+      "margins": [
+        0.46,
+        0.46,
+        0.45,
+        0.43,
+        0.4
+      ],
+      "terminal_margin": 0.35,
+      "wacc": 0.1056,
+      "growth": 0.03,
+      "nwc_ratio": 0.04,
+      "narrative": "Commercial adoption remains strong but decelerates; government expansion moderates; cash compensation retained and terminal economics mature."
+    },
+    "high": {
+      "commercial_growth": [
+        0,
+        0.8,
+        0.6,
+        0.45,
+        0.35
+      ],
+      "government_growth": [
+        0,
+        0.5,
+        0.38,
+        0.3,
+        0.25
+      ],
+      "margins": [
+        0.48,
+        0.5,
+        0.5,
+        0.48,
+        0.45
+      ],
+      "terminal_margin": 0.4,
+      "wacc": 0.09,
+      "growth": 0.04,
+      "nwc_ratio": 0.015,
+      "narrative": "Deployment repeatability drives sustained adoption and collection efficiency; terminal margin still below peak."
+    }
+  },
+  "capital_cost": {
+    "riskfree": 0.0531,
+    "riskfree_asof": "2026-10-05",
+    "riskfree_source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_yield_curve",
+    "erp": 0.042,
+    "erp_asof": "2026-10-01",
+    "erp_source": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/home.htm",
+    "beta": 1.25,
+    "beta_basis": "Analyst risk assumption; not estimated regression. Cash-rich firm beta should not be mechanically applied to operating enterprise. Sensitivity covers 8-13%.",
+    "debt_weight": 0,
+    "equity_weight": 1,
+    "formula": "WACC=cost of equity=5.31%+1.25*4.20%=10.56%"
+  },
+  "presentation": {
+    "cost_of_revenue_ratio": 0.15,
+    "sales_share_opex": 0.45,
+    "rd_share_opex": 0.25,
+    "ga_share_opex": 0.3
+  },
+  "working_capital": {
+    "ar_ratio": 0.2,
+    "prepaid_ratio": 0.02,
+    "accrual_ratio": 0.05,
+    "contract_offset_ratio": 0.17
+  },
+  "terminal_fade": {
+    "growth": [
+      0.2,
+      0.15,
+      0.1,
+      0.07,
+      0.05
+    ],
+    "margin": [
+      0.39,
+      0.38,
+      0.37,
+      0.36,
+      0.35
+    ]
+  },
+  "recommendation_policy": {
+    "initiate_fraction": 0.8,
+    "defer_ceiling_fraction": 1.2,
+    "conditional_entry_price": 20
+  },
+  "model_qualifications": [
+    "Cash-replacement pro-forma is analytically normalized, not a forecast of GAAP SBC equity accounting.",
+    "Noncontrolling income/distributions set to zero prospectively; opening NCI held fixed.",
+    "Current lease balances remain in aggregated accruals; expense stays operating.",
+    "Other noncurrent operating balances held fixed; not a granular lease/revenue tax-asset forecast."
+  ]
+}

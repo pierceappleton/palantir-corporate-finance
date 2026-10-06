@@ -1,0 +1,17 @@
+test_controlled_growth_direction (test_dcf.DCFTests.test_controlled_growth_direction) ... ok
+test_invalid_inputs (test_dcf.DCFTests.test_invalid_inputs) ... ok
+test_known_annuity_and_bridge (test_dcf.DCFTests.test_known_annuity_and_bridge) ... ok
+test_nonuniform_stub_period (test_dcf.DCFTests.test_nonuniform_stub_period) ... ok
+test_predicted_wacc_direction (test_dcf.DCFTests.test_predicted_wacc_direction) ... ok
+test_all_cases_articulate_and_share_forecast (test_model.ModelTests.test_all_cases_articulate_and_share_forecast) ... ok
+test_history_and_restricted_cash (test_model.ModelTests.test_history_and_restricted_cash) ... ok
+test_recommendation_changing_downside_at_conditional_entry (test_model.ModelTests.test_recommendation_changing_downside_at_conditional_entry) ... ok
+test_terminal_reinvestment_rejects_impossible_growth (test_model.ModelTests.test_terminal_reinvestment_rejects_impossible_growth) ... ok
+test_thousand_unit_contamination_rejected (test_model.ModelTests.test_thousand_unit_contamination_rejected) ... ok
+test_negative_revenue_denominator_rejected (test_peers.PeerTests.test_negative_revenue_denominator_rejected) ... ok
+test_nonpositive_gaap_earnings_are_not_a_pe (test_peers.PeerTests.test_nonpositive_gaap_earnings_are_not_a_pe) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.020s
+
+OK

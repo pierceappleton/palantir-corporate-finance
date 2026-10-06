@@ -1,0 +1,258 @@
+[
+  {
+    "period": "annual_2025",
+    "field": "cash",
+    "source_label": "Cash and cash equivalents",
+    "source_value": 1423.796,
+    "model_value": 1423.796,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
+    "field": "investments",
+    "source_label": "Marketable securities",
+    "source_value": 5753.247,
+    "model_value": 5753.247,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
+    "field": "ar",
+    "source_label": "Accounts receivable, net",
+    "source_value": 1042.065,
+    "model_value": 1042.065,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
+    "field": "prepaid",
+    "source_label": "Prepaid expenses and other current assets",
+    "source_value": 139.066,
+    "model_value": 139.066,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
+    "field": "ppe",
+    "source_label": "Property and equipment, net",
+    "source_value": 51.96,
+    "model_value": 51.96,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
+    "field": "rou",
+    "source_label": "Operating lease right-of-use assets",
+    "source_value": 200.105,
+    "model_value": 200.105,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
+    "field": "other_assets",
+    "source_label": "Other assets",
+    "source_value": 290.153,
+    "model_value": 290.153,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
+    "field": "assets",
+    "source_label": "Total assets",
+    "source_value": 8900.392,
+    "model_value": 8900.392,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
+    "field": "liabilities",
+    "source_label": "Total liabilities",
+    "source_value": 1412.381,
+    "model_value": 1412.381,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
+    "field": "equity",
+    "source_label": "Total Palantir's stockholders\u2019 equity",
+    "source_value": 7387.268,
+    "model_value": 7387.268,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
+    "field": "nci",
+    "source_label": "Noncontrolling interests",
+    "source_value": 100.743,
+    "model_value": 100.743,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
+    "field": "revenue",
+    "source_label": "Revenue",
+    "source_value": 4475.446,
+    "model_value": 4475.446,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
+    "field": "ebit",
+    "source_label": "Income from operations",
+    "source_value": 1414.015,
+    "model_value": 1414.015,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
+    "field": "net_income",
+    "source_label": "Net income",
+    "source_value": 1634.644,
+    "model_value": 1634.644,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "cash",
+    "source_label": "Cash and cash equivalents",
+    "source_value": 2030.047,
+    "model_value": 2030.047,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "investments",
+    "source_label": "Marketable securities",
+    "source_value": 7379.052,
+    "model_value": 7379.052,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "ar",
+    "source_label": "Accounts receivable, net",
+    "source_value": 1485.249,
+    "model_value": 1485.249,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "prepaid",
+    "source_label": "Prepaid expenses and other current assets",
+    "source_value": 205.165,
+    "model_value": 205.165,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "ppe",
+    "source_label": "Property and equipment, net",
+    "source_value": 61.403,
+    "model_value": 61.403,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "rou",
+    "source_label": "Operating lease right-of-use assets",
+    "source_value": 230.268,
+    "model_value": 230.268,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "other_assets",
+    "source_label": "Other assets",
+    "source_value": 287.38,
+    "model_value": 287.38,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "assets",
+    "source_label": "Total assets",
+    "source_value": 11678.564,
+    "model_value": 11678.564,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "liabilities",
+    "source_label": "Total liabilities",
+    "source_value": 1793.68,
+    "model_value": 1793.68,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "equity",
+    "source_label": "Total Palantir's stockholders\u2019 equity",
+    "source_value": 9774.194,
+    "model_value": 9774.194,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "nci",
+    "source_label": "Noncontrolling interests",
+    "source_value": 110.69,
+    "model_value": 110.69,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "revenue",
+    "source_label": "Revenue",
+    "source_value": 3568.047,
+    "model_value": 3568.047,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "ebit",
+    "source_label": "Income from operations",
+    "source_value": 1666.002,
+    "model_value": 1666.002,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "net_income",
+    "source_label": "Net income",
+    "source_value": 1942.364,
+    "model_value": 1942.364,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "cfo",
+    "source_label": "Net cash provided by operating activities",
+    "source_value": 2115.332,
+    "model_value": 2115.332,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "da",
+    "source_label": "Depreciation and amortization",
+    "source_value": 14.985,
+    "model_value": 14.985,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "sbc",
+    "source_label": "Stock-based compensation",
+    "source_value": 466.801,
+    "model_value": 466.801,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
+    "field": "cash_total",
+    "source_label": "Cash, cash equivalents, and restricted cash - end of period",
+    "source_value": 2063.358,
+    "model_value": 2063.358,
+    "status": "pass"
+  }
+]

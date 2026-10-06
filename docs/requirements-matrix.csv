@@ -1,0 +1,16 @@
+requirement,artifact,validation,status
+Identity horizon cutoff share basis,config/assumptions.json and docs/normalization.md,Source date and units check,implemented provisional
+Historical source trace,data/raw and docs/source_manifest.json,Primary statement totals,implemented
+Normalized base year,docs/normalization.md,Operating EBIT and cash restricted bridge,implemented provisional
+Five-year three statements,outputs/*_three_statements.csv,tests/test_model.py,implemented provisional
+FCFF shared forecast,src/model.py and src/dcf.py,DCF and articulation suite,implemented
+Cases sensitivity reverse DCF,outputs/results.json and wacc_growth.csv,Directional checks,implemented provisional
+Peer policy and multiples,docs/peer-policy.md and outputs/peer_multiples.csv,Definition/date check,implemented qualified
+Named downside,Conditional entry scenario tests,Recommendation flips at20 repricing,implemented conditional
+Locked human prediction,validation/locked-test-template.md,Prediction committed before designated run,pending human
+Published training case,validation/STATUS.md,Published known answer reconciliation,pending materials
+Partner challenges,submission/challenge-packet.md,Authentic attributed feedback,pending human
+Visible outputs and interface,app/main.py and outputs/review.html,App cold-run verification,pending
+Independent freeze,validation/independent-freeze.json,UTC commit and hashes,pending
+EditionB comparison,submission,Preserve submitted official EditionA,pending postfreeze prior work
+Videos transcripts final filenames,submission,Official checklist and real recordings,pending materials and human

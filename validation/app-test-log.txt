@@ -1,0 +1,2 @@
+Streamlit application executes without exceptions; three case metrics rendered
+All case selections passed

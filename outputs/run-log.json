@@ -1,0 +1,103 @@
+{
+  "created_utc": "2026-10-06T22:41:25.696264+00:00",
+  "valuation_date": "2026-10-05",
+  "status": "Independent provisional analysis: course training-case, human locked test, partner review and submission requirements pending",
+  "cases": {
+    "low": {
+      "explicit_pv": 10874.852408272147,
+      "terminal_pv": 21571.994069234115,
+      "enterprise_value": 32446.84647750626,
+      "equity_value": 42751.00609750626,
+      "per_share": 16.44512979710698,
+      "terminal_share": 0.6648410064808263,
+      "terminal_revenue": 16847.034163006872,
+      "terminal_nopat": 3790.582686676546,
+      "terminal_fcff": 3487.3360717424225,
+      "action": "do_not_initiate"
+    },
+    "base": {
+      "explicit_pv": 17807.421350923047,
+      "terminal_pv": 49242.61305527987,
+      "enterprise_value": 67050.03440620292,
+      "equity_value": 77354.19402620292,
+      "per_share": 29.75601926677717,
+      "terminal_share": 0.7344159252321629,
+      "terminal_revenue": 24662.374349691236,
+      "terminal_nopat": 6473.873266793949,
+      "terminal_fcff": 5697.008474778676,
+      "action": "do_not_initiate"
+    },
+    "high": {
+      "explicit_pv": 27636.368795293813,
+      "terminal_pv": 132283.5471436939,
+      "enterprise_value": 159919.91593898772,
+      "equity_value": 170224.0755589877,
+      "per_share": 65.4804944420569,
+      "terminal_share": 0.8271861973349361,
+      "terminal_revenue": 37818.31054101812,
+      "terminal_nopat": 11345.493162305438,
+      "terminal_fcff": 9530.214256336567,
+      "action": "do_not_initiate"
+    }
+  },
+  "reverse_dcf": {
+    "commercial_growth_multiplier": 4.584305279324997,
+    "annual_growths": [
+      2.521367903628749,
+      1.833722111729999,
+      1.3752915837974993,
+      1.0085471614514994
+    ],
+    "price_target": 189.4,
+    "other_drivers": "base held fixed; mechanical expectation, not forecast"
+  },
+  "historical_checks": [
+    {
+      "period": "annual_2025",
+      "check": "assets",
+      "residual": 0.0
+    },
+    {
+      "period": "annual_2025",
+      "check": "liabilities",
+      "residual": 0.0
+    },
+    {
+      "period": "annual_2025",
+      "check": "balance",
+      "residual": -5.115907697472721e-13
+    },
+    {
+      "period": "annual_2025",
+      "check": "cash",
+      "residual": -2.2737367544323206e-13
+    },
+    {
+      "period": "interim_2026h1",
+      "check": "assets",
+      "residual": 0.0
+    },
+    {
+      "period": "interim_2026h1",
+      "check": "liabilities",
+      "residual": -2.2737367544323206e-13
+    },
+    {
+      "period": "interim_2026h1",
+      "check": "balance",
+      "residual": 5.115907697472721e-13
+    },
+    {
+      "period": "interim_2026h1",
+      "check": "cash",
+      "residual": -4.547473508864641e-13
+    }
+  ],
+  "caveats": [
+    "H1 balance sheet used at Oct5; no reported Q3 cash available.",
+    "2026 H2 normalized cash flows allocated uniformly after Oct5.",
+    "Current lease included within aggregated working capital; noncurrent operating lease and ROU held constant.",
+    "Existing awards assumed full vesting/exercise; SAR treated as full-share upper bound.",
+    "Future compensation modeled as cash replacement; old award service cost removed to avoid duplication."
+  ]
+}

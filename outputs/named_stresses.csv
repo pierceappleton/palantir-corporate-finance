@@ -1,0 +1,4 @@
+scenario,value,current_action,conditional_price,conditional_action
+Procurement delay and AI deployment failure,14.099401753103411,do_not_initiate,20,do_not_initiate
+Commercial conversion slowdown,16.44512979710698,do_not_initiate,20,do_not_initiate
+Maturity deferred to2035 with five-year fade,35.22930604209481,do_not_initiate,20,initiate_candidate
