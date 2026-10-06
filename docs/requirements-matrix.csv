@@ -8,9 +8,12 @@ Cases sensitivity reverse DCF,outputs/results.json and wacc_growth.csv,Direction
 Peer policy and multiples,docs/peer-policy.md and outputs/peer_multiples.csv,Definition/date check,implemented qualified
 Named downside,Conditional entry scenario tests,Recommendation flips at20 repricing,implemented conditional
 Locked human prediction,validation/locked-test-template.md,Prediction committed before designated run,pending human
-Published training case,validation/STATUS.md,Published known answer reconciliation,pending materials
-Partner challenges,submission/challenge-packet.md,Authentic attributed feedback,pending human
+Published training case,validation/published-training-reconciliation.json,All12officialoutputswithin0.0001,pass
+Partner challenges,docs/prior-work-comparison.md,SuppliedLab11Ethanfeedbackcredited;finalreviewunfilled,partial
 Visible outputs and interface,app/main.py and outputs/review.html,App cold-run verification,pending
 Independent freeze,validation/independent-freeze.json,UTC commit and hashes,pending
 EditionB comparison,submission,Preserve submitted official EditionA,pending postfreeze prior work
-Videos transcripts final filenames,submission,Official checklist and real recordings,pending materials and human
+Videos transcripts final filenames,docs/submission-compliance.md,Officialchecklistverified;realrecordingspending,partial
+
+Bounded adjustable product,src/workbench.py and app/main.py,Livechange reset redfailure recovery,pass
+Own-proforma OAT and range dependence,outputs/one_at_a_time.csv and equal_proportional_sensitivity.csv,ProfitFCFFvalue spans and ranking comparison,pass

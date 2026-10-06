@@ -10,7 +10,7 @@ def multiples(p):
  return dict(ticker=p['ticker'],price=p['price'],price_asof='2026-10-05',shares=p['shares'],shares_asof=p['shares_asof'],ttm_end=p['ttm_end'],ttm_revenue=rev,ttm_gaap_common_income=ni,market_cap=cap,ev=ev,ev_revenue=ev/rev,pe=cap/ni if ni>0 else None,private_portfolio_excluded_from_ev_bridge=p['private_portfolio'],qualification='Book/face debt approximation; operating leases excluded with lease expense retained; strategic equity holdings receive zero separate credit, contaminate GAAP earnings. Latest balance/share dates differ from price date.')
 
 def run():
- peers=json.loads(Path('data/processed/peer_inputs.json').read_text())
+ peers=json.loads(Path('data/processed/peer_inputs.json').read_text(encoding='utf8'))
  rows=[multiples(p) for p in peers]
  data,c=load();h=data['interim_2026h1'];b=data['annual_2025'];prior=data['prior_2025h1']
  pltr=dict(ticker='PLTR',price=c['price'],shares=h['basic_shares'],shares_asof='2026-06-30',ttm_end='2026-06-30',cash=h['cash'],investments=h['investments'],debt=0,nci=h['nci'],private_portfolio=167,annual_revenue=b['revenue'],current_h1_revenue=h['revenue'],prior_h1_revenue=prior['revenue'],annual_ni=b['common_net_income'],current_h1_ni=h['common_net_income'],prior_h1_ni=prior['common_net_income'])

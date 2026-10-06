@@ -1,0 +1,7 @@
+step,per_share,change_from_previous
+"Prior Lab10 rebuilt through FCFF engine: debt zero, cash interest removed",34.534400994835465,0.0
+Change discount rate11% to10.56%; all cash flows fixed,36.55968625968617,2.0252852648507016
+Change reported liquidity/claims and share/award bridge,37.31731703898007,0.7576307792939048
+Change yearend timing to Oct5 stub; approximate prorated first annual cash flow,39.12273290489008,1.8054158659100068
+"Replace operating forecast: segment growth, margins, tax and WC/reinvestment",34.773720925799104,-4.3490119790909745
+Replace terminal shortcut with mature margin and growth/ROIC reinvestment,29.75601926677717,-5.0177016590219345

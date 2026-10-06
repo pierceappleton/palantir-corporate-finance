@@ -5,7 +5,7 @@ from datetime import date,datetime,timezone
 from src.dcf import dcf,Bridge
 
 def load():
- return json.loads(Path('data/processed/historical.json').read_text()),json.loads(Path('config/assumptions.json').read_text())
+ return json.loads(Path('data/processed/historical.json').read_text(encoding='utf8')),json.loads(Path('config/assumptions.json').read_text(encoding='utf8'))
 
 def check_history(data):
  checks=[]
@@ -118,7 +118,7 @@ def run():
    if implied(mid)<c['price']:lo=mid
    else:hi=mid
   reverse={'commercial_growth_multiplier':(lo+hi)/2,'annual_growths':[x*(lo+hi)/2 for x in c['cases']['base']['commercial_growth'][1:]],'price_target':c['price'],'other_drivers':'base held fixed; mechanical expectation, not forecast'}
- packet=dict(created_utc=datetime.now(timezone.utc).isoformat(),valuation_date=c['valuation_date'],status='Independent provisional analysis: course training-case, human locked test, partner review and submission requirements pending',cases=results,reverse_dcf=reverse,historical_checks=checks,
+ packet=dict(created_utc=datetime.now(timezone.utc).isoformat(),valuation_date=c['valuation_date'],status='Independent provisional analysis: postcomparison version: human locked test, final partner review and submission requirements pending',cases=results,reverse_dcf=reverse,historical_checks=checks,
   caveats=['H1 balance sheet used at Oct5; no reported Q3 cash available.','2026 H2 normalized cash flows allocated uniformly after Oct5.','Current lease included within aggregated working capital; noncurrent operating lease and ROU held constant.','Existing awards assumed full vesting/exercise; SAR treated as full-share upper bound.','Future compensation modeled as cash replacement; old award service cost removed to avoid duplication.'])
  Path('outputs/results.json').write_text(json.dumps(packet,indent=2));print(json.dumps(packet,indent=2))
 if __name__=='__main__':run()

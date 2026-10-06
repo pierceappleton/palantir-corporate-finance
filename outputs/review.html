@@ -1,7 +1,7 @@
-<!doctype html><meta charset="utf-8"><title>Palantir finance review</title><style>body{font:16px system-ui;margin:40px;color:#1b2735}table{border-collapse:collapse;font-size:13px;display:block;overflow:auto}td,th{padding:7px;border:1px solid #ccd3dc}pre{white-space:pre-wrap;line-height:1.5}h2{margin-top:35px}</style><h1>Palantir — independent finance review</h1><p>Valuation date October5,2026 | Provisional DCF range $16–$65 | Conditional action: do not initiate at $189.40</p><p>All currency and shares in millions; DCF values diluted, peer-relative values basic. Required course and human gates pending.</p><h2>Case results</h2><pre>{
-  &quot;created_utc&quot;: &quot;2026-10-06T22:51:03.855464+00:00&quot;,
+<!doctype html><meta charset="utf-8"><title>Palantir finance review</title><style>body{font:16px system-ui;margin:40px;color:#1b2735}table{border-collapse:collapse;font-size:13px;display:block;overflow:auto}td,th{padding:7px;border:1px solid #ccd3dc}pre{white-space:pre-wrap;line-height:1.5}h2{margin-top:35px}</style><h1>Palantir â€” independent finance review</h1><p>Valuation date October5,2026 | Provisional DCF range $16â€“$65 | Conditional action: do not initiate at $189.40</p><p>All currency and shares in millions; DCF values diluted, peer-relative values basic. Required course and human gates pending.</p><h2>Case results</h2><pre>{
+  &quot;created_utc&quot;: &quot;2026-10-06T23:22:19.692177+00:00&quot;,
   &quot;valuation_date&quot;: &quot;2026-10-05&quot;,
-  &quot;status&quot;: &quot;Independent provisional analysis: course training-case, human locked test, partner review and submission requirements pending&quot;,
+  &quot;status&quot;: &quot;Independent provisional analysis: postcomparison version: human locked test, final partner review and submission requirements pending&quot;,
   &quot;cases&quot;: {
     &quot;low&quot;: {
       &quot;explicit_pv&quot;: 10874.852408272147,
@@ -399,7 +399,7 @@
       <td>full year</td>
     </tr>
   </tbody>
-</table><h2>WACC–growth sensitivity</h2><table border="1" class="dataframe">
+</table><h2>WACCâ€“growth sensitivity</h2><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th>wacc</th>
@@ -622,12 +622,322 @@
       <td>initiate_candidate</td>
     </tr>
   </tbody>
-</table><h2>Committee memo</h2><pre># Palantir independent committee memo — provisional
-Created 2026-10-06T22:51:04.173178+00:00. AI-generated after the official checkpoint; not official EditionA or Pierce&#x27;s original judgment.
+</table><h2>One-at-a-time sensitivities</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>driver</th>
+      <th>input</th>
+      <th>units</th>
+      <th>operating_profit_2030</th>
+      <th>fcff_2030</th>
+      <th>per_share</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>growth_shift</td>
+      <td>-0.10</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>7058.307</td>
+      <td>5161.831</td>
+      <td>23.502</td>
+    </tr>
+    <tr>
+      <td>growth_shift</td>
+      <td>0.00</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>9666.821</td>
+      <td>6996.227</td>
+      <td>29.756</td>
+    </tr>
+    <tr>
+      <td>growth_shift</td>
+      <td>0.10</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>12946.832</td>
+      <td>9286.753</td>
+      <td>37.521</td>
+    </tr>
+    <tr>
+      <td>margin_shift</td>
+      <td>-0.03</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>8948.500</td>
+      <td>6457.486</td>
+      <td>29.263</td>
+    </tr>
+    <tr>
+      <td>margin_shift</td>
+      <td>0.00</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>9666.821</td>
+      <td>6996.227</td>
+      <td>29.756</td>
+    </tr>
+    <tr>
+      <td>margin_shift</td>
+      <td>0.03</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>10385.143</td>
+      <td>7534.968</td>
+      <td>30.249</td>
+    </tr>
+  </tbody>
+</table><h2>Equal proportional sensitivities</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>driver</th>
+      <th>multiplier</th>
+      <th>operating_profit_2030</th>
+      <th>fcff_2030</th>
+      <th>per_share</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>growth_rates</td>
+      <td>0.9</td>
+      <td>8794.384</td>
+      <td>6377.379</td>
+      <td>27.627</td>
+    </tr>
+    <tr>
+      <td>growth_rates</td>
+      <td>1.0</td>
+      <td>9666.821</td>
+      <td>6996.227</td>
+      <td>29.756</td>
+    </tr>
+    <tr>
+      <td>growth_rates</td>
+      <td>1.1</td>
+      <td>10603.114</td>
+      <td>7659.171</td>
+      <td>32.031</td>
+    </tr>
+    <tr>
+      <td>operating_margins</td>
+      <td>0.9</td>
+      <td>8709.059</td>
+      <td>6277.906</td>
+      <td>29.044</td>
+    </tr>
+    <tr>
+      <td>operating_margins</td>
+      <td>1.0</td>
+      <td>9666.821</td>
+      <td>6996.227</td>
+      <td>29.756</td>
+    </tr>
+    <tr>
+      <td>operating_margins</td>
+      <td>1.1</td>
+      <td>10624.583</td>
+      <td>7714.549</td>
+      <td>30.468</td>
+    </tr>
+  </tbody>
+</table><h2>Prior-work attribution</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>step</th>
+      <th>per_share</th>
+      <th>change_from_previous</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Prior Lab10 rebuilt through FCFF engine: debt zero, cash interest removed</td>
+      <td>34.534</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>Change discount rate11% to10.56%; all cash flows fixed</td>
+      <td>36.560</td>
+      <td>2.025</td>
+    </tr>
+    <tr>
+      <td>Change reported liquidity/claims and share/award bridge</td>
+      <td>37.317</td>
+      <td>0.758</td>
+    </tr>
+    <tr>
+      <td>Change yearend timing to Oct5 stub; approximate prorated first annual cash flow</td>
+      <td>39.123</td>
+      <td>1.805</td>
+    </tr>
+    <tr>
+      <td>Replace operating forecast: segment growth, margins, tax and WC/reinvestment</td>
+      <td>34.774</td>
+      <td>-4.349</td>
+    </tr>
+    <tr>
+      <td>Replace terminal shortcut with mature margin and growth/ROIC reinvestment</td>
+      <td>29.756</td>
+      <td>-5.018</td>
+    </tr>
+  </tbody>
+</table><h2>One-at-a-time sensitivities</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>driver</th>
+      <th>input</th>
+      <th>units</th>
+      <th>operating_profit_2030</th>
+      <th>fcff_2030</th>
+      <th>per_share</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>growth_shift</td>
+      <td>-0.10</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>7058.307</td>
+      <td>5161.831</td>
+      <td>23.502</td>
+    </tr>
+    <tr>
+      <td>growth_shift</td>
+      <td>0.00</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>9666.821</td>
+      <td>6996.227</td>
+      <td>29.756</td>
+    </tr>
+    <tr>
+      <td>growth_shift</td>
+      <td>0.10</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>12946.832</td>
+      <td>9286.753</td>
+      <td>37.521</td>
+    </tr>
+    <tr>
+      <td>margin_shift</td>
+      <td>-0.03</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>8948.500</td>
+      <td>6457.486</td>
+      <td>29.263</td>
+    </tr>
+    <tr>
+      <td>margin_shift</td>
+      <td>0.00</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>9666.821</td>
+      <td>6996.227</td>
+      <td>29.756</td>
+    </tr>
+    <tr>
+      <td>margin_shift</td>
+      <td>0.03</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>10385.143</td>
+      <td>7534.968</td>
+      <td>30.249</td>
+    </tr>
+  </tbody>
+</table><h2>Equal proportional sensitivities</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>driver</th>
+      <th>multiplier</th>
+      <th>operating_profit_2030</th>
+      <th>fcff_2030</th>
+      <th>per_share</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>growth_rates</td>
+      <td>0.9</td>
+      <td>8794.384</td>
+      <td>6377.379</td>
+      <td>27.627</td>
+    </tr>
+    <tr>
+      <td>growth_rates</td>
+      <td>1.0</td>
+      <td>9666.821</td>
+      <td>6996.227</td>
+      <td>29.756</td>
+    </tr>
+    <tr>
+      <td>growth_rates</td>
+      <td>1.1</td>
+      <td>10603.114</td>
+      <td>7659.171</td>
+      <td>32.031</td>
+    </tr>
+    <tr>
+      <td>operating_margins</td>
+      <td>0.9</td>
+      <td>8709.059</td>
+      <td>6277.906</td>
+      <td>29.044</td>
+    </tr>
+    <tr>
+      <td>operating_margins</td>
+      <td>1.0</td>
+      <td>9666.821</td>
+      <td>6996.227</td>
+      <td>29.756</td>
+    </tr>
+    <tr>
+      <td>operating_margins</td>
+      <td>1.1</td>
+      <td>10624.583</td>
+      <td>7714.549</td>
+      <td>30.468</td>
+    </tr>
+  </tbody>
+</table><h2>Prior-work attribution</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>step</th>
+      <th>per_share</th>
+      <th>change_from_previous</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Prior Lab10 rebuilt through FCFF engine: debt zero, cash interest removed</td>
+      <td>34.534</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>Change discount rate11% to10.56%; all cash flows fixed</td>
+      <td>36.560</td>
+      <td>2.025</td>
+    </tr>
+    <tr>
+      <td>Change reported liquidity/claims and share/award bridge</td>
+      <td>37.317</td>
+      <td>0.758</td>
+    </tr>
+    <tr>
+      <td>Change yearend timing to Oct5 stub; approximate prorated first annual cash flow</td>
+      <td>39.123</td>
+      <td>1.805</td>
+    </tr>
+    <tr>
+      <td>Replace operating forecast: segment growth, margins, tax and WC/reinvestment</td>
+      <td>34.774</td>
+      <td>-4.349</td>
+    </tr>
+    <tr>
+      <td>Replace terminal shortcut with mature margin and growth/ROIC reinvestment</td>
+      <td>29.756</td>
+      <td>-5.018</td>
+    </tr>
+  </tbody>
+</table><h2>Committee memo</h2><pre># Palantir independent committee memo â€” provisional
+Created 2026-10-06T23:22:19.882309+00:00. AI-generated after the official checkpoint; not official EditionA or Pierce&#x27;s original judgment.
 
-Conditional action: **do not initiate at the October5,2026 regular close of $189.40 under this evidence and model.** Fundamental DCF case range is approximately **$16–$65 per diluted economic share**, with base around $30. This is a judgment-dependent interval, not a statistical confidence interval or a universal price ceiling. Senior analysts retain sector strategy; Pierce must review the material assumptions. Course and human validations remain pending.
+Conditional action: **do not initiate at the October5,2026 regular close of $189.40 under this evidence and model.** Fundamental DCF case range is approximately **$16â€“$65 per diluted economic share**, with base around $30. This is a judgment-dependent interval, not a statistical confidence interval or a universal price ceiling. Senior analysts retain sector strategy; Pierce must review the material assumptions. Course and human validations remain pending.
 
-The fund has no position. Intended user: buy-side analyst group and portfolio manager. Decision horizon:3–5 years. Security: NASDAQ PLTR ClassA; USD; count ClassA/B/F economic ownership, distinguish point-in-time basic from weighted-average EPS shares. Palantir sells software and services with identifiable operating revenue, costs, working capital and reinvestment; operating-company enterprise FCFF is appropriate. It is not a regulated financial intermediary or property trust. No trading execution or public publishing is authorized by this analysis.
+The fund has no position. Intended user: buy-side analyst group and portfolio manager. Decision horizon:3â€“5 years. Security: NASDAQ PLTR ClassA; USD; count ClassA/B/F economic ownership, distinguish point-in-time basic from weighted-average EPS shares. Palantir sells software and services with identifiable operating revenue, costs, working capital and reinvestment; operating-company enterprise FCFF is appropriate. It is not a regulated financial intermediary or property trust. No trading execution or public publishing is authorized by this analysis.
 
 ## Evidence and accounting
 2025 annual10K published February17,2026 supplies the audited base. June30,2026 10Q published August4 supplies separate interim statements and the bridge. October5 close is the valuation/information cutoff; October6 quotes are excluded. Cash and awards remain latest reported June30 amounts, not claims of an October5 balance. Management&#x27;s August3 guidance midpoint is a forecast input, not realized revenue. Every raw source and its failures are in the source manifest; peer snapshots have reproducible primary URLs when bulk downloads were blocked.
@@ -635,16 +945,16 @@ The fund has no position. Intended user: buy-side analyst group and portfolio ma
 Retain ongoing stock-compensation costs through cash-replacement economics; explicitly dilute existing awards and remove their remaining service expense before future replacement costs. Full award vesting and SAR full-share treatment are conservative approximations, not option pricing. Exclude restricted cash from distributable equity credit. Normalize operating cash taxes to25%; remove non-operating interest/investment income from FCFF. Operating lease expense remains within EBIT, so lease liabilities are not arbitrarily treated as financial debt. No hidden funding plug: cash is generated by the cash-flow roll-forward and an explicit deficit would fail.
 
 ## Cases and expectations
-Low: commercial conversion slows, government procurement delays, margins compress and collections absorb cash. Base: strong commercial adoption decelerates; government growth moderates; margin fades toward maturity. High: repeatable deployment extends strong adoption and efficient cash collection. Terminal PV accounts for about 66%–83% of EV. The high case is especially maturity-dependent. Five-year immediate maturity is a major assumption: delaying maturity to2035 in a separate terminal fade produces roughly $35; it still does not support the observed price in this specification.
+Low: commercial conversion slows, government procurement delays, margins compress and collections absorb cash. Base: strong commercial adoption decelerates; government growth moderates; margin fades toward maturity. High: repeatable deployment extends strong adoption and efficient cash collection. Terminal PV accounts for about 66%â€“83% of EV. The high case is especially maturity-dependent. Five-year immediate maturity is a major assumption: delaying maturity to2035 in a separate terminal fade produces roughly $35; it still does not support the observed price in this specification.
 
-Base WACC10.56%=Treasury10-year5.31% on October5 + assumed operating beta1.25 times October1 implied ERP4.20%. The beta is analyst judgment, not a completed regression. WACC8–13% sensitivity is reported; no borrowed precision from a provider beta. Terminal growth2–4%, terminal margins30–40%, mature ROIC25%; reinvestment is explicitly growth/ROIC. The terminal convention can still understate intangible reinvestment and competitive fade.
+Base WACC10.56%=Treasury10-year5.31% on October5 + assumed operating beta1.25 times October1 implied ERP4.20%. The beta is analyst judgment, not a completed regression. WACC8â€“13% sensitivity is reported; no borrowed precision from a provider beta. Terminal growth2â€“4%, terminal margins30â€“40%, mature ROIC25%; reinvestment is explicitly growth/ROIC. The terminal convention can still understate intangible reinvestment and competitive fade.
 
-Reverse DCF holds base margins, government growth, tax, WACC and maturity fixed and scales commercial growth until price matches. It implies commercial growth of approximately 252%, 183%, 138%, 101% over2027–30. This isolates one burden of expectations; it is not the only combination consistent with market price. A longer competitive-growth runway or different risk/terminal assumptions could redistribute that burden.
+Reverse DCF holds base margins, government growth, tax, WACC and maturity fixed and scales commercial growth until price matches. It implies commercial growth of approximately 252%, 183%, 138%, 101% over2027â€“30. This isolates one burden of expectations; it is not the only combination consistent with market price. A longer competitive-growth runway or different risk/terminal assumptions could redistribute that burden.
 
 ## Relative valuation and disagreement
 Policy was recorded before name selection. NOW provides a workflow/platform comparison; CRM provides a mature enterprise-application comparison. Their latest TTM periods end June30 and July31; that one-month fiscal-calendar mismatch is exposed rather than presented as identical. All prices use October5 regular close and all numerators use point-in-time basic share counts. Balances and shares precede prices. EV/revenue uses debt less cash and marketable securities; operating leases stay in operating costs. Strategic equity portfolios receive no separate credit consistently, which is conservative and economically imperfect. GAAP P/E includes investment gains and discrete tax effects; it is a qualified comparison.
 
-Peer EV/revenue implies roughly $17–$28 per basic PLTR share. Peer GAAP P/E implies roughly $25–$106. Do not average these or splice basic-share relative results into diluted DCF values. Revenue multiples suppress differences in growth and economic margin. P/E can reward unusually low taxes and investment gains; CRM&#x27;s investment gains and NOW&#x27;s tax release make earnings denominators poor clean operating anchors. DCF explicitly prices fade, compensation and reinvestment; relative methods reflect what buyers currently pay for different companies. Disagreement is evidence about assumptions and accounting, not a reason to average numbers.
+Peer EV/revenue implies roughly $17â€“$28 per basic PLTR share. Peer GAAP P/E implies roughly $25â€“$106. Do not average these or splice basic-share relative results into diluted DCF values. Revenue multiples suppress differences in growth and economic margin. P/E can reward unusually low taxes and investment gains; CRM&#x27;s investment gains and NOW&#x27;s tax release make earnings denominators poor clean operating anchors. DCF explicitly prices fade, compensation and reinvestment; relative methods reflect what buyers currently pay for different companies. Disagreement is evidence about assumptions and accounting, not a reason to average numbers.
 
 No transaction multiple is forced into the analysis: control, synergy, integration and timing differences lack a defensible PLTR bridge.
 
@@ -652,5 +962,5 @@ No transaction multiple is forced into the analysis: control, synergy, integrati
 Revisit after reported commercial/government sales and collection evidence, not options-inclusive deal value alone. Require funded commitments and realizable conversion; distinguish RPO from cancellable RDV/TCV. Monitor GAAP margin, ongoing compensation payroll, award issuance, cash taxes, hosting commitments, capex, receivable concentration and competitive pricing. Two consecutive quarters of realized adoption above the high-case path warrant a rebuilt runway/maturity model rather than mechanically moving a single multiple. A materially lower market price or independently evidenced longer profitable runway can reverse the decision. Under a hypothetical future $20 price, base economics support an initiate candidate while the conversion/procurement downside reverses that action; this is a conditional downside, not a forecast of a price decline.
 
 ## Validation limits and human work
-Arithmetic and boundary tests pass; this is not proof of sound investment judgment. Published starter reconciliation, genuine locked prediction/test, attributed partner challenges, actual recordings/transcripts, official rubric/checklist and comparison with Pierce&#x27;s existing work remain pending. Independent research has not been substituted for the official EditionA receipt. No complete course-compliant submission is claimed.
+Arithmetic and boundary tests pass; this is not proof of sound investment judgment. Published starter reconciliation now passes. Genuine AI-off prediction and AI-closed locked test, completed final attributed partner review, actual recordings/transcripts, official rubric/checklist and comparison with Pierce&#x27;s existing work remain pending. Independent research has not been substituted for the official EditionA receipt. No complete course-compliant submission is claimed.
 </pre>

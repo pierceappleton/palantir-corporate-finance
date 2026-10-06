@@ -1,0 +1,51 @@
+{
+  "prior_reproduced": {
+    "PV FCFE": 19279.933682486273,
+    "Terminal Value": 104863.37329440104,
+    "PV Terminal Value": 62231.30814626268,
+    "Opening Cash and Securities": 7177.043,
+    "Noncontrolling Interest": 100.743,
+    "Equity Value": 88587.54182874896,
+    "Share of Value After 2030": 0.7024837450232421,
+    "Value Per Share": 34.534400994835465
+  },
+  "steps": [
+    {
+      "step": "Prior Lab10 rebuilt through FCFF engine: debt zero, cash interest removed",
+      "per_share": 34.534400994835465,
+      "change_from_previous": 0.0
+    },
+    {
+      "step": "Change discount rate11% to10.56%; all cash flows fixed",
+      "per_share": 36.55968625968617,
+      "change_from_previous": 2.0252852648507016
+    },
+    {
+      "step": "Change reported liquidity/claims and share/award bridge",
+      "per_share": 37.31731703898007,
+      "change_from_previous": 0.7576307792939048
+    },
+    {
+      "step": "Change yearend timing to Oct5 stub; approximate prorated first annual cash flow",
+      "per_share": 39.12273290489008,
+      "change_from_previous": 1.8054158659100068
+    },
+    {
+      "step": "Replace operating forecast: segment growth, margins, tax and WC/reinvestment",
+      "per_share": 34.773720925799104,
+      "change_from_previous": -4.3490119790909745
+    },
+    {
+      "step": "Replace terminal shortcut with mature margin and growth/ROIC reinvestment",
+      "per_share": 29.75601926677717,
+      "change_from_previous": -5.0177016590219345
+    }
+  ],
+  "negative_cashflow_check": {
+    "prior_clipped_price": 33.49717364970725,
+    "correct_signed_price": 33.46205350490352,
+    "overstatement": 0.03512014480372727,
+    "status": "Prior code clips negative explicit cash flow tozero; reject this behavior prospectively"
+  },
+  "note": "Sequential attribution is order-dependent; no claim of additive independent sensitivities. Original model/source files unchanged."
+}

@@ -1,0 +1,103 @@
+{
+  "source": "https://github.com/CinderZhang/FIN43900-Fall2026/blob/69eac1e8cbd63b35e801d48d990c4b594bfdbbc8/lessons/week-03/lab-05-dcf-build.md",
+  "local_source": "data/reference/official-course/lessons/week-03/lab-05-dcf-build.md",
+  "status": "PASS: all twelve published outputs; not an AI-invented synthetic answer",
+  "checks": [
+    {
+      "label": "FCFF Year 1",
+      "published": 108,
+      "calculated": 108.0,
+      "difference": 0.0,
+      "tolerance": 0.0001,
+      "passed": true
+    },
+    {
+      "label": "FCFF Year 2",
+      "published": 114.48,
+      "calculated": 114.48,
+      "difference": 0.0,
+      "tolerance": 0.0001,
+      "passed": true
+    },
+    {
+      "label": "FCFF Year 3",
+      "published": 120.204,
+      "calculated": 120.20400000000001,
+      "difference": 1.4210854715202004e-14,
+      "tolerance": 0.0001,
+      "passed": true
+    },
+    {
+      "label": "FCFF Year 4",
+      "published": 125.0122,
+      "calculated": 125.01216000000001,
+      "difference": -3.999999999848569e-05,
+      "tolerance": 0.0001,
+      "passed": true
+    },
+    {
+      "label": "FCFF Year 5",
+      "published": 128.7625,
+      "calculated": 128.76252480000002,
+      "difference": 2.480000003401983e-05,
+      "tolerance": 0.0001,
+      "passed": true
+    },
+    {
+      "label": "PV explicit",
+      "published": 448.4408,
+      "calculated": 448.44081738082957,
+      "difference": 1.7380829547164467e-05,
+      "tolerance": 0.0001,
+      "passed": true
+    },
+    {
+      "label": "Terminal value",
+      "published": 1894.6486,
+      "calculated": 1894.6485792000003,
+      "difference": -2.0799999674636638e-05,
+      "tolerance": 0.0001,
+      "passed": true
+    },
+    {
+      "label": "PV terminal",
+      "published": 1176.4277,
+      "calculated": 1176.4277025290123,
+      "difference": 2.5290123630838934e-06,
+      "tolerance": 0.0001,
+      "passed": true
+    },
+    {
+      "label": "EV",
+      "published": 1624.8685,
+      "calculated": 1624.8685199098418,
+      "difference": 1.9909841739718104e-05,
+      "tolerance": 0.0001,
+      "passed": true
+    },
+    {
+      "label": "Equity",
+      "published": 1374.8685,
+      "calculated": 1374.8685199098418,
+      "difference": 1.9909841739718104e-05,
+      "tolerance": 0.0001,
+      "passed": true
+    },
+    {
+      "label": "Per share",
+      "published": 27.4974,
+      "calculated": 27.497370398196836,
+      "difference": -2.9601803163359364e-05,
+      "tolerance": 0.0001,
+      "passed": true
+    },
+    {
+      "label": "Terminal share",
+      "published": 0.724,
+      "calculated": 0.7240140898257345,
+      "difference": 1.4089825734475703e-05,
+      "tolerance": 0.0001,
+      "passed": true
+    }
+  ]
+}

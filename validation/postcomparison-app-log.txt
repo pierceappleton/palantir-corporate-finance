@@ -1,0 +1,1 @@
+App PASS: live recalculation, all cases, bounded driver change, red failure and base recovery. Capex remained locked.

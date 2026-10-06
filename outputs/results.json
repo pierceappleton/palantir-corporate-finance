@@ -1,7 +1,7 @@
 {
-  "created_utc": "2026-10-06T22:51:03.855464+00:00",
+  "created_utc": "2026-10-06T23:22:19.692177+00:00",
   "valuation_date": "2026-10-05",
-  "status": "Independent provisional analysis: course training-case, human locked test, partner review and submission requirements pending",
+  "status": "Independent provisional analysis: postcomparison version: human locked test, final partner review and submission requirements pending",
   "cases": {
     "low": {
       "explicit_pv": 10874.852408272147,

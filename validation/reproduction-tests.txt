@@ -1,3 +1,7 @@
+PASS: all twelve published outputs; not an AI-invented synthetic answer
+test_bounded_inputs_and_terminal_failure (test_course_workbench.CourseWorkbenchTests.test_bounded_inputs_and_terminal_failure) ... ok
+test_live_growth_and_reset (test_course_workbench.CourseWorkbenchTests.test_live_growth_and_reset) ... ok
+test_published_training_case (test_course_workbench.CourseWorkbenchTests.test_published_training_case) ... ok
 test_controlled_growth_direction (test_dcf.DCFTests.test_controlled_growth_direction) ... ok
 test_invalid_inputs (test_dcf.DCFTests.test_invalid_inputs) ... ok
 test_known_annuity_and_bridge (test_dcf.DCFTests.test_known_annuity_and_bridge) ... ok
@@ -12,6 +16,6 @@ test_negative_revenue_denominator_rejected (test_peers.PeerTests.test_negative_r
 test_nonpositive_gaap_earnings_are_not_a_pe (test_peers.PeerTests.test_nonpositive_gaap_earnings_are_not_a_pe) ... ok
 
 ----------------------------------------------------------------------
-Ran 12 tests in 0.004s
+Ran 15 tests in 0.006s
 
 OK

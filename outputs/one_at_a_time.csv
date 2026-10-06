@@ -1,0 +1,7 @@
+driver,input,units,operating_profit_2030,fcff_2030,per_share
+growth_shift,-0.1,absolute percentage-point shift as decimal,7058.306501711925,5161.831245969525,23.501618049616713
+growth_shift,0,absolute percentage-point shift as decimal,9666.821106676209,6996.227304155898,29.75601926677717
+growth_shift,0.1,absolute percentage-point shift as decimal,12946.832280967688,9286.753018054285,37.52068535945542
+margin_shift,-0.03,absolute percentage-point shift as decimal,8948.499523675493,6457.486116905362,29.263450791178315
+margin_shift,0,absolute percentage-point shift as decimal,9666.821106676209,6996.227304155898,29.75601926677717
+margin_shift,0.03,absolute percentage-point shift as decimal,10385.142689676924,7534.968491406435,30.248587742376024

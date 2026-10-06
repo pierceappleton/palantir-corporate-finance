@@ -1,0 +1,1 @@
+All files beneath data/reference are read-only reference snapshots. Do not edit, rename or delete their content. Preserve source commits/hashes. Store refreshed sources in a new dated/commit-specific directory. Original FIN439-Labs remote remains unchanged.

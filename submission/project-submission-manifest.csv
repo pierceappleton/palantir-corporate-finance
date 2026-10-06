@@ -1,0 +1,13 @@
+item,required,location_or_url,title,duration_or_as_of,timestamp_index,access_checked,frozen_or_commit_id,notes
+Research-Evolution.pdf,yes,PENDING,Research-Evolution.pdf,"October5,2026 valuation; October6,2026 preparation",,localverified; graderpending,postcomparison commit pending; independent890b973 preserved,Needs unchanged submitted EditionA PDF and adoptedEditionB
+Repository,yes,https://github.com/pierceappleton/palantir-corporate-finance,Repository,"October5,2026 valuation; October6,2026 preparation",,localverified; graderpending,postcomparison commit pending; independent890b973 preserved,Private; graderaccesspending
+Visible executed output,yes,outputs/review.html,Visible executed output,"October5,2026 valuation; October6,2026 preparation",,localverified; graderpending,postcomparison commit pending; independent890b973 preserved,Materialinputs/datedcases/comparisons/sensitivities
+Decision memo or deck,yes,submission/Decision-Memo.pdf,Decision memo or deck,"October5,2026 valuation; October6,2026 preparation",,localverified; graderpending,postcomparison commit pending; independent890b973 preserved,Two-page draft; finalhumanstrategylabelpending
+Validation-and-AI-Use.pdf,yes,submission/Validation-and-AI-Use.pdf,Validation-and-AI-Use.pdf,"October5,2026 valuation; October6,2026 preparation",,localverified; graderpending,postcomparison commit pending; independent890b973 preserved,Two-page draft; humanlockedgatepending
+Video 1,yes,PENDING actualrecordingURL,Palantir - Video1,maximum 3:00,PENDING actualrecordingindex,PENDING,PENDING,No fictionalvideo
+Transcript Video 1,yes,transcript-video-1.txt - PENDING,Transcript Video1,,,PENDING,PENDING,Must correct against actualrecording; not generatedbeforehand
+Video 2,yes,PENDING actualrecordingURL,Palantir - Video2,maximum 5:00,PENDING actualrecordingindex,PENDING,PENDING,No fictionalvideo
+Transcript Video 2,yes,transcript-video-2.txt - PENDING,Transcript Video2,,,PENDING,PENDING,Must correct against actualrecording; not generatedbeforehand
+Video 3,yes,PENDING actualrecordingURL,Palantir - Video3,maximum 5:00,PENDING actualrecordingindex,PENDING,PENDING,Video3 requires liveworkbench opening
+Transcript Video 3,yes,transcript-video-3.txt - PENDING,Transcript Video3,,,PENDING,PENDING,Must correct against actualrecording; not generatedbeforehand
+Optional deployed output,no,Not deployed,,,,,,Localworkbench meetsproductfloor

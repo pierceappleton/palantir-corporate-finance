@@ -1,0 +1,153 @@
+{
+  "repository": "pierceappleton/FIN439-Labs",
+  "commit": "2e861768f09411764b7859361843389718eb0490",
+  "snapshot_utc": "2026-10-06T23:07:07.772943+00:00",
+  "files": [
+    {
+      "path": "README.md",
+      "blob": "a8768e541b538d7a7c06f4cc3192eb7ce31432a0",
+      "sha256": "682f0714f73cb640448783d6eff2e854f884da098e0850967478c36f2faccde4"
+    },
+    {
+      "path": "labs/lab-03/Project1_EditionA_Palantir.md",
+      "blob": "389e5f5d2869deb8c6276d59960df26e17e49e48",
+      "sha256": "a34c1600d3486cad6c5bb3c39d52704f9d086f8f46b67e77b41ff3beda79ef0a"
+    },
+    {
+      "path": "labs/lab-04/Lab04_Company_Research_Report_Palantir.md",
+      "blob": "7adbeae702965de7c67afac530f65f7d719a2d89",
+      "sha256": "e32eecef27eec9c14d0cbebb5ae4c902c09daabc518838c13c20ed1a3cf36c71"
+    },
+    {
+      "path": "labs/lab-04/sources.md",
+      "blob": "30847590f48abec96fc7ddd8d80cc6166242503a",
+      "sha256": "29c06a6055c1e69ae92ba2a68f8a7968b61566532c7236e711d799fea0b64fea"
+    },
+    {
+      "path": "labs/lab-05/Lab05_Palantir_Context.md",
+      "blob": "fff0e491445cf357889762e3d9a208c573cb2678",
+      "sha256": "21075c28e9396f49c7aab0795e5aedf052e2afa8261fb698b6ca6b38e0524571"
+    },
+    {
+      "path": "labs/lab-05/Lab05_Task_Instructions.md",
+      "blob": "93e550d69e0a94ddd403ae127e10860accfe6db5",
+      "sha256": "d0e79936d9f3292017cbb3ed9369701ee746a098112d1c0f757bba24cc0215b5"
+    },
+    {
+      "path": "labs/lab-05/README.md",
+      "blob": "eae5cd79ae60bf5cec86a3ad9cc6617afffb8de9",
+      "sha256": "6d6ccd15e5ededbb401072abce718af4527713d81777de6b6008361195630fc9"
+    },
+    {
+      "path": "labs/lab-05/dcf.py",
+      "blob": "2ba6197b51b4935894c0787ed7cd36a2a2c5fb3f",
+      "sha256": "c260b0e882c239021e13ae28f3d9f936a11b98aa89f26ab14a05139fda5b8dd6"
+    },
+    {
+      "path": "labs/lab-05/finance.py",
+      "blob": "d21a089d6ba2f803f5c2b330d23a2e9e1f01054d",
+      "sha256": "1e3e0a57f9d40073e80c10bb67797c1966a0f128a448ba805a73b8796434ae48"
+    },
+    {
+      "path": "labs/lab-06/dcf.py",
+      "blob": "d545d88e84a5beac193fd07b736b777901ba2d84",
+      "sha256": "7f63615c359e0d4266de0b9d37e353e4b82c07ce91bad27062f9e3cca66a5afd"
+    },
+    {
+      "path": "labs/lab-06/lab-06-instructions.md",
+      "blob": "5a2e92f7a00155856abe70670e37d930648a32af",
+      "sha256": "165240241c4cb9d3f621f8a0ad32334829421faaac19f716b6e246e704d1ea52"
+    },
+    {
+      "path": "labs/lab-06/lab06_dcf.md",
+      "blob": "128dc145f0addeec5c34c5038671376bdb4ba1b7",
+      "sha256": "cbf23316e6909d619f9efd4aaa937bc08673d8e8e6fe11401867da076e7797ad"
+    },
+    {
+      "path": "labs/lab-07/lab-07-instructions.md",
+      "blob": "514d7a4f18423db18f0fdd9e0d5943ac58d4545c",
+      "sha256": "5205b0a69bb8937658679dfdc466750c3fe9a7aca2ae0a3d017cacd7925e3e60"
+    },
+    {
+      "path": "labs/lab-07/lab-07-project-context.md",
+      "blob": "9f3660e5a894fada675111753ed8faa30ef7f157",
+      "sha256": "94d28d6c281ba534868af5d1f6a75102111bf6dc99b6e1a96ac8c1b6a2b9f044"
+    },
+    {
+      "path": "labs/lab-07/lab07_asbury_comps_writeup.md",
+      "blob": "0f2c832e599ce897700c76dafcf9e62cf9b0278c",
+      "sha256": "044ffef5f0f9cb9f50af97ae7ef7545ec993c27f15f333f98af69da3169e0781"
+    },
+    {
+      "path": "labs/lab-07/lab07_comps.py",
+      "blob": "4c0b97f66432367c9458eaa7c9e02130de5c11a3",
+      "sha256": "6b3c1a3f3c38ef6c7998c8ae954e4f26164bf9efe03348c807061e0023b72c56"
+    },
+    {
+      "path": "labs/lab-08/codex_prompt_lab08.md",
+      "blob": "e2980eb0a85ac584d6e313836c34aa2e264c12a8",
+      "sha256": "decc0bddec5ea8ed4f71205372dcf316af1b6a0e3d17ff6f11df0ee8e9772f00"
+    },
+    {
+      "path": "labs/lab-08/lab08_palantir_comps.py",
+      "blob": "2e1f269c264b4f85ee5d8eeafe238fd9ca970879",
+      "sha256": "95d3f83626dd63ee5f1fcd60a3c88ceba3f5a3c4eff518e808a2aa30258122a6"
+    },
+    {
+      "path": "labs/lab-08/lab08_palantir_pe_triangulation.md",
+      "blob": "a00a628338426fdfe1b02f7f4d36258c078a3025",
+      "sha256": "a37f49f363a02059c31d6303d0c94b914e5a269c1bfaa4d3815f7f6eaa98b146"
+    },
+    {
+      "path": "labs/lab-08/lab08_previous_lab_context.md",
+      "blob": "0e7baeb7128da275ed3cc0587c961952396802ae",
+      "sha256": "24541cd1785d8b24cc04268f2dabfdd38cf5306dfcf67e20f02080bc3d560252"
+    },
+    {
+      "path": "labs/lab-09/lab-09-writeup.md",
+      "blob": "678f50ff56f5fcea58c783a7133529f7d0af9d82",
+      "sha256": "a2e5ea3920353a4ce7e00022042b3f3b965f9c069d7cd3bd682700cecc72bab1"
+    },
+    {
+      "path": "labs/lab-09/proforma.py",
+      "blob": "61ded16d2964d1fe466f033c5bd5deeba4474537",
+      "sha256": "3c1aba56221942d292b183fd745d284470b86236c21f43422525842ec0e6c6b6"
+    },
+    {
+      "path": "labs/lab-10/lab-10-writeup.md",
+      "blob": "e87925cfd7201a314bc8c88780b3f15285ea34a3",
+      "sha256": "7991be178318edc69ebe331f92097e8586c206d6ed152d890ed8aa690ce95bf1"
+    },
+    {
+      "path": "labs/lab-10/pltr_proforma.py",
+      "blob": "2c6c7384fcb182cf5666ca73183fa53061890c9f",
+      "sha256": "56ea48cd4458b562df3b1c650f245670db47d5c0be0a6b3b882faaea3e540d11"
+    },
+    {
+      "path": "labs/lab-11/lab-11-writeup.md",
+      "blob": "460f3838ceabcce4b0a8e85957a3759712249979",
+      "sha256": "0602cebe5a3ba0b9c18305ad822f16e87383055f1d0f390079ac3a5a3bbdf774"
+    },
+    {
+      "path": "labs/lab-11/pltr_sensitivity.py",
+      "blob": "b024de3589a2340fcb15456e6dec2ff9b9638558",
+      "sha256": "d5be46b1c44637affbd7b6ec4db171c9540ac0bcaac195e878a23ce193b0489e"
+    },
+    {
+      "path": "labs/lab-12/lab-12-writeup.md",
+      "blob": "5df9869f5ee7a5bda64eeafd37b2086d87d36d75",
+      "sha256": "6aa4413041093bc2532d50e9b303132d3c16267aa27f373acb7fd50d19c0eea7"
+    },
+    {
+      "path": "research/pltr/Palantir_2026-09-03_report.md",
+      "blob": "3af416bc40d301e9263859dfb5f2b84aded8f182",
+      "sha256": "e8a0e3e3a29694d5f9dd2df8dfda0b9fcd8f05dd09bfa78892cf12b569f42f29"
+    },
+    {
+      "path": "research/pltr/sources.md",
+      "blob": "1edf62cb3a2d0d2acc05d8e25f58420fcb78879c",
+      "sha256": "e395b595c6e483ec2e3d7fd1aa8fa791eb90631733ee6dd75ec3e5ae73b22b2f"
+    }
+  ],
+  "preservation": "Read-only reference snapshot; source repository unchanged. DOCX files not inspected."
+}

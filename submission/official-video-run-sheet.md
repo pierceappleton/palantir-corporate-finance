@@ -1,0 +1,5 @@
+# Official bounded recording run sheet
+Video1 maximum3:00: 0:00decision/baseline;0:30source/evolution;1:20oneaccepted/correctedAIoutput;2:00A-to-Bcomparison;2:40remaininglimits. Do not claim an adoptedhumanviewuntilPiercereviewsit.
+Video2 maximum5:00: 0:00privateaccessibleGitHub/README;0:40reproducecommand;1:40officialtraining/sourcechecks;2:40three-statementsandfailure;3:40actualcoldrunanderrorresolution;4:20genuineAI-offlockedrecordafteritexists. No fabricatedrecord.
+Video3 maximum5:00: firstminuteisrequiredliveproductdemo. Restorebase;move2027-2030growthshift+10points;readlivevalue;reset;setmatureROIC2%whileterminalgrowth3%tofailred;resetrecover. Keepworkbenchonscreentodefendrange,methoddisagreement,Ethanrangechallenge,conditionsandcommitteeask. Capexcontrolremainslockeduntildesignatedhumantest.
+Recordactualvideos. Correctfinance/names/numbersintranscript-video-1.txt,transcript-video-2.txt,transcript-video-3.txt. Nevercreatefakecompletedtranscripts. YouTubelinksdescriptivelytitledandunlistedwithgraderlogged-outaccesschecked.

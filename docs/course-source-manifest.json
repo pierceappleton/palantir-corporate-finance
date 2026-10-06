@@ -1,0 +1,97 @@
+{
+  "repo": "CinderZhang/FIN43900-Fall2026",
+  "commit": "69eac1e8cbd63b35e801d48d990c4b594bfdbbc8",
+  "retrieved_utc": "2026-10-06T23:08:23.131806+00:00",
+  "files": [
+    {
+      "path": "PROJECT-SUBMISSION-ARCHITECTURE.md",
+      "blob": "c5eb98f62999cbbae7ec9ae2abb327e9de2e8634",
+      "sha256": "89d5e077896aa89d2793938fe8042411c6fe304fc43be59e3790ff220b39b12d"
+    },
+    {
+      "path": "lessons/week-03/lab-05-dcf-build.md",
+      "blob": "34f912a3c026405115a6ec1e5b314c38b28fb49d",
+      "sha256": "e9d1cc128e0d8f93547ebace710ac230aad7a2de26f0dbad07fd87770de46f6e"
+    },
+    {
+      "path": "lessons/week-03/teach-dcf-worked-example.md",
+      "blob": "09c0a6b0dd894edae2904d373ae7907524e18da0",
+      "sha256": "f5c70ad2ea932f70f79f83d6139610739fff8edb4df0e1cf864c61cf1a2e48fa"
+    },
+    {
+      "path": "lessons/week-05/lab-10-proforma-your-company.md",
+      "blob": "6a3266ea2645b2bb82b5d668203c1a90d0d3997d",
+      "sha256": "4add8cc190e6a0713e1a6b043398f2075b10d3b7fa4089f1e7329ffc5f908fdd"
+    },
+    {
+      "path": "lessons/week-06/lab-11-proforma-what-if.md",
+      "blob": "65ef032b42a11b03a3472984a9d4e105af0f43af",
+      "sha256": "dbcfb8aa7ca98046e620e65b7675ec9cd6741a06fb801f290bd81f3344276736"
+    },
+    {
+      "path": "lessons/week-06/lab-12-proforma-present.md",
+      "blob": "a9755f86a91164751ccc4cf5fde6f7129262f4ca",
+      "sha256": "2a1793da4ef488dd5a51fc7f7bb903e93da9bef139788ebda71534861b928d5d"
+    },
+    {
+      "path": "projects/AI-BOUNDARY-CARD.md",
+      "blob": "6a648f838e6fc7cf987dd0948d050e175310dac5",
+      "sha256": "f77c480c044518a8cccef47ee0927bc983a2c6db38290945063b9814d26fe6f6"
+    },
+    {
+      "path": "projects/STARTER-HELP-LADDER.md",
+      "blob": "6172b5273a1a9290d665c623e56833baef8303ee",
+      "sha256": "c4677ddfc2146fd03ce0a07dba6afa681edc0bcaa63b14be39bc62638d0002e7"
+    },
+    {
+      "path": "projects/major-project-student-checklist.md",
+      "blob": "9f49006d9ad254705d1d6fb7e52f04804c611b00",
+      "sha256": "2187efb45b9f6ce676cf61607d22fc629f8331678d26f6be0311e71647a284ef"
+    },
+    {
+      "path": "projects/project-1-annotated-exemplar-and-non-example.md",
+      "blob": "a53d92903c7aa4bf2309c6bd1794c892bc2a8627",
+      "sha256": "b5301c47f821e1ddb396c4569319d3f4966db2965b95634162dbd108aa3352e1"
+    },
+    {
+      "path": "projects/project-1-corporate-finance-application.md",
+      "blob": "5dc43aaf26fd2b5ad85a49ebff49e5060e3723b3",
+      "sha256": "a0e0a8159dc091d2f22b700d01cd524c0229ef5334ed3dbef728bb933114dfb8"
+    },
+    {
+      "path": "projects/starter/README-template.md",
+      "blob": "063ae686d4682dea89271d9562a8fe30e3679b36",
+      "sha256": "67251465857d837ad3a52ebca23257a3280a1b20e26af48699c3ff1de929c1ba"
+    },
+    {
+      "path": "projects/starter/requirements.txt",
+      "blob": "e3c0af3924375931d03ce0d796569f546d79a2ac",
+      "sha256": "0fb00d3d676dba16558b9b67b04f19aed60371653a53f33ec9e41188d971e6b3"
+    },
+    {
+      "path": "projects/templates/decision-memo-template.md",
+      "blob": "cf1a4160f3929df1dc00895d781b5f8affd13405",
+      "sha256": "d23c6189946acc0ad9a36dd7ee23c0fe30405b5dab333d616483b551e8148ba4"
+    },
+    {
+      "path": "projects/templates/project-submission-manifest-template.csv",
+      "blob": "3427ac3c989a0fc122ffda9035c3c68ffa85eb1a",
+      "sha256": "a29f6547261dee27cb29b53436ba1c0d923e3f2d02804b3966fae06c12252f42"
+    },
+    {
+      "path": "projects/templates/project-transcript-template.txt",
+      "blob": "c3df22259780d4142f5da8a0fb32a552a8195088",
+      "sha256": "c2e44ec4906d16ce59f249c2f8276949ed8be55174d08c015d88562e9065362a"
+    },
+    {
+      "path": "projects/templates/research-evolution-template.md",
+      "blob": "4f17ac289899f9ab11913a21c4d928b82efbbea8",
+      "sha256": "3eadc8dd15eff2abcb3446e25a8c487ff264cfd764c34cb25c9f36861b9ae594"
+    },
+    {
+      "path": "projects/templates/validation-and-ai-use-template.md",
+      "blob": "a987265401bda0dffdd0287dd57d28d6e9715ed8",
+      "sha256": "2d4387c209352308d7c90157078116f82e3f28b8e457de00a78b2dce113c14f2"
+    }
+  ]
+}
