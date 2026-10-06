@@ -1,0 +1,1 @@
+Read PROJECT_GUIDE.md and docs/STATUS.md before work. Follow the independent-first and validation gates. Preserve official Edition A and unrelated files.

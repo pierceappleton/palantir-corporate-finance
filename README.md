@@ -1,0 +1,2 @@
+# Palantir corporate finance — FIN439
+Private independent research project for Pierce Appleton. Read PROJECT_GUIDE.md and docs/STATUS.md. Implementation and financial results are in progress; no validated valuation currently exists. Official Edition A remains unchanged. Setup and reproduction instructions will be added when tested.

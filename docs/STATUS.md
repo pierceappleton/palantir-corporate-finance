@@ -1,0 +1,2 @@
+# Actual status — 2026-10-06
+Environment and reversible write verified. Private repository created. Guide saved. No financial model or valuation completed yet. Course validations A/D and authentic partner/recording requirements pending external input. Next: coherent cutoff, primary filings, peer policy, normalized base year and tested engine.

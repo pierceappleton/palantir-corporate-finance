@@ -1,0 +1,1 @@
+Read PROJECT_GUIDE.md and docs/STATUS.md before work. Follow all independence and validation gates; do not fabricate human contributions.
