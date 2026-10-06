@@ -1,0 +1,22 @@
+[
+  {
+    "file": "pltr_2025_10k.html",
+    "url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000011/pltr-20251231.htm",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "file": "pltr_2026q2_release.html",
+    "url": "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "file": "pltr_submissions.json",
+    "url": "https://data.sec.gov/submissions/CIK0001321655.json",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "file": "pltr_companyfacts.json",
+    "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001321655.json",
+    "error": "HTTP Error 403: Forbidden"
+  }
+]

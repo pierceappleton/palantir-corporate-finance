@@ -1,0 +1,2 @@
+# AI supplemental directional prediction
+Recorded before execution, 2026-10-06. Under controlled positive FCFF and fixed terminal FCFF, increasing WACC 10% to 11% should lower EV/per-share value; increasing growth 2% to 3% should increase value. This is an AI software test, not the designated human-assisted locked test. The latter remains unexecuted. Synthetic annuity answer is independently derived algebra, not the missing published training-case answer.
