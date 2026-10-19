@@ -1,0 +1,25 @@
+Post-comparison revision, Claude Code, 2026-10-19 - baseline before any change
+
+Starting commit: 7c190eb40cd0b709320003d93c425072f744b974 (main, committed 2026-10-06T19:24:33-04:00)
+Working branch created: claude/post-comparison-revisions
+Environment: Linux cloud container, Python 3.13.16 (original project used Windows Python 3.14.7)
+
+Commands actually run (2026-10-19, approx. 23:50 UTC):
+1. python3 -m venv <fresh venv outside repo>
+2. <venv>/bin/pip install -r requirements.txt            -> success; `pip freeze` matches requirements.txt exactly
+3. <venv>/bin/python -m pytest -q                         -> 15 passed in 0.05s
+4. <venv>/bin/python -m src.reproduce                     -> completed 2026-10-19T23:51:31.928665+00:00
+5. git diff --ignore-cr-at-eol --stat                     -> only 3 files differ, each only in a creation timestamp:
+      outputs/results.json (created_utc)
+      outputs/review.html (created_utc inside the embedded JSON and memo)
+      submission/current-model-memo.md (Created ... line)
+   Without --ignore-cr-at-eol, 12 generated files differ: the committed copies have CRLF line
+   endings (Windows) and the Linux run writes LF. No numeric value differs.
+
+Baseline per-share values reproduced (diluted, USD):
+   low  16.4451
+   base 29.7560
+   high 65.4805
+
+Regenerated files were discarded (git checkout) after the comparison; the committed outputs
+were left untouched for this baseline record.
