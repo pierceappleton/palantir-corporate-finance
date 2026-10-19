@@ -13,8 +13,9 @@ Commands actually run (2026-10-19, approx. 23:50 UTC):
       outputs/results.json (created_utc)
       outputs/review.html (created_utc inside the embedded JSON and memo)
       submission/current-model-memo.md (Created ... line)
-   Without --ignore-cr-at-eol, 12 generated files differ: the committed copies have CRLF line
-   endings (Windows) and the Linux run writes LF. No numeric value differs.
+   Without --ignore-cr-at-eol, 12 generated files differ only in line endings: the committed
+   copies are stored with LF, while Python's csv writer emits CRLF row endings on every platform
+   (and the Windows run's other files were normalized by Git). No numeric value differs.
 
 Baseline per-share values reproduced (diluted, USD):
    low  16.4451
