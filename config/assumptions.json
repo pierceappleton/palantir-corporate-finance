@@ -121,10 +121,11 @@
     "debt_weight": 0,
     "equity_weight": 1,
     "formula": "WACC=cost of equity=5.31%+1.25*4.20%=10.56%",
-    "riskfree_maturity": "10-year Treasury par yield (as stated in the memo)",
-    "riskfree_verification": "pending: home.treasury.gov blocked in the 2026-10-20 session; see docs/source-verification-2026-10-20.md",
-    "erp_verification": "pending: Damodaran page blocked in the 2026-10-20 session; a secondary report dates 4.20% to July 2026",
-    "beta_sourced_estimate": "pending: no provider or regression estimate retrievable in the 2026-10-20 session"
+    "riskfree_maturity": "10-year Treasury par yield",
+    "riskfree_verification": "Verified by Pierce (ChatGPT-assisted check, reported 2026-10-20): 5.31% in the 10 Yr column for 10/05/2026. Saved source row still pending (not retrievable in the Claude session).",
+    "erp_verification": "Verified by Pierce (ChatGPT-assisted check, reported 2026-10-20): 4.20% for October 1, 2026 on the method above; the page publishes several alternative estimates.",
+    "beta_sourced_estimate": "pending: needs a reproducible dated estimate disclosing benchmark, frequency, return definition, window and any adjustment",
+    "erp_method": "Damodaran implied ERP, trailing 12-month cash flows with adjusted payout"
   },
   "presentation": {
     "cost_of_revenue_ratio": 0.15,
