@@ -163,7 +163,7 @@ Revisit after reported commercial and government revenue, collections and GAAP m
 - Pierce's adopted action is do not initiate at the October 5 reference price; the material assumptions above remain subject to review.
 
 ## Validation limits and human work
-Arithmetic and boundary tests pass; that is not proof of investment judgment. A separate AI-off human prediction and AI-closed 2029 government-growth run are prepared but pending. Replacement videos within course limits, corrected transcripts, final partner review and grader access checks remain open. Official Edition A is preserved unchanged, and the due time and 300-point rubric were read from Brightspace. The first Brightspace submission is preserved as a historical record.
+Arithmetic and boundary tests pass; that is not proof of investment judgment. A separate 2029 government-growth human run and Pierce's post-run comparison are recorded at `validation/locked/20261020T044925989222Z/`; the mistaken numeric direction field is preserved and explained. This run occurred after the first Brightspace submission. Replacement videos within course limits, corrected transcripts, final partner review and grader access checks remain open. Official Edition A is preserved unchanged, and the due time and 300-point rubric were read from Brightspace.
 """
 
 
@@ -197,8 +197,8 @@ def review_html(r, memo, low, high, price):
     fragments = [
         "<h1>Palantir finance review</h1>",
         f"<p>{html.escape(REVISION_LABEL)}. Valuation date October 5, 2026 | DCF range ${low:.0f}-${high:.0f} per diluted share | "
-        f"Conditional action: do not initiate at ${price:.2f}</p>",
-        "<p>All currency and shares in millions unless stated; DCF values diluted, peer-relative values basic. Required course and human gates pending.</p>",
+        f"Pierce's adopted action: do not initiate at ${price:.2f}</p>",
+        "<p>All currency and shares in millions unless stated; DCF values diluted, peer-relative values basic. A separate human locked run is recorded after the first submission; see validation/locked/. Source and assumption limits are disclosed.</p>",
     ]
     for title, file in sections:
         fragments.append("<h2>" + html.escape(title) + "</h2>")
@@ -254,7 +254,7 @@ The reproduction command uses the saved filings and inputs; it needs no live pri
 Read PROJECT_GUIDE.md, docs/STATUS.md, docs/HANDOFF.md, docs/requirements-matrix.csv, docs/normalization.md, docs/assumption-challenges.csv, docs/source_manifest.json and validation/STATUS.md. The financial engine is in `src/`; the interface is in `app/`. The separate human locked-run instructions are in `submission/separate-human-run.md`. The Lab 11 partner feedback supplied by Pierce is credited.
 
 ## Open items
-- Validation Gate D was not completed by the original deadline. A new human-only 2029 government-growth test is prepared; its prediction and result remain pending. The earlier AI-controlled capex sensitivity is separate and does not substitute for it.
+- Validation Gate D was not completed by the original deadline. A separate 2029 government-growth run was recorded after submission in prediction commit `28f3017` and result commit `80546d1`; Pierce's post-run explanation is in `validation/locked/20261020T044925989222Z/human-review.md`. The original conflicting direction field remains unchanged. The earlier AI-controlled capex sensitivity remains separate.
 - Beta is an analyst assumption without a saved provider or regression source, and the peer set is narrow.
 - Treasury yield and equity risk premium evidence has limits, listed in `docs/source-verification-2026-10-20.md`.
 - Replacement videos under 3/5/5 minutes and corrected transcripts are pending.

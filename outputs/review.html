@@ -1,4 +1,4 @@
-<!doctype html><meta charset="utf-8"><title>Palantir finance review</title><style>body{font:16px system-ui;margin:40px;color:#1b2735;background:#fff}table{border-collapse:collapse;font-size:13px;display:block;overflow:auto}td,th{padding:7px;border:1px solid #ccd3dc}pre{white-space:pre-wrap;line-height:1.5}h2{margin-top:35px}</style><h1>Palantir finance review</h1><p>Post-comparison revision, Claude Code, 2026-10-20. Valuation date October 5, 2026 | DCF range $17-$66 per diluted share | Conditional action: do not initiate at $189.40</p><p>All currency and shares in millions unless stated; DCF values diluted, peer-relative values basic. Required course and human gates pending.</p><h2>Old-to-new valuation bridge (code corrections adopted; options not adopted)</h2><table border="1" class="dataframe">
+<!doctype html><meta charset="utf-8"><title>Palantir finance review</title><style>body{font:16px system-ui;margin:40px;color:#1b2735;background:#fff}table{border-collapse:collapse;font-size:13px;display:block;overflow:auto}td,th{padding:7px;border:1px solid #ccd3dc}pre{white-space:pre-wrap;line-height:1.5}h2{margin-top:35px}</style><h1>Palantir finance review</h1><p>Post-comparison revision, Claude Code, 2026-10-20. Valuation date October 5, 2026 | DCF range $17-$66 per diluted share | Pierce's adopted action: do not initiate at $189.40</p><p>All currency and shares in millions unless stated; DCF values diluted, peer-relative values basic. A separate human locked run is recorded after the first submission; see validation/locked/. Source and assumption limits are disclosed.</p><h2>Old-to-new valuation bridge (code corrections adopted; options not adopted)</h2><table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th>case</th>
@@ -1516,9 +1516,9 @@
     </tr>
   </tbody>
 </table><h2>Case results and checks (results.json)</h2><pre>{
-  &quot;created_utc&quot;: &quot;2026-10-20T00:18:39.747126+00:00&quot;,
+  &quot;created_utc&quot;: &quot;2026-10-20T04:48:53.869351+00:00&quot;,
   &quot;valuation_date&quot;: &quot;2026-10-05&quot;,
-  &quot;status&quot;: &quot;Independent provisional analysis: postcomparison version: human locked test, final partner review and submission requirements pending&quot;,
+  &quot;status&quot;: &quot;AI-assisted valuation with Pierce&#x27;s do-not-initiate action at the October 5 reference price. The separate human locked run was recorded after the first submission; see validation/locked/. Source and assumption limits remain documented.&quot;,
   &quot;cases&quot;: {
     &quot;low&quot;: {
       &quot;explicit_pv&quot;: 10957.379678151403,
@@ -1984,10 +1984,10 @@
     &quot;Existing awards assumed full vesting/exercise; SAR treated as full-share upper bound.&quot;,
     &quot;Future compensation modeled as cash replacement; old award service cost removed to avoid duplication.&quot;
   ]
-}</pre><h2>Working committee memo</h2><pre># Palantir committee memo (working draft)
-Post-comparison revision, Claude Code, 2026-10-20. Generated 2026-10-20T00:18:39.805854+00:00. AI-generated after the official Edition A checkpoint. This is not the official Edition A and not Pierce&#x27;s original judgment. The October 6 independent freeze (commit 890b973) and its memo (`submission/independent-memo.md`) are preserved unchanged.
+}</pre><h2>Working committee memo</h2><pre># Palantir committee memo
+Post-comparison revision, Claude Code, 2026-10-20. Generated 2026-10-20T04:53:45.169577+00:00. AI-assisted after the official Edition A checkpoint. This is not the official Edition A. Pierce adopted the do-not-initiate action on October 20, 2026. The October 6 independent freeze (commit 890b973) and its memo (`submission/independent-memo.md`) are preserved unchanged.
 
-**Conditional action: do not initiate at the October 5, 2026 regular close of $189.40 under this evidence and model.** The fundamental DCF case range is about **$17 to $66 per diluted economic share**, with the base near $30. Even the high case is below the price by more than the 120% do-not-initiate threshold. This is a judgment-dependent interval, not a statistical confidence interval. Pierce must still adopt or reject the material assumptions listed under &quot;Decisions pending&quot; before a final label (do not initiate vs. watch/defer) is chosen.
+**Pierce&#x27;s adopted action: do not initiate at the October 5, 2026 regular close of $189.40 under this evidence and model.** The fundamental DCF case range is about **$17 to $66 per diluted economic share**, with the base near $30. Even the high case is below the price by more than the 120% do-not-initiate threshold. This is a judgment-dependent interval, not a statistical confidence interval. The adopted action does not approve every material model assumption listed below.
 
 The fund has no position. Intended user: buy-side analyst group and portfolio manager. Decision horizon: 3-5 years. Security: NASDAQ PLTR Class A; USD; Class A/B/F economic ownership counted; point-in-time basic shares distinguished from weighted-average EPS shares. Palantir sells software and services with identifiable operating revenue, costs, working capital and reinvestment, so operating-company enterprise FCFF is appropriate.
 
@@ -2053,8 +2053,8 @@ Revisit after reported commercial and government revenue, collections and GAAP m
 - Beta: keep 1.25 or adopt a sourced estimate.
 - Final peer list under the revised rule.
 - Whether to adopt the NOL utilization schedule.
-- Final label: do not initiate vs. watch/defer.
+- Pierce&#x27;s adopted action is do not initiate at the October 5 reference price; the material assumptions above remain subject to review.
 
 ## Validation limits and human work
-Arithmetic and boundary tests pass; that is not proof of investment judgment. Still pending: Pierce&#x27;s AI-off locked prediction and AI-closed locked run, the final partner review, the three recordings and corrected transcripts, the unchanged official Edition A PDF, the Brightspace deadline/header, the 300-point rubric and grader access. No complete course submission is claimed.
+Arithmetic and boundary tests pass; that is not proof of investment judgment. A separate 2029 government-growth human run and Pierce&#x27;s post-run comparison are recorded at `validation/locked/20261020T044925989222Z/`; the mistaken numeric direction field is preserved and explained. This run occurred after the first Brightspace submission. Replacement videos within course limits, corrected transcripts, final partner review and grader access checks remain open. Official Edition A is preserved unchanged, and the due time and 300-point rubric were read from Brightspace.
 </pre>

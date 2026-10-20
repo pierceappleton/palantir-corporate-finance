@@ -84,6 +84,10 @@ def main():
     tests = (ROOT / "validation/reproduction-tests.txt").read_text(encoding="utf8")
     test_count = tests.split("Ran ")[1].split(" ")[0] if "Ran " in tests else "see log"
     checks = len(json.loads((ROOT / "validation/source-row-checks.json").read_text(encoding="utf8")))
+    locked_dir = ROOT / "validation/locked/20261020T044925989222Z"
+    locked_prediction = json.loads((locked_dir / "prediction.json").read_text(encoding="utf8"))
+    locked_result = json.loads((locked_dir / "results.json").read_text(encoding="utf8"))
+    locked_percent = 100 * locked_result["per_share_change"] / locked_result["before"]["per_share"]
 
     case_table = [["Case", "Mechanism", "Frozen Oct 6", "Corrected", "5-yr fade", "10-yr fade", "Terminal / EV"]]
     for key, text in [("low", "Slower commercial conversion, procurement delays, lower margin, weaker collections"), ("base", "Strong adoption decelerates; margins fade toward maturity"), ("high", "Repeatable deployment sustains adoption and collections")]:
@@ -114,7 +118,7 @@ def main():
 
     validation = [
         p("Validation and AI use", "Title"),
-        p("Executed evidence and outstanding human gate", "Heading2"),
+        p("Executed evidence and human locked run", "Heading2"),
         p("Independent snapshot 890b9738c802592abb4e70beb8efc21181fdfcea was frozen Oct 6, 2026 22:53:27 UTC; its manifest is preserved. FIN439-Labs commit 2e861768 was read only after that freeze. Course snapshot 69eac1e8. Later revisions were merged to main; they are not part of the independent freeze. User-supplied official Edition A PDF is preserved unchanged at submission/Edition A.pdf (five pages; SHA-256 24087f84b272baba2eb9c6a3cb83f495c47e5e48f5270e833dd3fe3a2f4ba2b1). Edition A states a September 1, 2026 valuation date and cites the June 30, 2026 10-Q (published Aug 4, before September 1); the current model uses an Oct 5 cutoff."),
         h("Executed checks and limits"),
         table(
@@ -134,20 +138,21 @@ def main():
         h("Named material AI uses and dispositions"),
         p("Oct 6, 2026: Codex (ChatGPT; model family exposed as GPT-6, exact build not exposed) wrote and ran the independent build. Oct 20, 2026: Claude Code (Anthropic) made the post-comparison revisions after a joint Claude/ChatGPT audit; Pierce is not a coder and did not write code."),
         p("Corrected (Claude Code, with evidence): cutoff cash gap (stub FCFF reconciliation); award runoff ended RSU expense early and used a rounded option period (10-Q XBRL 4y10m21d); duplicate fade math with a hardcoded margin; locked runner could commit unrelated staged files. Qualified: 47% margin confirmed GAAP from the 10-Q income statement; 1.4% tax rate is structural (valuation allowance), not one-time. Earlier: adjusted margins rejected as economic profit; negative cash-flow clipping rejected."),
-        h("Locked Changed-Input Record (Gate D) - separate human run pending"),
+        h("Locked Changed-Input Record (Gate D) - executed after first submission"),
         table(
             [
                 ["Field", "Current record"],
-                ["Designated new input", "Base-case 2029 government revenue growth: 22% to 12% of prior-year government revenue; all other assumptions fixed."],
-                ["Human prediction / reasoning", "Pending Pierce's separate AI-off pre-run prediction. Do not substitute the earlier jointly discussed capex result."],
-                ["Timestamp / precommit", "Pending. The new runner commits only Pierce's prediction before calculating either case."],
-                ["Actual result / decision effect", "Pending the AI-closed human run and Pierce's comparison. No result is claimed in this revision."],
-                ["Earlier AI sensitivity", "Oct 19 capex 1.2% to 2.0% was AI-authored and AI-run; it remains a separate, disclosed sensitivity, not this human record."],
+                ["Input and controls", "Base 2029 government revenue growth 22% to 12% of prior-year government revenue; other inputs, cutoff, share basis and price fixed."],
+                ["Human precommit", f"Form names Pierce A. and Rusheel N. and attests AI closed. Prediction saved {locked_prediction['recorded_utc']} in commit {locked_result['prediction_precommit'][:12]}; result commit 80546d140046 follows it."],
+                ["Prediction as entered", "Direction field: '$33.32'. Written reasoning predicted value would fall by about 3-4%; action would remain do not initiate. These statements conflict; the original precommit is unchanged."],
+                ["Actual and decision", f"${locked_result['before']['per_share']:.4f} to ${locked_result['after']['per_share']:.4f} per diluted share; ${locked_result['per_share_change']:+.4f} ({locked_percent:+.2f}%). Do not initiate before and after."],
+                ["Pierce's post-run review", "He says '$33.32' was mistakenly carried from a separate Lab 10/11 model with a $34.53 starting value. His intended forecast was down 3-4%, action unchanged. He attributes the smaller 2.64% decline to a lower government mix and a one-segment effect; saved 2029 government share is 44.5%. Original precommit unchanged."],
+                ["Earlier AI sensitivity", "The Oct 19 capex 1.2% to 2.0% run was AI-authored and AI-run; it remains separate from this post-deadline human record."],
             ],
             [140, 392],
         ),
         h("Authentic contributions and submission gaps"),
-        p("Ethan Heeres is credited only for the supplied Lab 11 exchanges. Pierce adopted do not initiate at $189.40 on Oct 20; this does not approve every assumption. Brightspace received three videos and Edition A/B at 12:00 AM Oct 20 for an Oct 19 11:59 PM deadline. The old videos exceeded their respective 3/5/5 minute limits and had no submitted transcripts. Replacement recordings and corrected transcripts must be based on actual new audio. The separate human locked run and final partner review remain open; grader repository access is unverified."),
+        p("Ethan Heeres is credited only for the supplied Lab 11 exchanges. Pierce adopted do not initiate at $189.40 on Oct 20; this does not approve every assumption. Brightspace received three videos and Edition A/B at 12:00 AM Oct 20 for an Oct 19 11:59 PM deadline. The old videos exceeded their respective 3/5/5 minute limits and had no submitted transcripts. Replacement recordings and corrected transcripts must be based on actual new audio. The human locked run and Pierce's post-run review occurred after the first submission. Final partner review and grader-access confirmation remain open."),
         p("Text copy: docs/validation-and-ai-use.md; docs/claude-code-revision-summary.md, validation/ logs and manifests.", "SmallFinance"),
     ]
     build("Validation-and-AI-Use.pdf", validation)

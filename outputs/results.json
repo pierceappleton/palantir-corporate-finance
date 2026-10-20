@@ -1,7 +1,7 @@
 {
-  "created_utc": "2026-10-20T00:18:39.747126+00:00",
+  "created_utc": "2026-10-20T04:48:53.869351+00:00",
   "valuation_date": "2026-10-05",
-  "status": "Independent provisional analysis: postcomparison version: human locked test, final partner review and submission requirements pending",
+  "status": "AI-assisted valuation with Pierce's do-not-initiate action at the October 5 reference price. The separate human locked run was recorded after the first submission; see validation/locked/. Source and assumption limits remain documented.",
   "cases": {
     "low": {
       "explicit_pv": 10957.379678151403,

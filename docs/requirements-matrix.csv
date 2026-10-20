@@ -7,13 +7,13 @@ FCFF shared forecast,src/model.py and src/dcf.py,DCF and articulation suite,impl
 Cases sensitivity reverse DCF,outputs/results.json wacc_growth.csv terminal_conventions.csv market_implied.csv,Directional and fade-engine tests,implemented provisional
 Peer policy and multiples,docs/peer-policy-revised-2026-10-20.md and outputs/peer_multiples.csv,Definition/date check; NM rule test,implemented qualified; wider peer data pending
 Named downside,Conditional entry scenario tests,Recommendation flips at20 repricing,implemented conditional
-Locked human prediction,validation/locked-test-template.md,Prediction committed before designated run; separate AI sensitivity recorded but does not count,pending human Gate D
+Locked human prediction,validation/locked/20261020T044925989222Z/ and validation/locked_human_government_2029.py,Prediction commit 28f3017 before result commit 80546d1; Pierce post-run review preserved; separate AI capex sensitivity does not count,post-deadline human run complete with erroneous numeric direction field disclosed
 Published training case,validation/published-training-reconciliation.json,All12officialoutputswithin0.0001,pass
 Partner challenges,docs/prior-work-comparison.md,SuppliedLab11Ethanfeedbackcredited;finalreviewunfilled,partial
 Visible outputs and interface,app/main.py and outputs/review.html,App check and cold run 2026-10-20,pass
 Independent freeze,validation/independent-freeze.json,UTC commit and hashes,pass (preserved)
-EditionB comparison,submission,Preserve submitted official EditionA,pending postfreeze prior work
-Videos transcripts final filenames,docs/submission-compliance.md,Officialchecklistverified;realrecordingspending,partial
+EditionB comparison,submission/Edition A.pdf and docs/research-evolution-edition-b.md,Preserve supplied official Edition A byte-for-byte; dated A-to-B reconciliation,Edition A and original Edition B submitted via Brightspace and preserved; revised Edition B in submission/Research-Evolution.pdf
+Videos transcripts final filenames,docs/submission-compliance.md,Official checklist verified; three videos submitted via Brightspace but over the 3/5/5-minute limits; transcripts not submitted,partial; replacements pending
 
 Bounded adjustable product,src/workbench.py and app/main.py,Livechange reset redfailure recovery,pass
 Own-proforma OAT and range dependence,outputs/one_at_a_time.csv and equal_proportional_sensitivity.csv,ProfitFCFFvalue spans and ranking comparison,pass

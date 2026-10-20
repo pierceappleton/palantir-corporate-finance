@@ -2,6 +2,7 @@ PASS: all twelve published outputs; not an AI-invented synthetic answer
 test_cumulative_amortization_never_exceeds_unrecognized_balance (test_accounting_corrections.AwardRunoffTests.test_cumulative_amortization_never_exceeds_unrecognized_balance) ... ok
 test_longer_service_periods_still_capped (test_accounting_corrections.AwardRunoffTests.test_longer_service_periods_still_capped) ... ok
 test_rsu_expense_runs_to_june_2029_not_december_2028 (test_accounting_corrections.AwardRunoffTests.test_rsu_expense_runs_to_june_2029_not_december_2028) ... ok
+test_increased_capex_reduces_fcff_and_value_without_breaking_statements (test_accounting_corrections.CapexSensitivityTests.test_increased_capex_reduces_fcff_and_value_without_breaking_statements) ... ok
 test_disabled_correction_reproduces_frozen_base (test_accounting_corrections.CutoffCashTests.test_disabled_correction_reproduces_frozen_base) ... ok
 test_second_half_fcff_is_split_with_no_gap_or_overlap (test_accounting_corrections.CutoffCashTests.test_second_half_fcff_is_split_with_no_gap_or_overlap) ... ok
 test_stub_cash_is_credited_once_in_the_bridge (test_accounting_corrections.CutoffCashTests.test_stub_cash_is_credited_once_in_the_bridge) ... ok
@@ -35,6 +36,6 @@ test_nonpositive_gaap_earnings_are_not_a_pe (test_peers.PeerTests.test_nonpositi
 test_tiny_earnings_marked_not_meaningful_not_dropped (test_peers.PeerTests.test_tiny_earnings_marked_not_meaningful_not_dropped) ... ok
 
 ----------------------------------------------------------------------
-Ran 34 tests in 0.377s
+Ran 35 tests in 1.052s
 
 OK

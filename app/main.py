@@ -35,9 +35,9 @@ def reset_drivers():
 
 st.set_page_config(page_title="Palantir independent finance review", layout="wide")
 st.title("Palantir - finance review and driver workbench")
-st.caption("Valuation date: October 5, 2026. USD; currency and shares in millions. Course and human validation gates remain pending.")
+st.caption("Valuation date: October 5, 2026. USD; currency and shares in millions. Pierce adopted do not initiate at $189.40; source and assumption limits are documented.")
 r = json.loads((ROOT / "outputs/results.json").read_text(encoding="utf8"))
-st.warning(r["status"])
+st.info(r["status"])
 history, config = load()
 BASE_DRIVERS = {
     "growth_shift": 0.0,
@@ -58,7 +58,7 @@ with st.sidebar:
     st.caption(
         "Bounds are analyst stress limits, not probability estimates. Growth shifts bracket deceleration; margin shifts "
         "bracket compensation/compute costs. ROIC includes a weak-return failure case. Terminal margin stays fixed when "
-        "explicit margins move. Capex is held at base pending the human locked test."
+        "explicit margins move. Capex stays at base in this workbench; the earlier AI-controlled capex sensitivity is a separate record."
     )
 
 live_rows = None

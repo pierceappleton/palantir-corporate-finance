@@ -527,8 +527,9 @@ def run():
         created_utc=datetime.now(timezone.utc).isoformat(),
         valuation_date=c["valuation_date"],
         status=(
-            "Independent provisional analysis: postcomparison version: human locked test, "
-            "final partner review and submission requirements pending"
+            "AI-assisted valuation with Pierce's do-not-initiate action at the October 5 reference price. "
+            "The separate human locked run was recorded after the first submission; see validation/locked/. "
+            "Source and assumption limits remain documented."
         ),
         cases=results,
         terminal_conventions=conventions,

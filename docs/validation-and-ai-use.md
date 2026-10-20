@@ -1,7 +1,7 @@
 FIN439 | Pierce Appleton | AI-assisted analysis | Revised Oct 20, 2026
 1
  Validation and AI use
-Executed evidence and outstanding human gate
+Executed evidence and human locked run
 Independent snapshot 890b9738c802592abb4e70beb8efc21181fdfcea was frozen Oct 6, 2026 22:53:27 UTC; its manifest is
 preserved. FIN439-Labs commit 2e861768 was read only after that freeze. Course snapshot 69eac1e8. Later revisions were
 merged to main; they are not part of the independent freeze. User-supplied official Edition A PDF is preserved unchanged at
@@ -43,25 +43,32 @@ and used a rounded option period (10-Q XBRL 4y10m21d); duplicate fade math with 
 commit unrelated staged files. Qualified: 47% margin confirmed GAAP from the 10-Q income statement; 1.4% tax rate is
 structural (valuation allowance), not one-time. Earlier: adjusted margins rejected as economic profit; negative cash-flow clipping
 rejected.
-Locked Changed-Input Record (Gate D) - separate human run pending
+Locked Changed-Input Record (Gate D) - executed after first submission
 Field
 Current record
-Designated new input
-Base-case 2029 government revenue growth: 22% to 12% of prior-year government revenue; all other
-assumptions fixed.
-Human prediction / reasoning
-Pending Pierce's separate AI-off pre-run prediction. Do not substitute the earlier jointly discussed capex result.
-Timestamp / precommit
-Pending. The new runner commits only Pierce's prediction before calculating either case.
-Actual result / decision effect
-Pending the AI-closed human run and Pierce's comparison. No result is claimed in this revision.
+Input and controls
+Base 2029 government revenue growth 22% to 12% of prior-year government revenue; other inputs, cutoff, share
+basis and price fixed.
+Human precommit
+Form names Pierce A. and Rusheel N. and attests AI closed. Prediction saved
+2026-10-20T04:49:25.989222+00:00 in commit 28f301791741; result commit 80546d140046 follows it.
+Prediction as entered
+Direction field: '$33.32'. Written reasoning predicted value would fall by about 3-4%; action would remain do not
+initiate. These statements conflict; the original precommit is unchanged.
+Actual and decision
+$30.1183 to $29.3238 per diluted share; $-0.7944 (-2.64%). Do not initiate before and after.
+Pierce's post-run review
+He says '$33.32' was mistakenly carried from a separate Lab 10/11 model with a $34.53 starting value. His
+intended forecast was down 3-4%, action unchanged. He attributes the smaller 2.64% decline to a lower
+government mix and a one-segment effect; saved 2029 government share is 44.5%. Original precommit
+unchanged.
 Earlier AI sensitivity
-Oct 19 capex 1.2% to 2.0% was AI-authored and AI-run; it remains a separate, disclosed sensitivity, not this
+The Oct 19 capex 1.2% to 2.0% run was AI-authored and AI-run; it remains separate from this post-deadline
 human record.
 Authentic contributions and submission gaps
 Ethan Heeres is credited only for the supplied Lab 11 exchanges. Pierce adopted do not initiate at $189.40 on Oct 20; this does
 not approve every assumption. Brightspace received three videos and Edition A/B at 12:00 AM Oct 20 for an Oct 19 11:59 PM
 deadline. The old videos exceeded their respective 3/5/5 minute limits and had no submitted transcripts. Replacement
-recordings and corrected transcripts must be based on actual new audio. The separate human locked run and final partner
-review remain open; grader repository access is unverified.
+recordings and corrected transcripts must be based on actual new audio. The human locked run and Pierce's post-run review
+occurred after the first submission. Final partner review and grader-access confirmation remain open.
 Text copy: docs/validation-and-ai-use.md; docs/claude-code-revision-summary.md, validation/ logs and manifests.
