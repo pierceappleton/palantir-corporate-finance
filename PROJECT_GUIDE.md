@@ -1,4 +1,4 @@
-# PROJECT_GUIDE â€” Palantir FIN439
+# PROJECT_GUIDE - Palantir FIN439
 Created 2026-10-06. Owner: Pierce Appleton, Purdue Finance and Accounting.
 
 ## Objective and authorized scope
@@ -28,7 +28,7 @@ A: reconcile a published weekly starter to published answers; never invent these
 AI-executable completion requires real running code, traceable inputs, reconciled normalization and five statements, shared forecast/DCF, complete bridges, comparisons/stresses, matching static outputs, executed meaningful checks, clean-run evidence, supported range/action and documented external dependencies. Overall submission additionally requires authentic human contributions, recordings and corrected transcripts, official checklist naming/access and outstanding course checks. Do not claim unfinished artifacts complete.
 
 ## Missing materials / blockers
-Official checklist, weekly DCF answers, templates, limits and annotated excerpt were obtained after the independent freeze. Remaining: Brightspace deadline/header, referenced 300-point rubric, unchanged official EditionA PDF, authentic final partner review, AI-off locked record, recordings and grader access. Pending course-specific requirements cannot be replaced with AI synthetic examples. Official Edition A content remains intentionally uninspected. Windows sandbox launch fails with apply deny-read ACLs; approved outside-sandbox execution works. Python 3.14.7, Git and authenticated gh verified. Private repository created under pierceappleton.
+Official checklist, weekly DCF answers, templates, limits and annotated excerpt were obtained after the independent freeze. Remaining: Brightspace deadline/header, referenced 300-point rubric, unchanged official EditionA PDF, authentic final partner review, AI-off locked record, recordings and grader access. Pending course-specific requirements cannot be replaced with AI synthetic examples. The official Brightspace Edition A PDF is unchanged and not in this repository; a repository copy of the Edition A draft was read after the independent freeze (prior-work comparison). Windows sandbox launch fails with apply deny-read ACLs; approved outside-sandbox execution works. Python 3.14.7, Git and authenticated gh verified. Repository created under pierceappleton; the plan required private, but GitHub showed it public on 2026-10-20 (Pierce to decide).
 
 ## Handoff procedure
 Every session reads this guide and docs/STATUS.md, inspects real Git/files, preserves unrelated files and read-only synced sources. Update requirements matrix, status, decision log, challenge register, AI-use/validation record, source manifest and final manifest. Handoff records changes, inspected sources, commands actually executed, results, uncertainties and exact next steps. Do not expose credentials or weaken permissions. User has authorized routine reversible implementation, repository creation and execution; do not request general approval again.

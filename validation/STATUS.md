@@ -12,3 +12,6 @@ J AI output corrected/qualified: automatic consumption of issuer-rendered signs 
 Supplied Lab11 Ethan feedback is preserved and attributed; completed final review and recordings/transcripts remain pending. Course names/limits now verified; 300-point rubric, Brightspaceheader, officialEditionA PDF and grader access remain pending. Bounded liveworkbench reset/failure and one-at-a-time/equalproportional tests added postfreeze.
 
 Postcomparison fresh-environment run: PASS; validation/postcomparison-cold-run.json; completed 2026-10-06T23:22:29.551572+00:00. 15 tests,32 source checks,12 official outputs and liveworkbench change/failure/reset all pass.
+
+## Post-comparison revision, Claude Code, 2026-10-20
+E: income-statement identity checks added (lines to EBIT; pretax - tax = net income). F: fade engine tests (zero-fade equivalence, cross-stage timing, growth/ROIC reinvestment, WACC > g); stub cash counted once; award runoff capped. G: revised peer rule with 'not meaningful' P/E marking; wider data pending. I: fresh-environment Linux cold run recorded in validation/cold-run-2026-10-20.json. D remains PENDING and was not run; the runner now commits only its record file. 34 tests and 38 source-row checks pass.

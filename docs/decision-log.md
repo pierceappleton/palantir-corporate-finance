@@ -7,3 +7,14 @@
 2026-10-06: future SBC cash replacement plus separately diluted old awards; remove old prospective service cost to avoid duplicate charging. SAR upper-bound dilution is conservative approximation.
 2026-10-06: no forced transactions; acquisitions have control/synergy/integration differences.
 2026-10-06: recommendation thresholds are policy assumptions: initiate candidate below80% of case value, do-not-initiate above120%, watch between; human strategy ownership preserved.
+
+## Post-comparison revision, Claude Code, 2026-10-20
+Not part of the October 6 independent freeze. Commits 890b973, d248dc4 and 7c190eb and their manifests are unchanged.
+- Code correction: equity bridge cash rolled from June 30 to October 5 by the cash retained in the 97-day stub (FCFF + after-tax interest + financing). Base +$0.33.
+- Code correction: existing-award runoff is now an explicit straight-line schedule capped at each unrecognized balance; RSUs run to June 2029; options use the filed 4y10m21d period. Base +$0.03.
+- Code correction: income-statement identity checks; operating, book and cash tax shown separately.
+- Engine: terminal fade moved into src/dcf.py/src/model.py; base_years = 0 (unchanged convention) pending Pierce.
+- Not adopted (options awaiting Pierce): 5- or 10-year fade, flat 2026 margin, NOL shield, alternative beta, wider peer list. See docs/valuation-bridge-2026-10-20.md.
+- Peer policy: dated revision docs/peer-policy-revised-2026-10-20.md; original preserved.
+- Locked runner: commits restricted to the record file. The designated test was not run.
+- Repository visibility: GitHub reports the repo as public; left unchanged for Pierce's decision.

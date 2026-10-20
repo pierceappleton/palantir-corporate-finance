@@ -4,16 +4,19 @@ Historical source trace,data/raw and docs/source_manifest.json,Primary statement
 Normalized base year,docs/normalization.md,Operating EBIT and cash restricted bridge,implemented provisional
 Five-year three statements,outputs/*_three_statements.csv,tests/test_model.py,implemented provisional
 FCFF shared forecast,src/model.py and src/dcf.py,DCF and articulation suite,implemented
-Cases sensitivity reverse DCF,outputs/results.json and wacc_growth.csv,Directional checks,implemented provisional
-Peer policy and multiples,docs/peer-policy.md and outputs/peer_multiples.csv,Definition/date check,implemented qualified
+Cases sensitivity reverse DCF,outputs/results.json wacc_growth.csv terminal_conventions.csv market_implied.csv,Directional and fade-engine tests,implemented provisional
+Peer policy and multiples,docs/peer-policy-revised-2026-10-20.md and outputs/peer_multiples.csv,Definition/date check; NM rule test,implemented qualified; wider peer data pending
 Named downside,Conditional entry scenario tests,Recommendation flips at20 repricing,implemented conditional
 Locked human prediction,validation/locked-test-template.md,Prediction committed before designated run,pending human
 Published training case,validation/published-training-reconciliation.json,All12officialoutputswithin0.0001,pass
 Partner challenges,docs/prior-work-comparison.md,SuppliedLab11Ethanfeedbackcredited;finalreviewunfilled,partial
-Visible outputs and interface,app/main.py and outputs/review.html,App cold-run verification,pending
-Independent freeze,validation/independent-freeze.json,UTC commit and hashes,pending
+Visible outputs and interface,app/main.py and outputs/review.html,App check and cold run 2026-10-20,pass
+Independent freeze,validation/independent-freeze.json,UTC commit and hashes,pass (preserved)
 EditionB comparison,submission,Preserve submitted official EditionA,pending postfreeze prior work
 Videos transcripts final filenames,docs/submission-compliance.md,Officialchecklistverified;realrecordingspending,partial
 
 Bounded adjustable product,src/workbench.py and app/main.py,Livechange reset redfailure recovery,pass
 Own-proforma OAT and range dependence,outputs/one_at_a_time.csv and equal_proportional_sensitivity.csv,ProfitFCFFvalue spans and ranking comparison,pass
+Cutoff cash and award runoff corrections,src/model.py,tests/test_accounting_corrections.py,pass (2026-10-20)
+Terminal fade engine,src/dcf.py and src/model.py,tests/test_fade_engine.py,pass; base fade length pending human
+Source verification,docs/source-verification-2026-10-20.md,Filing checks; market sources,partial: market sources pending
