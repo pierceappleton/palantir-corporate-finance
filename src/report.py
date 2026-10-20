@@ -1,29 +1,78 @@
-import json,csv,html,copy
+"""Named stresses, committee memo, static review page and README generator."""
+import copy
+import html
+import json
+from datetime import datetime, timezone
 from pathlib import Path
-from datetime import datetime,timezone
-from src.model import load,forecast,value,dump_csv
 
-def save(path,text):Path(path).write_text(text,encoding='utf8')
+from src.model import bridge, dump_csv, forecast, load, value
+
+
+def save(path, text):
+    """Write text as UTF-8."""
+    Path(path).write_text(text, encoding="utf8")
+
+
+def named_stresses(results, data, c):
+    """Return the named stress rows and the delayed-maturity per-share value."""
+    base = c["cases"]["base"]
+    stresses = []
+    shock = copy.deepcopy(base)
+    shock["commercial_growth"] = [0, -0.10, 0.15, 0.20, 0.15]
+    shock["government_growth"] = [0, 0.05, 0.10, 0.12, 0.12]
+    shock["margins"] = [0.46, 0.25, 0.30, 0.34, 0.35]
+    shock["nwc_ratio"] = 0.12
+    shock["wacc"] = 0.12
+    for name, case in [("Procurement delay and AI deployment failure", shock), ("Commercial conversion slowdown", c["cases"]["low"])]:
+        v = value(forecast(case, data, c), case, data, c)
+        stresses.append(
+            dict(
+                scenario=name,
+                value=v["per_share"],
+                current_action=v["action"],
+                conditional_price=20,
+                conditional_action="do_not_initiate" if 20 > v["per_share"] * 1.2 else "watch_defer",
+            )
+        )
+    # Terminal-maturity challenge: continue transition cash flows inside terminal convention.
+    # These are explicit terminal-convention calculations, not an inconsistent separate five-year forecast.
+    last = forecast(base, data, c)[-1]["revenue"]
+    transition_pv = 0
+    w = base["wacc"]
+    g = base["growth"]
+    roic = c["terminal_roic"]
+    for t, (growth, margin) in enumerate(zip(c["terminal_fade"]["growth"], c["terminal_fade"]["margin"]), 1):
+        last *= 1 + growth
+        nopat = last * margin * (1 - c["tax"])
+        f = nopat * (1 - growth / roic)
+        transition_pv += f / (1 + w) ** t
+    terminal = last * (1 + g) * 0.35 * (1 - c["tax"]) * (1 - g / roic) / (w - g) / (1 + w) ** 5
+    at2030 = transition_pv + terminal
+    b = bridge(data, c)
+    ev = results["cases"]["base"]["explicit_pv"] + at2030 / (1 + w) ** (c["remaining_days"] / 365 + 4)
+    transition_price = (ev + b.cash + b.investments - b.debt - b.other_claims) / b.shares
+    stresses.append(
+        dict(
+            scenario="Maturity deferred to2035 with five-year fade",
+            value=transition_price,
+            current_action="do_not_initiate" if c["price"] > 1.2 * transition_price else "watch_defer",
+            conditional_price=20,
+            conditional_action="initiate_candidate" if 20 < 0.8 * transition_price else "watch_defer",
+        )
+    )
+    return stresses, transition_price
+
+
 def run():
- r=json.loads(Path('outputs/results.json').read_text(encoding='utf8'));data,c=load();base=c['cases']['base']
- stresses=[]
- shock=copy.deepcopy(base);shock['commercial_growth']=[0,-.10,.15,.20,.15];shock['government_growth']=[0,.05,.10,.12,.12];shock['margins']=[.46,.25,.30,.34,.35];shock['nwc_ratio']=.12;shock['wacc']=.12
- for name,case in [('Procurement delay and AI deployment failure',shock),('Commercial conversion slowdown',c['cases']['low'])]:
-  v=value(forecast(case,data,c),case,data,c);stresses.append(dict(scenario=name,value=v['per_share'],current_action=v['action'],conditional_price=20,conditional_action='do_not_initiate' if 20>v['per_share']*1.2 else 'watch_defer'))
- # Terminal-maturity challenge: continue transition cash flows inside terminal convention.
- # These are explicit terminal-convention calculations, not an inconsistent separate five-year forecast.
- last=forecast(base,data,c)[-1]['revenue'];transition_pv=0;w=base['wacc'];g=base['growth'];roic=c['terminal_roic']
- for t,(growth,margin) in enumerate(zip(c['terminal_fade']['growth'],c['terminal_fade']['margin']),1):
-  last*=1+growth;nopat=last*margin*(1-c['tax']);f=nopat*(1-growth/roic);transition_pv+=f/(1+w)**t
- terminal=last*(1+g)*.35*(1-c['tax'])*(1-g/roic)/(w-g)/(1+w)**5
- at2030=transition_pv+terminal
- from src.model import bridge
- b=bridge(data,c);ev=r['cases']['base']['explicit_pv']+at2030/(1+w)**(c['remaining_days']/365+4)
- transition_price=(ev+b.cash+b.investments-b.debt-b.other_claims)/b.shares
- stresses.append(dict(scenario='Maturity deferred to2035 with five-year fade',value=transition_price,current_action='do_not_initiate' if c['price']>1.2*transition_price else 'watch_defer',conditional_price=20,conditional_action='initiate_candidate' if 20<.8*transition_price else 'watch_defer'))
- dump_csv('outputs/named_stresses.csv',stresses)
- low=r['cases']['low']['per_share'];high=r['cases']['high']['per_share'];bv=r['cases']['base']['per_share']
- memo=f'''# Palantir independent committee memo â€” provisional
+    """Regenerate stresses, memo, review page and README from saved results."""
+    r = json.loads(Path("outputs/results.json").read_text(encoding="utf8"))
+    data, c = load()
+    stresses, transition_price = named_stresses(r, data, c)
+    dump_csv("outputs/named_stresses.csv", stresses)
+    low = r["cases"]["low"]["per_share"]
+    high = r["cases"]["high"]["per_share"]
+    bv = r["cases"]["base"]["per_share"]
+    memo = f'''# Palantir independent committee memo â€” provisional
 Created {datetime.now(timezone.utc).isoformat()}. AI-generated after the official checkpoint; not official EditionA or Pierce's original judgment.
 
 Conditional action: **do not initiate at the October5,2026 regular close of $189.40 under this evidence and model.** Fundamental DCF case range is approximately **${low:.0f}â€“${high:.0f} per diluted economic share**, with base around ${bv:.0f}. This is a judgment-dependent interval, not a statistical confidence interval or a universal price ceiling. Senior analysts retain sector strategy; Pierce must review the material assumptions. Course and human validations remain pending.
@@ -55,16 +104,42 @@ Revisit after reported commercial/government sales and collection evidence, not 
 ## Validation limits and human work
 Arithmetic and boundary tests pass; this is not proof of sound investment judgment. Published starter reconciliation now passes. Genuine AI-off prediction and AI-closed locked test, completed final attributed partner review, actual recordings/transcripts, official rubric/checklist and comparison with Pierce's existing work remain pending. Independent research has not been substituted for the official EditionA receipt. No complete course-compliant submission is claimed.
 '''
- save('submission/current-model-memo.md',memo)
- fragments=['<h1>Palantir â€” independent finance review</h1>',f'<p>Valuation date October5,2026 | Provisional DCF range ${low:.0f}â€“${high:.0f} | Conditional action: do not initiate at $189.40</p>','<p>All currency and shares in millions; DCF values diluted, peer-relative values basic. Required course and human gates pending.</p>']
- import pandas as pd
- for title,file in [('Case results','results.json'),('Five-year base integrated forecast','base_three_statements.csv'),('WACCâ€“growth sensitivity','wacc_growth.csv'),('Comparables','peer_multiples.csv'),('Relative valuation','relative_valuation.csv'),('Named stresses','named_stresses.csv'),('One-at-a-time sensitivities','one_at_a_time.csv'),('Equal proportional sensitivities','equal_proportional_sensitivity.csv'),('Prior-work attribution','prior-work-attribution.csv'),('One-at-a-time sensitivities','one_at_a_time.csv'),('Equal proportional sensitivities','equal_proportional_sensitivity.csv'),('Prior-work attribution','prior-work-attribution.csv')]:
-  fragments.append('<h2>'+title+'</h2>')
-  if file.endswith('.csv'):fragments.append(pd.read_csv('outputs/'+file).round(3).to_html(index=False))
-  else:fragments.append('<pre>'+html.escape(json.dumps(r,indent=2))+'</pre>')
- fragments.append('<h2>Committee memo</h2><pre>'+html.escape(memo)+'</pre>')
- save('outputs/review.html','<!doctype html><meta charset="utf-8"><title>Palantir finance review</title><style>body{font:16px system-ui;margin:40px;color:#1b2735}table{border-collapse:collapse;font-size:13px;display:block;overflow:auto}td,th{padding:7px;border:1px solid #ccd3dc}pre{white-space:pre-wrap;line-height:1.5}h2{margin-top:35px}</style>'+''.join(fragments))
- save('README.md','''# Palantir corporate finance â€” FIN439
+    save("submission/current-model-memo.md", memo)
+    fragments = [
+        "<h1>Palantir â€” independent finance review</h1>",
+        f"<p>Valuation date October5,2026 | Provisional DCF range ${low:.0f}â€“${high:.0f} | Conditional action: do not initiate at $189.40</p>",
+        "<p>All currency and shares in millions; DCF values diluted, peer-relative values basic. Required course and human gates pending.</p>",
+    ]
+    import pandas as pd
+
+    sections = [
+        ("Case results", "results.json"),
+        ("Five-year base integrated forecast", "base_three_statements.csv"),
+        ("WACCâ€“growth sensitivity", "wacc_growth.csv"),
+        ("Comparables", "peer_multiples.csv"),
+        ("Relative valuation", "relative_valuation.csv"),
+        ("Named stresses", "named_stresses.csv"),
+        ("One-at-a-time sensitivities", "one_at_a_time.csv"),
+        ("Equal proportional sensitivities", "equal_proportional_sensitivity.csv"),
+        ("Prior-work attribution", "prior-work-attribution.csv"),
+        ("One-at-a-time sensitivities", "one_at_a_time.csv"),
+        ("Equal proportional sensitivities", "equal_proportional_sensitivity.csv"),
+        ("Prior-work attribution", "prior-work-attribution.csv"),
+    ]
+    for title, file in sections:
+        fragments.append("<h2>" + title + "</h2>")
+        if file.endswith(".csv"):
+            fragments.append(pd.read_csv("outputs/" + file).round(3).to_html(index=False))
+        else:
+            fragments.append("<pre>" + html.escape(json.dumps(r, indent=2)) + "</pre>")
+    fragments.append("<h2>Committee memo</h2><pre>" + html.escape(memo) + "</pre>")
+    style = (
+        "<style>body{font:16px system-ui;margin:40px;color:#1b2735}table{border-collapse:collapse;font-size:13px;"
+        "display:block;overflow:auto}td,th{padding:7px;border:1px solid #ccd3dc}pre{white-space:pre-wrap;"
+        "line-height:1.5}h2{margin-top:35px}</style>"
+    )
+    save("outputs/review.html", '<!doctype html><meta charset="utf-8"><title>Palantir finance review</title>' + style + "".join(fragments))
+    save("README.md", '''# Palantir corporate finance â€” FIN439
 Private independent project for Pierce Appleton. Official EditionA is unchanged and uninspected. This is an AI-generated postcheckpoint analysis with pending course/human gates.
 
 ## Visible results
@@ -85,4 +160,7 @@ Read PROJECT_GUIDE.md, docs/STATUS.md, docs/requirements-matrix.csv, docs/normal
 
 Official checklist and video/memo limits are now preserved under data/reference/official-course. See docs/submission-compliance.md. The 300-point rubric and Brightspace header remain unavailable. Both PDFs are working drafts; human gates and Research-Evolution.pdf are incomplete.
 ''')
-if __name__=='__main__':run()
+
+
+if __name__ == "__main__":
+    run()
