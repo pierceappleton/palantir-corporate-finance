@@ -1,7 +1,7 @@
 {
   "human_answer": {
     "name": "Pierce A. & Rusheel N.",
-    "direction": "$33.32",
+    "direction": "Decrease about 3-4% from the $30.1183 base value; do not initiate unchanged",
     "reasoning": "Cutting 2029 government growth from 22% to 12% makes 2029 government revenue about 8% smaller. Margins are fixed, so operating profit and free cash flow fall too. The smaller 2029 base carries into 2030 and the terminal value, so value per diluted share falls. The drop should be modest, about 3\u20134%, because only one year and roughly half of revenue change.",
     "decision": "The do-not-initiate action stays the same, and the case for it gets slightly stronger. Intrinsic value is already well below $189.40, so a lower value only widens that gap. The change can\u2019t push value above the threshold, so the decision holds."
   },
@@ -16,5 +16,11 @@
   "base_repository_commit": "c01c55f56bce8a0edc0078761190be6762dfe685",
   "config_sha256": "800c5c9441ef331812a2fb1b2862662f6e7587f4ca960804f52372f79225be3a",
   "runner_sha256": "6ab90ae6e408cd4760d0372b848c561ee14910b22539be0319adb53e29d063e1",
-  "output_status": "not executed at prediction precommit"
+  "output_status": "not executed at prediction precommit",
+  "post_run_amendment": {
+    "date": "2026-10-20",
+    "original_precommit": "28f30179174180473b29fd7b2de039982c627f81",
+    "original_direction_field": "$33.32",
+    "reason": "Pierce identified this as a mistaken carryover from a different Lab 10/11 model after the run. The amended direction restates the 3-4% decrease already written in the precommitted reasoning. This amendment was made after the result and is not part of the AI-off precommit."
+  }
 }
