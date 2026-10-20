@@ -1,4 +1,13 @@
 PASS: all twelve published outputs; not an AI-invented synthetic answer
+test_cumulative_amortization_never_exceeds_unrecognized_balance (test_accounting_corrections.AwardRunoffTests.test_cumulative_amortization_never_exceeds_unrecognized_balance) ... ok
+test_longer_service_periods_still_capped (test_accounting_corrections.AwardRunoffTests.test_longer_service_periods_still_capped) ... ok
+test_rsu_expense_runs_to_june_2029_not_december_2028 (test_accounting_corrections.AwardRunoffTests.test_rsu_expense_runs_to_june_2029_not_december_2028) ... ok
+test_disabled_correction_reproduces_frozen_base (test_accounting_corrections.CutoffCashTests.test_disabled_correction_reproduces_frozen_base) ... ok
+test_second_half_fcff_is_split_with_no_gap_or_overlap (test_accounting_corrections.CutoffCashTests.test_second_half_fcff_is_split_with_no_gap_or_overlap) ... ok
+test_stub_cash_is_credited_once_in_the_bridge (test_accounting_corrections.CutoffCashTests.test_stub_cash_is_credited_once_in_the_bridge) ... ok
+test_valuing_from_june_30_needs_no_roll_forward (test_accounting_corrections.CutoffCashTests.test_valuing_from_june_30_needs_no_roll_forward) ... ok
+test_displayed_lines_add_to_ebit_and_net_income (test_accounting_corrections.IncomeStatementIdentityTests.test_displayed_lines_add_to_ebit_and_net_income) ... ok
+test_expense_allocation_error_fails_loudly (test_accounting_corrections.IncomeStatementIdentityTests.test_expense_allocation_error_fails_loudly) ... ok
 test_bounded_inputs_and_terminal_failure (test_course_workbench.CourseWorkbenchTests.test_bounded_inputs_and_terminal_failure) ... ok
 test_live_growth_and_reset (test_course_workbench.CourseWorkbenchTests.test_live_growth_and_reset) ... ok
 test_published_training_case (test_course_workbench.CourseWorkbenchTests.test_published_training_case) ... ok
@@ -7,6 +16,15 @@ test_invalid_inputs (test_dcf.DCFTests.test_invalid_inputs) ... ok
 test_known_annuity_and_bridge (test_dcf.DCFTests.test_known_annuity_and_bridge) ... ok
 test_nonuniform_stub_period (test_dcf.DCFTests.test_nonuniform_stub_period) ... ok
 test_predicted_wacc_direction (test_dcf.DCFTests.test_predicted_wacc_direction) ... ok
+test_base_years_zero_matches_immediate_maturity (test_fade_engine.ModelFadeTests.test_base_years_zero_matches_immediate_maturity) ... ok
+test_explicit_path_length_is_checked (test_fade_engine.ModelFadeTests.test_explicit_path_length_is_checked) ... ok
+test_fade_and_terminal_reinvestment_follow_growth_over_roic (test_fade_engine.ModelFadeTests.test_fade_and_terminal_reinvestment_follow_growth_over_roic) ... ok
+test_linear_path_moves_toward_terminal_values (test_fade_engine.ModelFadeTests.test_linear_path_moves_toward_terminal_values) ... ok
+test_discount_timing_is_consistent_across_stages (test_fade_engine.StagedEngineTests.test_discount_timing_is_consistent_across_stages) ... ok
+test_wacc_must_exceed_terminal_growth (test_fade_engine.StagedEngineTests.test_wacc_must_exceed_terminal_growth) ... ok
+test_zero_length_fade_reproduces_original_engine_exactly (test_fade_engine.StagedEngineTests.test_zero_length_fade_reproduces_original_engine_exactly) ... ok
+test_commits_only_the_record_when_other_files_are_modified (test_locked_runner_commit.LockedRunnerCommitTests.test_commits_only_the_record_when_other_files_are_modified) ... ok
+test_refuses_when_other_changes_are_staged (test_locked_runner_commit.LockedRunnerCommitTests.test_refuses_when_other_changes_are_staged) ... ok
 test_all_cases_articulate_and_share_forecast (test_model.ModelTests.test_all_cases_articulate_and_share_forecast) ... ok
 test_history_and_restricted_cash (test_model.ModelTests.test_history_and_restricted_cash) ... ok
 test_recommendation_changing_downside_at_conditional_entry (test_model.ModelTests.test_recommendation_changing_downside_at_conditional_entry) ... ok
@@ -14,8 +32,9 @@ test_terminal_reinvestment_rejects_impossible_growth (test_model.ModelTests.test
 test_thousand_unit_contamination_rejected (test_model.ModelTests.test_thousand_unit_contamination_rejected) ... ok
 test_negative_revenue_denominator_rejected (test_peers.PeerTests.test_negative_revenue_denominator_rejected) ... ok
 test_nonpositive_gaap_earnings_are_not_a_pe (test_peers.PeerTests.test_nonpositive_gaap_earnings_are_not_a_pe) ... ok
+test_tiny_earnings_marked_not_meaningful_not_dropped (test_peers.PeerTests.test_tiny_earnings_marked_not_meaningful_not_dropped) ... ok
 
 ----------------------------------------------------------------------
-Ran 15 tests in 0.006s
+Ran 34 tests in 0.377s
 
 OK

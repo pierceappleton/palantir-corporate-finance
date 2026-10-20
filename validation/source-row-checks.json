@@ -105,6 +105,14 @@
   },
   {
     "period": "annual_2025",
+    "field": "pretax_income",
+    "source_label": "Income before provision for income taxes",
+    "source_value": 1657.368,
+    "model_value": 1657.368,
+    "status": "pass"
+  },
+  {
+    "period": "annual_2025",
     "field": "net_income",
     "source_label": "Net income",
     "source_value": 1634.644,
@@ -217,10 +225,50 @@
   },
   {
     "period": "interim_2026h1",
+    "field": "pretax_income",
+    "source_label": "Income before provision for income taxes",
+    "source_value": 1969.946,
+    "model_value": 1969.946,
+    "status": "pass"
+  },
+  {
+    "period": "interim_2026h1",
     "field": "net_income",
     "source_label": "Net income",
     "source_value": 1942.364,
     "model_value": 1942.364,
+    "status": "pass"
+  },
+  {
+    "period": "prior_2025h1",
+    "field": "revenue",
+    "source_label": "Revenue",
+    "source_value": 1887.552,
+    "model_value": 1887.552,
+    "status": "pass"
+  },
+  {
+    "period": "prior_2025h1",
+    "field": "pretax_income",
+    "source_label": "Income before provision for income taxes",
+    "source_value": 555.484,
+    "model_value": 555.484,
+    "status": "pass"
+  },
+  {
+    "period": "prior_2025h1",
+    "field": "tax",
+    "source_label": "Provision for income taxes",
+    "source_value": 9.195,
+    "model_value": 9.195,
+    "status": "pass"
+  },
+  {
+    "period": "prior_2025h1",
+    "field": "common_net_income",
+    "source_label": "Net income attributable to common stockholders",
+    "source_value": 540.758,
+    "model_value": 540.758,
     "status": "pass"
   },
   {

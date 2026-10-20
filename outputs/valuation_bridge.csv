@@ -1,0 +1,31 @@
+case,kind,step,per_share,change,adopted
+low,frozen,Frozen October 6 model (7c190eb),16.44512979710698,0.0,historical
+low,code correction,Code correction: roll June 30 cash to October 5 with retained stub cash,16.625345116461144,0.1802153193541649,yes
+low,code correction,Code correction: capped existing-award runoff schedule (RSUs to June 2029; filed option period),16.65721459415056,0.031869477689415504,yes
+low,subtotal,Corrected model (current base convention),16.65721459415056,0.0,yes
+low,assumption option,Option: 5-year linear fade before maturity,18.171449129884927,1.5142345357343672,no: awaiting Pierce
+low,assumption option,Option: 10-year linear fade before maturity,19.605228318637106,2.9480137244865467,no: awaiting Pierce
+low,assumption option,Option: hold 2026 input margin flat through 2030 (terminal margin unchanged),17.22920197009073,0.5719873759401715,no: awaiting Pierce
+low,assumption option,"Option: NOL tax shield, 50% of pools usable",17.0226690639382,0.3654544697876396,no: awaiting Pierce
+low,assumption option,"Option: NOL tax shield, 100% of pools usable",17.34600714734568,0.6887925531951211,no: awaiting Pierce
+base,frozen,Frozen October 6 model (7c190eb),29.75601926677717,0.0,historical
+base,code correction,Code correction: roll June 30 cash to October 5 with retained stub cash,30.08505348732481,0.32903422054764064,yes
+base,code correction,Code correction: capped existing-award runoff schedule (RSUs to June 2029; filed option period),30.118265605026373,0.03321211770156296,yes
+base,subtotal,Corrected model (current base convention),30.118265605026373,0.0,yes
+base,assumption option,Option: 5-year linear fade before maturity,35.67412108681193,5.5558554817855565,no: awaiting Pierce
+base,assumption option,Option: 10-year linear fade before maturity,42.03608982493415,11.917824219907779,no: awaiting Pierce
+base,assumption option,Option: hold 2026 input margin flat through 2030 (terminal margin unchanged),30.55058577631513,0.4323201712887581,no: awaiting Pierce
+base,assumption option,"Option: NOL tax shield, 50% of pools usable",30.48983659720456,0.3715709921781887,no: awaiting Pierce
+base,assumption option,"Option: NOL tax shield, 100% of pools usable",30.830391090289154,0.7121254852627814,no: awaiting Pierce
+base,assumption option,"Option: beta 1.00 (WACC 9.51%), hypothetical, not a sourced estimate",34.26302633325076,4.144760728224384,no: awaiting Pierce
+base,assumption option,"Option: beta 1.50 (WACC 11.61%), hypothetical, not a sourced estimate",26.980605685227182,-3.137659919799191,no: awaiting Pierce
+base,assumption option,"Option: beta 2.00 (WACC 13.71%), hypothetical, not a sourced estimate",22.542739515374183,-7.57552608965219,no: awaiting Pierce
+high,frozen,Frozen October 6 model (7c190eb),65.4804944420569,0.0,historical
+high,code correction,Code correction: roll June 30 cash to October 5 with retained stub cash,65.87567039646831,0.39517595441141395,yes
+high,code correction,Code correction: capped existing-award runoff schedule (RSUs to June 2029; filed option period),65.91042308103475,0.03475268456644187,yes
+high,subtotal,Corrected model (current base convention),65.91042308103475,0.0,yes
+high,assumption option,Option: 5-year linear fade before maturity,94.95744236064411,29.04701927960936,no: awaiting Pierce
+high,assumption option,Option: 10-year linear fade before maturity,139.49074574312908,73.58032266209433,no: awaiting Pierce
+high,assumption option,Option: hold 2026 input margin flat through 2030 (terminal margin unchanged),65.96385933730177,0.053436256267019644,no: awaiting Pierce
+high,assumption option,"Option: NOL tax shield, 50% of pools usable",66.28690850471791,0.37648542368316384,no: awaiting Pierce
+high,assumption option,"Option: NOL tax shield, 100% of pools usable",66.64227311418453,0.731850033149783,no: awaiting Pierce

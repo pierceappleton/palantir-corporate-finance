@@ -1,0 +1,5 @@
+expectation,sentence
+1,"At $189.40, with base margins, discount rate and immediate maturity after 2030 held fixed, the market implies revenue compounding about 122% a year from 2026 to 2030, versus 31% in the base case."
+2,"At $189.40, with base growth held fixed, no steady-state operating margin up to 100% of revenue is enough (even 100% gives $65); the price cannot be explained by maturity-year profitability alone."
+3,"At $189.40, with base growth and margins held fixed, the market implies about 60 years of linear fade before maturity."
+4,"Diagnostic only: scaling base commercial growth alone requires 4.58x the base path (252%, 183%, 137%, 101% for 2027-2030)."
