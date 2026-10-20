@@ -30,6 +30,9 @@ def main():
     from src.workbench import sensitivities
 
     sensitivities()
+    from validation.valuation_bridge import main as valuation_bridge
+
+    valuation_bridge()
     report()
     print("Completed reproduction at", datetime.now(timezone.utc).isoformat(), "start", start)
 

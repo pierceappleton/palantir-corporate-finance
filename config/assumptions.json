@@ -120,7 +120,11 @@
     "beta_basis": "Analyst risk assumption; not estimated regression. Cash-rich firm beta should not be mechanically applied to operating enterprise. Sensitivity covers 8-13%.",
     "debt_weight": 0,
     "equity_weight": 1,
-    "formula": "WACC=cost of equity=5.31%+1.25*4.20%=10.56%"
+    "formula": "WACC=cost of equity=5.31%+1.25*4.20%=10.56%",
+    "riskfree_maturity": "10-year Treasury par yield (as stated in the memo)",
+    "riskfree_verification": "pending: home.treasury.gov blocked in the 2026-10-20 session; see docs/source-verification-2026-10-20.md",
+    "erp_verification": "pending: Damodaran page blocked in the 2026-10-20 session; a secondary report dates 4.20% to July 2026",
+    "beta_sourced_estimate": "pending: no provider or regression estimate retrievable in the 2026-10-20 session"
   },
   "presentation": {
     "cost_of_revenue_ratio": 0.15,
@@ -254,5 +258,6 @@
     "min_ttm_revenue": 1000,
     "growth_diagnostic": "year-to-date revenue growth on the same window as the TTM build",
     "normalized_tax_rate_for_pltr_pe": 0.25
-  }
+  },
+  "interest_yield_basis": "Assumption 3.0%; realized H1 2026 interest income is about 3.5% annualized on average cash + marketable securities (all Treasuries mature within one year), see docs/source-verification-2026-10-20.md"
 }

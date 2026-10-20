@@ -12,10 +12,11 @@ sys.path.insert(0, str(ROOT))
 from src.model import load  # noqa: E402
 from src.workbench import calculate  # noqa: E402
 
-BASE_DRIVERS = {"growth_shift": 0.0, "margin_shift": 0.0, "wacc": 10.56, "terminal_growth": 3.0, "terminal_roic": 25.0}
+
 INCOME_COLUMNS = [
     "year", "revenue", "cost_of_revenue", "gross_profit", "sales_marketing", "research_development",
     "general_administrative", "ebit_before_old_award_adjustment", "existing_award_service_adjustment", "ebit",
+    "input_operating_margin", "reported_ebit_margin", "annual_pretax_income",
     "annual_interest", "annual_tax", "annual_net_income",
 ]
 BALANCE_COLUMNS = [
@@ -38,6 +39,13 @@ st.caption("Valuation date: October 5, 2026. USD; currency and shares in million
 r = json.loads((ROOT / "outputs/results.json").read_text(encoding="utf8"))
 st.warning(r["status"])
 history, config = load()
+BASE_DRIVERS = {
+    "growth_shift": 0.0,
+    "margin_shift": 0.0,
+    "wacc": round(config["cases"]["base"]["wacc"] * 100, 2),
+    "terminal_growth": round(config["cases"]["base"]["growth"] * 100, 2),
+    "terminal_roic": round(config["terminal_roic"] * 100, 2),
+}
 
 with st.sidebar:
     st.header("Operating driver workbench")
@@ -58,7 +66,7 @@ try:
     live_rows, live_value = calculate(history, config, growth_shift, margin_shift, wacc, terminal_growth, terminal_roic)
     st.success("Live checks PASS: statements balance, cash ties, WACC exceeds growth, terminal reinvestment is feasible.")
     st.metric("Live base-model value per diluted share", f"${live_value['per_share']:.2f}")
-    st.caption("Restored-base value $29.76. Live results recalculate from the same operating forecast; saved independent cases below are unchanged.")
+    st.caption(f"Restored-base value ${r['cases']['base']['per_share']:.2f}. Live results recalculate from the same operating forecast; saved independent cases below are unchanged.")
 except ValueError as error:
     st.error("Live checks FAILED: " + str(error))
     st.info(
@@ -79,7 +87,7 @@ else:
 if case == "base" and live_rows is None:
     st.warning("Input combination failed. Table below is the saved base, not a live result.")
 
-tabs = st.tabs(["Income statement", "Balance sheet", "Cash flow and FCFF", "Sensitivity", "Comparables", "Reverse DCF", "Validation"])
+tabs = st.tabs(["Income statement", "Balance sheet", "Cash flow and FCFF", "Sensitivity", "Comparables", "Reverse DCF", "Terminal conventions", "Validation"])
 with tabs[0]:
     st.dataframe(f[INCOME_COLUMNS].set_index("year").T)
 with tabs[1]:
@@ -102,12 +110,17 @@ with tabs[4]:
         "investment gains and tax benefits. Basic-share relative values differ from diluted DCF values."
     )
 with tabs[5]:
+    for sentence in r["market_implied"]["sentences"]:
+        st.write(sentence)
     st.json(r["reverse_dcf"])
 with tabs[6]:
+    st.dataframe(pd.read_csv(ROOT / "outputs/terminal_conventions.csv"))
+    st.caption("Base keeps immediate maturity after 2030 until Pierce decides; 5 and 10 fade years are comparisons.")
+with tabs[7]:
     st.json(r["historical_checks"])
     st.markdown((ROOT / "validation/STATUS.md").read_text(encoding="utf8"))
 
 st.subheader("Assumptions and limitations")
 st.json(json.loads((ROOT / "config/assumptions.json").read_text(encoding="utf8")))
 for caveat in r["caveats"]:
-    st.write("â€¢ " + caveat)
+    st.write("- " + caveat)
