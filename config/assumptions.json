@@ -228,5 +228,31 @@
     "cutoff_cash_rollforward": true,
     "award_runoff_schedule": true,
     "basis": "Post-comparison code corrections (Claude Code, 2026-10-20). Set false only to reproduce the frozen October 6 calculation in the valuation bridge."
+  },
+  "nol": {
+    "as_of": "2025-12-31",
+    "source": "2025 10-K income tax note (data/processed/pltr_2025_10k_issuer.txt): federal NOLs about $9.0B, of which $8.3B indefinite; state about $4.8B; annual limitation caveat stated by the company",
+    "federal_nol": 9000,
+    "federal_indefinite": 8300,
+    "federal_definite": 700,
+    "state_nol": 4800,
+    "federal_rate": 0.21,
+    "state_rate": 0.04,
+    "indefinite_limit": 0.8,
+    "state_limit": 0.8,
+    "availability_scenarios": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "adopted_in_base": false,
+    "basis": "Sensitivity only. Assumes no NOL use in reported H1 2026 (1.4% 2025 effective rate; H1 2026 tax $27.6M). The state rate and 80% state cap are simplifications. Section 382 limits and expiries are represented only through the availability share."
+  },
+  "peer_policy": {
+    "document": "docs/peer-policy-revised-2026-10-20.md",
+    "pe_min_net_margin": 0.05,
+    "min_ttm_revenue": 1000,
+    "growth_diagnostic": "year-to-date revenue growth on the same window as the TTM build",
+    "normalized_tax_rate_for_pltr_pe": 0.25
   }
 }

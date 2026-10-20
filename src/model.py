@@ -515,8 +515,14 @@ def run():
     dump_csv("outputs/existing_award_runoff.csv", runoff[:10])
     award_reconciliation = award_reconciliation_table(data, c, runoff)
 
-    # Reverse DCF: multiplier on commercial annual growth increments after 2026.
+    # Reverse DCF: multiplier on commercial annual growth increments after 2026 (diagnostic),
+    # plus readable one-variable expectations, the NOL sensitivity and the margin history.
+    from src import evidence, expectations, taxes
+
     reverse = reverse_dcf(data, c)
+    market_implied = expectations.run(reverse)
+    nol = taxes.run()
+    margins = evidence.run()
     packet = dict(
         created_utc=datetime.now(timezone.utc).isoformat(),
         valuation_date=c["valuation_date"],
@@ -529,6 +535,9 @@ def run():
         cutoff_cash={name: cutoff_cash(rows, data, c) for name, rows in forecasts.items()},
         existing_awards=award_reconciliation,
         reverse_dcf=reverse,
+        market_implied=market_implied,
+        nol_sensitivity=dict(adopted_in_base=c["nol"]["adopted_in_base"], rows=nol),
+        margin_history=margins,
         historical_checks=checks,
         caveats=[
             "H1 balance sheet used at Oct5; no reported Q3 cash available.",

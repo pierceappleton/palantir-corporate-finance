@@ -1,0 +1,107 @@
+{
+  "policy": "docs/peer-policy-revised-2026-10-20.md",
+  "created": "2026-10-20",
+  "status": "Screen not complete: market and filing data pending; final list needs Pierce's approval",
+  "required_fields": [
+    "price (2026-10-05 regular close) + source URL",
+    "shares outstanding + as-of date (latest 10-Q cover)",
+    "cash, marketable securities, debt, noncontrolling interest (latest 10-Q balance sheet)",
+    "latest fiscal-year revenue and GAAP common net income (10-K)",
+    "current and prior year-to-date revenue and GAAP common net income (10-Q)",
+    "strategic/private equity portfolio (for disclosure only)"
+  ],
+  "retrieval_note": "SEC (sec.gov, data.sec.gov), Treasury and market-data hosts were blocked by this session's network policy on 2026-10-20; no values were entered from memory or secondary summaries.",
+  "candidates": [
+    {
+      "ticker": "NOW",
+      "company": "ServiceNow",
+      "cohort": "application/workflow",
+      "business_model_test": "pass",
+      "data_status": "on file"
+    },
+    {
+      "ticker": "CRM",
+      "company": "Salesforce",
+      "cohort": "application",
+      "business_model_test": "pass",
+      "data_status": "on file"
+    },
+    {
+      "ticker": "SNOW",
+      "company": "Snowflake",
+      "cohort": "data platform",
+      "business_model_test": "pass",
+      "data_status": "pending"
+    },
+    {
+      "ticker": "DDOG",
+      "company": "Datadog",
+      "cohort": "observability infrastructure",
+      "business_model_test": "pass",
+      "data_status": "pending"
+    },
+    {
+      "ticker": "CRWD",
+      "company": "CrowdStrike",
+      "cohort": "security infrastructure",
+      "business_model_test": "pass",
+      "data_status": "pending"
+    },
+    {
+      "ticker": "NET",
+      "company": "Cloudflare",
+      "cohort": "network/security infrastructure",
+      "business_model_test": "pass",
+      "data_status": "pending"
+    },
+    {
+      "ticker": "MDB",
+      "company": "MongoDB",
+      "cohort": "data platform",
+      "business_model_test": "pass",
+      "data_status": "pending"
+    },
+    {
+      "ticker": "ADBE",
+      "company": "Adobe",
+      "cohort": "application",
+      "business_model_test": "pass",
+      "data_status": "pending"
+    },
+    {
+      "ticker": "TYL",
+      "company": "Tyler Technologies",
+      "cohort": "government/public-sector software",
+      "business_model_test": "pass",
+      "data_status": "pending"
+    },
+    {
+      "ticker": "AI",
+      "company": "C3.ai",
+      "cohort": "AI applications",
+      "business_model_test": "pass",
+      "data_status": "pending; check scale test against the filing"
+    },
+    {
+      "ticker": "BAH",
+      "company": "Booz Allen Hamilton",
+      "cohort": "government IT services",
+      "business_model_test": "fail: services",
+      "data_status": "not measured"
+    },
+    {
+      "ticker": "CACI",
+      "company": "CACI International",
+      "cohort": "government IT services",
+      "business_model_test": "fail: services",
+      "data_status": "not measured"
+    },
+    {
+      "ticker": "LDOS",
+      "company": "Leidos",
+      "cohort": "government IT services",
+      "business_model_test": "fail: services",
+      "data_status": "not measured"
+    }
+  ]
+}

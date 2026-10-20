@@ -74,11 +74,24 @@ def check():
             checks.append(dict(period=key, field=name, source_label=label, source_value=observed, model_value=d[key][name], status="pass"))
         income_rows = rows(path, INCOME_TABLE_MARKER)
         column = 0 if key == "annual_2025" else 2
-        for name, label in [("revenue", "Revenue"), ("ebit", "Income from operations"), ("net_income", "Net income")]:
+        income_fields = [
+            ("revenue", "Revenue"),
+            ("ebit", "Income from operations"),
+            ("pretax_income", "Income before provision for income taxes"),
+            ("net_income", "Net income"),
+        ]
+        for name, label in income_fields:
             observed = income_rows[label][column]
             if abs(observed - d[key][name]) > 1e-6:
                 raise ValueError(f"{key} {name} source mismatch")
             checks.append(dict(period=key, field=name, source_label=label, source_value=observed, model_value=d[key][name], status="pass"))
+    # Prior-year six-month comparatives (fourth column of the 10-Q income statement).
+    prior_rows = rows(d["source_interim"], INCOME_TABLE_MARKER)
+    for field, label in [("revenue", "Revenue"), ("pretax_income", "Income before provision for income taxes"), ("tax", "Provision for income taxes"), ("common_net_income", "Net income attributable to common stockholders")]:
+        observed = prior_rows[label][3]
+        if abs(observed - d["prior_2025h1"][field]) > 1e-6:
+            raise ValueError("Prior-year interim source mismatch " + field)
+        checks.append(dict(period="prior_2025h1", field=field, source_label=label, source_value=observed, model_value=d["prior_2025h1"][field], status="pass"))
     cash_flow_rows = rows(d["source_interim"], "Cash, cash equivalents, and restricted cash - beginning of period")
     for field, label in CASH_FLOW_LABELS:
         observed = cash_flow_rows[label][0]
