@@ -18,3 +18,8 @@ E: income-statement identity checks added (lines to EBIT; pretax - tax = net inc
 
 ## AI-controlled capex sensitivity, 2026-10-20
 Precommitted AI prediction at commit `1e3cdb9`, then changed capex/revenue from 1.2% to 2.0% with other inputs fixed. Base value fell from $30.1183 to $29.9299 per share (-$0.1884); FCFF fell in each forecast year, statement checks remained within tolerance, and the action remained do-not-initiate. Regression coverage is in `tests/test_accounting_corrections.py`. This does not complete human Validation Gate D.
+
+Pierce A. & Rusheel N. later supplied a prediction timestamped 10:35 PM EDT on Oct 19, after the AI sensitivity execution at 8:49 PM EDT and after disclosure of its result. Their directional and approximate-size expectations match the already known AI result. It is preserved at `validation/user-supplied-capex-prediction-after-ai-run-2026-10-19.md` as a retrospective comparison only; it is not a precommit and does not satisfy Gate D.
+
+## Separate human Gate D prepared October 20
+Pierce agreed to perform a new AI-off prediction and AI-closed run after the original deadline. The designated new input is base-case 2029 government revenue growth 22% to 12%, with all other inputs fixed. The prepared runner is `validation/locked_human_government_2029.py`. It commits Pierce's own prediction before evaluating either case, then commits the actual result separately. The assistant has not run it or computed its expected result. Gate D remains pending until the two commits and Pierce's comparison are inspected. Preserve the real run time; do not characterize it as original-submission evidence.
