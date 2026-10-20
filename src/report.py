@@ -1,88 +1,277 @@
-import json,csv,html,copy
+"""Named stresses, working committee memo, static review page and README generator.
+
+All generated text is written as UTF-8. Every number in the memo, review page and README is
+read from outputs/*.csv or outputs/results.json, so the visible text cannot drift from the model.
+"""
+import copy
+import csv
+import html
+import json
+from datetime import datetime, timezone
 from pathlib import Path
-from datetime import datetime,timezone
-from src.model import load,forecast,value,dump_csv
 
-def save(path,text):Path(path).write_text(text,encoding='utf8')
-def run():
- r=json.loads(Path('outputs/results.json').read_text(encoding='utf8'));data,c=load();base=c['cases']['base']
- stresses=[]
- shock=copy.deepcopy(base);shock['commercial_growth']=[0,-.10,.15,.20,.15];shock['government_growth']=[0,.05,.10,.12,.12];shock['margins']=[.46,.25,.30,.34,.35];shock['nwc_ratio']=.12;shock['wacc']=.12
- for name,case in [('Procurement delay and AI deployment failure',shock),('Commercial conversion slowdown',c['cases']['low'])]:
-  v=value(forecast(case,data,c),case,data,c);stresses.append(dict(scenario=name,value=v['per_share'],current_action=v['action'],conditional_price=20,conditional_action='do_not_initiate' if 20>v['per_share']*1.2 else 'watch_defer'))
- # Terminal-maturity challenge: continue transition cash flows inside terminal convention.
- # These are explicit terminal-convention calculations, not an inconsistent separate five-year forecast.
- last=forecast(base,data,c)[-1]['revenue'];transition_pv=0;w=base['wacc'];g=base['growth'];roic=c['terminal_roic']
- for t,(growth,margin) in enumerate(zip(c['terminal_fade']['growth'],c['terminal_fade']['margin']),1):
-  last*=1+growth;nopat=last*margin*(1-c['tax']);f=nopat*(1-growth/roic);transition_pv+=f/(1+w)**t
- terminal=last*(1+g)*.35*(1-c['tax'])*(1-g/roic)/(w-g)/(1+w)**5
- at2030=transition_pv+terminal
- from src.model import bridge
- b=bridge(data,c);ev=r['cases']['base']['explicit_pv']+at2030/(1+w)**(c['remaining_days']/365+4)
- transition_price=(ev+b.cash+b.investments-b.debt-b.other_claims)/b.shares
- stresses.append(dict(scenario='Maturity deferred to2035 with five-year fade',value=transition_price,current_action='do_not_initiate' if c['price']>1.2*transition_price else 'watch_defer',conditional_price=20,conditional_action='initiate_candidate' if 20<.8*transition_price else 'watch_defer'))
- dump_csv('outputs/named_stresses.csv',stresses)
- low=r['cases']['low']['per_share'];high=r['cases']['high']['per_share'];bv=r['cases']['base']['per_share']
- memo=f'''# Palantir independent committee memo â€” provisional
-Created {datetime.now(timezone.utc).isoformat()}. AI-generated after the official checkpoint; not official EditionA or Pierce's original judgment.
+from src.model import action_for, dump_csv, forecast, load, value
 
-Conditional action: **do not initiate at the October5,2026 regular close of $189.40 under this evidence and model.** Fundamental DCF case range is approximately **${low:.0f}â€“${high:.0f} per diluted economic share**, with base around ${bv:.0f}. This is a judgment-dependent interval, not a statistical confidence interval or a universal price ceiling. Senior analysts retain sector strategy; Pierce must review the material assumptions. Course and human validations remain pending.
+REVISION_LABEL = "Post-comparison revision, Claude Code, 2026-10-20"
 
-The fund has no position. Intended user: buy-side analyst group and portfolio manager. Decision horizon:3â€“5 years. Security: NASDAQ PLTR ClassA; USD; count ClassA/B/F economic ownership, distinguish point-in-time basic from weighted-average EPS shares. Palantir sells software and services with identifiable operating revenue, costs, working capital and reinvestment; operating-company enterprise FCFF is appropriate. It is not a regulated financial intermediary or property trust. No trading execution or public publishing is authorized by this analysis.
+
+def save(path, text):
+    """Write text as UTF-8."""
+    Path(path).write_text(text, encoding="utf8")
+
+
+def read_csv(name):
+    """Read an output CSV into a list of dictionaries."""
+    with Path("outputs", name).open(encoding="utf8", newline="") as f:
+        return list(csv.DictReader(f))
+
+
+def named_stresses(data, c):
+    """Return the named stress rows and the delayed-maturity per-share value."""
+    base = c["cases"]["base"]
+    stresses = []
+    conditional_price = c["recommendation_policy"]["conditional_entry_price"]
+    stress = c["named_stresses"]["procurement_shock"]
+    shock = copy.deepcopy(base)
+    for key in ["commercial_growth", "government_growth", "margins", "nwc_ratio", "wacc"]:
+        shock[key] = copy.deepcopy(stress[key])
+    for name, case in [(stress["label"], shock), ("Commercial conversion slowdown", c["cases"]["low"])]:
+        v = value(forecast(case, data, c), case, data, c)
+        stresses.append(
+            dict(
+                scenario=name,
+                value=v["per_share"],
+                current_action=v["action"],
+                conditional_price=conditional_price,
+                conditional_action=action_for(conditional_price, v["per_share"], c),
+            )
+        )
+    # Terminal-maturity challenge: the October 6 five-year fade path, valued by the shared engine.
+    named = c["terminal_fade"]["named_path"]
+    v = value(forecast(base, data, c), base, data, c, fade_years=len(named["growth"]), fade_path=named)
+    transition_price = v["per_share"]
+    stresses.append(
+        dict(
+            scenario=named["label"],
+            value=transition_price,
+            current_action=v["action"],
+            conditional_price=conditional_price,
+            conditional_action=action_for(conditional_price, transition_price, c),
+        )
+    )
+    return stresses, transition_price
+
+
+def convention(conventions, case, years):
+    """Look up one row of outputs/terminal_conventions.csv."""
+    for row in conventions:
+        if row["case"] == case and int(row["fade_years"]) == years:
+            return row
+    raise KeyError((case, years))
+
+
+def memo_text(r, c, stresses, transition_price, now):
+    """Working committee memo (Markdown). The two-page PDFs are built separately."""
+    cases = r["cases"]
+    low, base, high = (cases[k]["per_share"] for k in ["low", "base", "high"])
+    conventions = read_csv("terminal_conventions.csv")
+    margins = {row["period"]: row for row in read_csv("margin_history.csv")}
+    relative = read_csv("relative_valuation.csv")
+    pe_norm = read_csv("pltr_pe_normalization.csv")[0]
+    peers = {row["ticker"]: row for row in read_csv("peer_multiples.csv")}
+    bridge_rows = {(row["case"], row["step"]): row for row in read_csv("valuation_bridge.csv")}
+    stub = r["cutoff_cash"]["base"]
+    nol = [x for x in r["nol_sensitivity"]["rows"] if x["case"] == "base"]
+    shares_terminal = [float(convention(conventions, k, 0)["terminal_share"]) for k in ["low", "base", "high"]]
+    fade5 = {k: float(convention(conventions, k, 5)["per_share"]) for k in ["low", "base", "high"]}
+    fade10 = {k: float(convention(conventions, k, 10)["per_share"]) for k in ["low", "base", "high"]}
+    frozen = {k: float(bridge_rows[(k, "Frozen October 6 model (7c190eb)")]["per_share"]) for k in ["low", "base", "high"]}
+    ev_prices = [float(x["ev_revenue_implied_basic_price"]) for x in relative]
+    pe_prices = [float(x["pe_implied_basic_price"]) for x in relative if x["pe_implied_basic_price"]]
+    sentences = "\n".join(f"- {line}" for line in r["market_implied"]["sentences"])
+    price = c["price"]
+    ceiling = c["recommendation_policy"]["defer_ceiling_fraction"]
+    q2 = margins["2026 Q2"]
+    fy25 = margins["2025"]
+    fy23 = margins["2023"]
+    award = r["existing_awards"]
+    added = sum(award[k]["added_back_2026h2_to_2030"] for k in ["options", "sars", "rsus"])
+    return f"""# Palantir committee memo (working draft)
+{REVISION_LABEL}. Generated {now}. AI-generated after the official Edition A checkpoint. This is not the official Edition A and not Pierce's original judgment. The October 6 independent freeze (commit 890b973) and its memo (`submission/independent-memo.md`) are preserved unchanged.
+
+**Conditional action: do not initiate at the October 5, 2026 regular close of ${price:.2f} under this evidence and model.** The fundamental DCF case range is about **${low:.0f} to ${high:.0f} per diluted economic share**, with the base near ${base:.0f}. Even the high case is below the price by more than the {ceiling:.0%} do-not-initiate threshold. This is a judgment-dependent interval, not a statistical confidence interval. Pierce must still adopt or reject the material assumptions listed under "Decisions pending" before a final label (do not initiate vs. watch/defer) is chosen.
+
+The fund has no position. Intended user: buy-side analyst group and portfolio manager. Decision horizon: 3-5 years. Security: NASDAQ PLTR Class A; USD; Class A/B/F economic ownership counted; point-in-time basic shares distinguished from weighted-average EPS shares. Palantir sells software and services with identifiable operating revenue, costs, working capital and reinvestment, so operating-company enterprise FCFF is appropriate.
+
+## What changed since the October 6 freeze (code corrections only)
+| Case | Frozen Oct 6 | Corrected now |
+|---|---:|---:|
+| Low | ${frozen['low']:.2f} | ${low:.2f} |
+| Base | ${frozen['base']:.2f} | ${base:.2f} |
+| High | ${frozen['high']:.2f} | ${high:.2f} |
+
+1. **Cutoff cash.** The equity bridge used June 30 cash, but the valued FCFF only starts October 5. The {stub['stub_days']} days in between were counted nowhere. Cash is now rolled forward by the cash the model retains in that stub: FCFF ${stub['stub_fcff']:,.0f}M + after-tax interest ${stub['stub_after_tax_interest']:,.0f}M + financing ${stub['stub_financing']:,.0f}M = ${stub['stub_retained_cash']:,.0f}M, counted once.
+2. **Existing-award runoff.** Remaining stock-compensation expense on awards outstanding at June 30 now follows an explicit straight-line schedule that stops at each unrecognized balance (options $361M over 4.89 years, SARs $136M over 8 years, RSUs $916M over 3 years). The old code stopped RSU expense six months early.
+3. **Income-statement checks.** Displayed lines must add to EBIT and pretax income less tax must equal net income, or the run fails.
+
+No economic assumption was changed. Every assumption option is shown separately in `docs/valuation-bridge-2026-10-20.md` and is **not adopted**.
 
 ## Evidence and accounting
-2025 annual10K published February17,2026 supplies the audited base. June30,2026 10Q published August4 supplies separate interim statements and the bridge. October5 close is the valuation/information cutoff; October6 quotes are excluded. Cash and awards remain latest reported June30 amounts, not claims of an October5 balance. Management's August3 guidance midpoint is a forecast input, not realized revenue. Every raw source and its failures are in the source manifest; peer snapshots have reproducible primary URLs when bulk downloads were blocked.
+The audited 2025 10-K (published February 17, 2026) supplies the annual base; the June 30, 2026 10-Q (published August 4) supplies interim statements, cash and awards. The October 5 close is the valuation and information cutoff. The August 3 FY2026 revenue guidance midpoint ($8.154B) is a forecast input, not realized revenue.
 
-Retain ongoing stock-compensation costs through cash-replacement economics; explicitly dilute existing awards and remove their remaining service expense before future replacement costs. Full award vesting and SAR full-share treatment are conservative approximations, not option pricing. Exclude restricted cash from distributable equity credit. Normalize operating cash taxes to25%; remove non-operating interest/investment income from FCFF. Operating lease expense remains within EBIT, so lease liabilities are not arbitrarily treated as financial debt. No hidden funding plug: cash is generated by the cash-flow roll-forward and an explicit deficit would fail.
+**Margins are GAAP.** Q2 2026 GAAP operating margin was {float(q2['gaap_operating_margin']):.1%} (operating income ${float(q2['gaap_operating_income']):,.0f}M on revenue ${float(q2['revenue']):,.0f}M), up from {float(fy25['gaap_operating_margin']):.1%} for FY2025 and {float(fy23['gaap_operating_margin']):.1%} for FY2023. Stock-based compensation fell to {float(q2['sbc_pct_revenue']):.1%} of revenue. The base path (46% in 2026 falling to 40% in 2030 and 35% at maturity) runs against this rising history. It is an analyst assumption about competition and compute/compensation cost, not something the filings show (see `outputs/margin_history.csv`).
 
-## Cases and expectations
-Low: commercial conversion slows, government procurement delays, margins compress and collections absorb cash. Base: strong commercial adoption decelerates; government growth moderates; margin fades toward maturity. High: repeatable deployment extends strong adoption and efficient cash collection. Terminal PV accounts for about {r['cases']['low']['terminal_share']:.0%}â€“{r['cases']['high']['terminal_share']:.0%} of EV. The high case is especially maturity-dependent. Five-year immediate maturity is a major assumption: delaying maturity to2035 in a separate terminal fade produces roughly ${transition_price:.0f}; it still does not support the observed price in this specification.
+**Existing-award add-back.** The input margins are GAAP-like and therefore include stock compensation. The awards already outstanding are counted as {sum(award['dilutive_shares_counted'].values()):.1f}M extra diluted shares in the bridge, so their remaining expense (${added:,.0f}M over 2026 H2-2030) is added back to EBIT as its own line ("existing award service adjustment"). Charging both the dilution and the expense would count the same cost twice. This is why reported EBIT margin is above the input margin. Future grants are not added back: their cost stays inside the margin as an ongoing cash-replacement compensation cost.
 
-Base WACC10.56%=Treasury10-year5.31% on October5 + assumed operating beta1.25 times October1 implied ERP4.20%. The beta is analyst judgment, not a completed regression. WACC8â€“13% sensitivity is reported; no borrowed precision from a provider beta. Terminal growth2â€“4%, terminal margins30â€“40%, mature ROIC25%; reinvestment is explicitly growth/ROIC. The terminal convention can still understate intangible reinvestment and competitive fade.
+**Taxes.** Operating tax (used in FCFF), book tax expense and cash tax paid are separate lines; all three use the normalized 25% because no deferred tax is modeled under the full valuation allowance. The 2025 10-K reports about $9.0B federal and $4.8B state NOLs, but face value alone does not prove zero cash taxes: $8.3B of the federal NOLs can offset only 80% of taxable income a year, and an ownership change could limit use further. A bounded utilization schedule adds ${nol[1]['per_share']:.2f} (50% usable) to ${nol[2]['per_share']:.2f} (100% usable) per share. It is not in the base.
 
-Reverse DCF holds base margins, government growth, tax, WACC and maturity fixed and scales commercial growth until price matches. It implies commercial growth of approximately {', '.join(f'{x:.0%}' for x in r['reverse_dcf']['annual_growths'])} over2027â€“30. This isolates one burden of expectations; it is not the only combination consistent with market price. A longer competitive-growth runway or different risk/terminal assumptions could redistribute that burden.
+Restricted cash gets no equity credit. Operating lease expense stays in EBIT. There is no hidden funding plug: cash comes from the cash-flow roll-forward, and a deficit would fail.
 
-## Relative valuation and disagreement
-Policy was recorded before name selection. NOW provides a workflow/platform comparison; CRM provides a mature enterprise-application comparison. Their latest TTM periods end June30 and July31; that one-month fiscal-calendar mismatch is exposed rather than presented as identical. All prices use October5 regular close and all numerators use point-in-time basic share counts. Balances and shares precede prices. EV/revenue uses debt less cash and marketable securities; operating leases stay in operating costs. Strategic equity portfolios receive no separate credit consistently, which is conservative and economically imperfect. GAAP P/E includes investment gains and discrete tax effects; it is a qualified comparison.
+## Terminal convention and maturity
+Terminal value is {shares_terminal[0]:.0%} to {shares_terminal[2]:.0%} of enterprise value with immediate maturity after 2030, so this assumption largely decides the answer. The shared engine now supports a fade period between 2030 and maturity (growth and margin move linearly toward terminal values; reinvestment = growth / ROIC). The base keeps immediate maturity until Pierce decides.
 
-Peer EV/revenue implies roughly $17â€“$28 per basic PLTR share. Peer GAAP P/E implies roughly $25â€“$106. Do not average these or splice basic-share relative results into diluted DCF values. Revenue multiples suppress differences in growth and economic margin. P/E can reward unusually low taxes and investment gains; CRM's investment gains and NOW's tax release make earnings denominators poor clean operating anchors. DCF explicitly prices fade, compensation and reinvestment; relative methods reflect what buyers currently pay for different companies. Disagreement is evidence about assumptions and accounting, not a reason to average numbers.
+| Case | Immediate maturity (2030) | 5-year fade (2035) | 10-year fade (2040) |
+|---|---:|---:|---:|
+| Low | ${low:.2f} ({shares_terminal[0]:.0%} terminal) | ${fade5['low']:.2f} ({float(convention(conventions, 'low', 5)['terminal_share']):.0%}) | ${fade10['low']:.2f} ({float(convention(conventions, 'low', 10)['terminal_share']):.0%}) |
+| Base | ${base:.2f} ({shares_terminal[1]:.0%} terminal) | ${fade5['base']:.2f} ({float(convention(conventions, 'base', 5)['terminal_share']):.0%}) | ${fade10['base']:.2f} ({float(convention(conventions, 'base', 10)['terminal_share']):.0%}) |
+| High | ${high:.2f} ({shares_terminal[2]:.0%} terminal) | ${fade5['high']:.2f} ({float(convention(conventions, 'high', 5)['terminal_share']):.0%}) | ${fade10['high']:.2f} ({float(convention(conventions, 'high', 10)['terminal_share']):.0%}) |
 
-No transaction multiple is forced into the analysis: control, synergy, integration and timing differences lack a defensible PLTR bridge.
+A longer fade is another assumption to defend, not automatically the right answer. Even the high case with a 10-year fade stays below the price. The October 6 delayed-maturity path (five fixed fade years) gives ${transition_price:.2f}.
+
+Base WACC is 10.56% = 10-year Treasury 5.31% (Oct 5) + beta 1.25 x ERP 4.20%. The Treasury value, the ERP date and a sourced beta are **pending verification**: the source hosts were blocked in this session (`docs/source-verification-2026-10-20.md`). Beta is an analyst assumption. At beta 1.50 the base is ${float(bridge_rows[('base', 'Option: beta 1.50 (WACC 11.61%), hypothetical, not a sourced estimate')]['per_share']):.2f}; at 2.00 it is ${float(bridge_rows[('base', 'Option: beta 2.00 (WACC 13.71%), hypothetical, not a sourced estimate')]['per_share']):.2f}.
+
+## What the price implies
+One price cannot pin down growth, steady-state margin and fade length at once. Each line below moves one of them and holds the rest at base:
+{sentences}
+
+## Relative valuation and why it disagrees with the DCF
+The revised peer policy (`docs/peer-policy-revised-2026-10-20.md`) widens the candidate set under a written rule, but data for the new candidates are pending, so only ServiceNow and Salesforce are measured. Palantir trades at {float(peers['PLTR']['ev_revenue']):.1f}x TTM EV/revenue, against {float(peers['NOW']['ev_revenue']):.1f}x for NOW and {float(peers['CRM']['ev_revenue']):.1f}x for CRM. Palantir's year-to-date revenue growth was {float(peers['PLTR']['ytd_revenue_growth']):.0%}, against {float(peers['NOW']['ytd_revenue_growth']):.0%} and {float(peers['CRM']['ytd_revenue_growth']):.0%}. Applied to Palantir, peer EV/revenue implies about ${min(ev_prices):.0f} to ${max(ev_prices):.0f} per basic share and peer GAAP P/E about ${min(pe_prices):.0f} to ${max(pe_prices):.0f}. Palantir's own P/E is {float(pe_norm['pe_gaap']):.0f}x on GAAP earnings (1.3% TTM tax rate) and {float(pe_norm['pe_normalized_tax']):.0f}x with a 25% tax.
+
+The methods disagree for identifiable reasons, and they are not averaged. Peer multiples price slower-growing companies, so they cannot capture Palantir's growth. The DCF does price that growth explicitly, but then imposes a maturity date, a margin path and growth / ROIC reinvestment. The market price implies a much longer and more profitable runway than either method supports under these assumptions (see "What the price implies"). Basic-share relative values are not mixed with diluted DCF values. No transaction multiple is used: control, synergy and timing differences give no defensible bridge.
+
+## Named stresses
+{chr(10).join(f"- {row['scenario']}: ${row['value']:.2f} per share; action at today's price {row['current_action'].replace('_', ' ')}; at a hypothetical ${row['conditional_price']} entry, {row['conditional_action'].replace('_', ' ')}." for row in stresses)}
 
 ## Conditions, reversals and monitoring
-Revisit after reported commercial/government sales and collection evidence, not options-inclusive deal value alone. Require funded commitments and realizable conversion; distinguish RPO from cancellable RDV/TCV. Monitor GAAP margin, ongoing compensation payroll, award issuance, cash taxes, hosting commitments, capex, receivable concentration and competitive pricing. Two consecutive quarters of realized adoption above the high-case path warrant a rebuilt runway/maturity model rather than mechanically moving a single multiple. A materially lower market price or independently evidenced longer profitable runway can reverse the decision. Under a hypothetical future $20 price, base economics support an initiate candidate while the conversion/procurement downside reverses that action; this is a conditional downside, not a forecast of a price decline.
+Revisit after reported commercial and government revenue, collections and GAAP margin, not deal value alone. Distinguish RPO from cancellable contract value. Monitor ongoing compensation, award issuance, cash taxes and valuation-allowance status, hosting commitments, capex, receivable concentration and pricing. Two consecutive quarters of realized growth above the high-case path would justify rebuilding the runway and maturity assumptions rather than moving a single multiple. A materially lower price or independently evidenced longer profitable runway could reverse the decision. At a hypothetical ${c['recommendation_policy']['conditional_entry_price']} price, base economics would support an initiate candidate while the low case reverses it. That is a conditional downside, not a forecast.
+
+## Decisions pending (Pierce)
+- Base-case fade length and margin path (currently immediate maturity and the October 6 margin path).
+- Beta: keep 1.25 or adopt a sourced estimate.
+- Final peer list under the revised rule.
+- Whether to adopt the NOL utilization schedule.
+- Final label: do not initiate vs. watch/defer.
 
 ## Validation limits and human work
-Arithmetic and boundary tests pass; this is not proof of sound investment judgment. Published starter reconciliation now passes. Genuine AI-off prediction and AI-closed locked test, completed final attributed partner review, actual recordings/transcripts, official rubric/checklist and comparison with Pierce's existing work remain pending. Independent research has not been substituted for the official EditionA receipt. No complete course-compliant submission is claimed.
-'''
- save('submission/current-model-memo.md',memo)
- fragments=['<h1>Palantir â€” independent finance review</h1>',f'<p>Valuation date October5,2026 | Provisional DCF range ${low:.0f}â€“${high:.0f} | Conditional action: do not initiate at $189.40</p>','<p>All currency and shares in millions; DCF values diluted, peer-relative values basic. Required course and human gates pending.</p>']
- import pandas as pd
- for title,file in [('Case results','results.json'),('Five-year base integrated forecast','base_three_statements.csv'),('WACCâ€“growth sensitivity','wacc_growth.csv'),('Comparables','peer_multiples.csv'),('Relative valuation','relative_valuation.csv'),('Named stresses','named_stresses.csv'),('One-at-a-time sensitivities','one_at_a_time.csv'),('Equal proportional sensitivities','equal_proportional_sensitivity.csv'),('Prior-work attribution','prior-work-attribution.csv'),('One-at-a-time sensitivities','one_at_a_time.csv'),('Equal proportional sensitivities','equal_proportional_sensitivity.csv'),('Prior-work attribution','prior-work-attribution.csv')]:
-  fragments.append('<h2>'+title+'</h2>')
-  if file.endswith('.csv'):fragments.append(pd.read_csv('outputs/'+file).round(3).to_html(index=False))
-  else:fragments.append('<pre>'+html.escape(json.dumps(r,indent=2))+'</pre>')
- fragments.append('<h2>Committee memo</h2><pre>'+html.escape(memo)+'</pre>')
- save('outputs/review.html','<!doctype html><meta charset="utf-8"><title>Palantir finance review</title><style>body{font:16px system-ui;margin:40px;color:#1b2735}table{border-collapse:collapse;font-size:13px;display:block;overflow:auto}td,th{padding:7px;border:1px solid #ccd3dc}pre{white-space:pre-wrap;line-height:1.5}h2{margin-top:35px}</style>'+''.join(fragments))
- save('README.md','''# Palantir corporate finance â€” FIN439
-Private independent project for Pierce Appleton. Official EditionA is unchanged and uninspected. This is an AI-generated postcheckpoint analysis with pending course/human gates.
+Arithmetic and boundary tests pass; that is not proof of investment judgment. Still pending: Pierce's AI-off locked prediction and AI-closed locked run, the final partner review, the three recordings and corrected transcripts, the unchanged official Edition A PDF, the Brightspace deadline/header, the 300-point rubric and grader access. No complete course submission is claimed.
+"""
+
+
+def table_html(name):
+    """HTML table for one output CSV, numbers rounded for reading."""
+    import pandas as pd
+
+    return pd.read_csv("outputs/" + name).round(3).to_html(index=False)
+
+
+def review_html(r, memo, low, high, price):
+    """Static review page: material inputs, as-of date, decision and every output table."""
+    sections = [
+        ("Old-to-new valuation bridge (code corrections adopted; options not adopted)", "valuation_bridge.csv"),
+        ("Terminal conventions: value and terminal share by fade length", "terminal_conventions.csv"),
+        ("Market-implied expectations", "market_implied.csv"),
+        ("Five-year base integrated forecast", "base_three_statements.csv"),
+        ("Base fade schedule (5-year comparison)", "base_fade_schedule.csv"),
+        ("Existing-award runoff schedule", "existing_award_runoff.csv"),
+        ("GAAP margin and SBC history from filings", "margin_history.csv"),
+        ("NOL utilization sensitivity (not in base)", "nol_sensitivity.csv"),
+        ("WACC-growth sensitivity", "wacc_growth.csv"),
+        ("Comparables", "peer_multiples.csv"),
+        ("Relative valuation (basic shares)", "relative_valuation.csv"),
+        ("Palantir P/E normalization", "pltr_pe_normalization.csv"),
+        ("Named stresses", "named_stresses.csv"),
+        ("One-at-a-time sensitivities", "one_at_a_time.csv"),
+        ("Equal proportional sensitivities", "equal_proportional_sensitivity.csv"),
+        ("Prior-work attribution (October 6 comparison, unchanged)", "prior-work-attribution.csv"),
+    ]
+    fragments = [
+        "<h1>Palantir finance review</h1>",
+        f"<p>{html.escape(REVISION_LABEL)}. Valuation date October 5, 2026 | DCF range ${low:.0f}-${high:.0f} per diluted share | "
+        f"Conditional action: do not initiate at ${price:.2f}</p>",
+        "<p>All currency and shares in millions unless stated; DCF values diluted, peer-relative values basic. Required course and human gates pending.</p>",
+    ]
+    for title, file in sections:
+        fragments.append("<h2>" + html.escape(title) + "</h2>")
+        fragments.append(table_html(file))
+    fragments.append("<h2>Case results and checks (results.json)</h2><pre>" + html.escape(json.dumps(r, indent=2)) + "</pre>")
+    fragments.append("<h2>Working committee memo</h2><pre>" + html.escape(memo) + "</pre>")
+    style = (
+        "<style>body{font:16px system-ui;margin:40px;color:#1b2735;background:#fff}table{border-collapse:collapse;font-size:13px;"
+        "display:block;overflow:auto}td,th{padding:7px;border:1px solid #ccd3dc}pre{white-space:pre-wrap;"
+        "line-height:1.5}h2{margin-top:35px}</style>"
+    )
+    return '<!doctype html><meta charset="utf-8"><title>Palantir finance review</title>' + style + "".join(fragments)
+
+
+def readme_text(low, base, high, price):
+    """Repository README with setup commands for Windows, macOS and Linux."""
+    return f"""# Palantir corporate finance - FIN439
+Project for Pierce Appleton (Purdue, Finance and Accounting). AI-generated post-checkpoint analysis with pending course and human gates.
+
+**Edition A.** The official Edition A submitted through Brightspace is unchanged and is not in this repository. A repository copy of Pierce's Edition A draft (`data/reference/FIN439-Labs/labs/lab-03/Project1_EditionA_Palantir.md`) was read after the October 6 independent freeze, as part of the prior-work comparison. It is not assumed identical to the submitted PDF.
+
+**Repository visibility.** The project plan called for a private repository, but on 2026-10-20 GitHub reported this repository as public. Pierce decides whether to change that, because it affects grader access. Making it private later does not undo copies already made while it was public.
 
 ## Visible results
-[Two-page committee memo](submission/Decision-Memo.pdf), [static review](outputs/review.html), [case and reverse DCF results](outputs/results.json), [base five-year statements](outputs/base_three_statements.csv), [sensitivity](outputs/wacc_growth.csv), [peer multiples](outputs/peer_multiples.csv), [named stresses](outputs/named_stresses.csv). DCF range approximately$16â€“$66; conditional do-not-initiate at October5 close$189.40. See assumptions and limitations before accepting this provisional decision.
+[Working memo](submission/current-model-memo.md), [static review page](outputs/review.html), [results and checks](outputs/results.json), [valuation bridge](docs/valuation-bridge-2026-10-20.md), [terminal conventions](outputs/terminal_conventions.csv), [base five-year statements](outputs/base_three_statements.csv), [WACC-growth sensitivity](outputs/wacc_growth.csv), [peer multiples](outputs/peer_multiples.csv), [named stresses](outputs/named_stresses.csv), [Claude Code revision summary](docs/claude-code-revision-summary.md). The two-page PDFs in `submission/` are working drafts.
+
+DCF range about ${low:.0f}-${high:.0f} per diluted share (base ${base:.2f}); conditional do-not-initiate at the October 5 close of ${price:.2f}. Read the assumptions, the pending verifications and the limitations before relying on this provisional decision.
 
 ## Setup and reproduction
-Python3.14.7 was used. From repository root:
+Tested with Python 3.14.7 (Windows, October 6) and Python 3.13 (Linux, October 20). Run from the repository root.
+
+Windows (PowerShell or Command Prompt):
 ```
 python -m venv .venv
 .venv\\Scripts\\python.exe -m pip install -r requirements.txt
 .venv\\Scripts\\python.exe -m src.reproduce
 .venv\\Scripts\\python.exe -m streamlit run app/main.py
 ```
-The reproduction command uses saved historical evidence/inputs; it does not require live prices or blocked SEC downloads. Raw retrieval scripts record actual403 failures; Palantir issuer mirrors are saved with hashes. Peer and market inputs include primary/retrieval URLs and as-of dates. No credentials are committed.
+
+macOS or Linux:
+```
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m src.reproduce
+.venv/bin/python -m streamlit run app/main.py
+```
+
+Tests alone: `python -m pytest -q`. Old-to-new bridge: `python -m validation.valuation_bridge`. Two-page PDFs: `python -m src.build_submission_pdfs`. Fresh-environment cold run: `python validation/fresh_cold_run.py`.
+
+The reproduction command uses the saved filings and inputs; it needs no live prices or SEC downloads. Market inputs carry source URLs and as-of dates; items not yet verified are listed in `docs/source-verification-2026-10-20.md`. No credentials are committed.
 
 ## Navigation and validation
-Read PROJECT_GUIDE.md, docs/STATUS.md, docs/requirements-matrix.csv, docs/normalization.md, docs/assumption-challenges.csv, docs/source_manifest.json and validation/STATUS.md. Financial engine is in src; interface is in app. The official twelve-output training reconciliation passes. Designated locked capex change remains unexecuted: close AI tools and use validation/Run-Locked-Test-With-AI-Closed.cmd for the genuine human record; no code editing required. Supplied Lab11 partner feedback is attributed; incomplete Lab10/12 reviews and real recordings remain pending.
+Read PROJECT_GUIDE.md, docs/STATUS.md, docs/HANDOFF.md, docs/requirements-matrix.csv, docs/normalization.md, docs/assumption-challenges.csv, docs/source_manifest.json and validation/STATUS.md. The financial engine is in `src/`; the interface is in `app/`. The designated locked capex change (1.2% to 2.0% of revenue) remains unexecuted. Pierce must write the prediction with AI closed and run `validation/locked_human_runner.py` (on Windows, `validation/Run-Locked-Test-With-AI-Closed.cmd`). The Lab 11 partner feedback supplied by Pierce is credited; the final partner review and the real recordings remain pending.
 
-Official checklist and video/memo limits are now preserved under data/reference/official-course. See docs/submission-compliance.md. The 300-point rubric and Brightspace header remain unavailable. Both PDFs are working drafts; human gates and Research-Evolution.pdf are incomplete.
-''')
-if __name__=='__main__':run()
+The official checklist and video/memo limits are preserved under `data/reference/official-course` (see docs/submission-compliance.md). The 300-point rubric and the Brightspace header remain unavailable. The submission is not complete.
+"""
+
+
+def run():
+    """Regenerate stresses, memo, review page and README from saved results."""
+    r = json.loads(Path("outputs/results.json").read_text(encoding="utf8"))
+    data, c = load()
+    stresses, transition_price = named_stresses(data, c)
+    dump_csv("outputs/named_stresses.csv", stresses)
+    low = r["cases"]["low"]["per_share"]
+    high = r["cases"]["high"]["per_share"]
+    base = r["cases"]["base"]["per_share"]
+    now = datetime.now(timezone.utc).isoformat()
+    memo = memo_text(r, c, stresses, transition_price, now)
+    save("submission/current-model-memo.md", memo)
+    save("outputs/review.html", review_html(r, memo, low, high, c["price"]))
+    save("README.md", readme_text(low, base, high, c["price"]))
+
+
+if __name__ == "__main__":
+    run()

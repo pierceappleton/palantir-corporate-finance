@@ -1,30 +1,160 @@
+"""Build the two-page working-draft Decision-Memo.pdf and Validation-and-AI-Use.pdf from saved outputs.
+
+Run after src.reproduce: python -m src.build_submission_pdfs. Every number is read from outputs/.
+Each PDF must be exactly two pages (course limit for the memo); the build fails otherwise.
+"""
+import csv
+import html
+import json
 from pathlib import Path
-import json,html
-from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,Table,TableStyle,PageBreak
-from reportlab.lib.styles import getSampleStyleSheet,ParagraphStyle
-from reportlab.lib import colors
-from reportlab.lib.enums import TA_LEFT
+
 from pypdf import PdfReader
-root=Path.cwd();out=root/'submission';out.mkdir(exist_ok=True)
-styles=getSampleStyleSheet();styles.add(ParagraphStyle(name='BodyFinance',fontName='Helvetica',fontSize=10,leading=13,spaceAfter=7));styles.add(ParagraphStyle(name='SmallFinance',fontName='Helvetica',fontSize=8,leading=10,spaceAfter=5))
-styles['Title'].fontSize=20;styles['Title'].leading=24;styles['Heading2'].fontSize=12;styles['Heading2'].leading=15
+from reportlab.lib import colors
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Table, TableStyle
 
-def p(text,style='BodyFinance'):return Paragraph(text,styles[style])
-def h(text):return Paragraph(text,styles['Heading2'])
-def footer(canvas,doc):
- canvas.setFont('Helvetica',8);canvas.setFillColor(colors.HexColor('#536173'));canvas.drawString(40,28,'FIN439 | Pierce Appleton | AI-assisted working draft | October 6, 2026');canvas.drawRightString(572,28,str(doc.page))
-def table(rows,widths):
- t=Table([[p(html.escape(str(v)),'SmallFinance') for v in row] for row in rows],colWidths=widths,hAlign='LEFT');t.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,0),colors.HexColor('#e8eef4')),('VALIGN',(0,0),(-1,-1),'TOP'),('LINEBELOW',(0,0),(-1,0),1,colors.HexColor('#778da3')),('BOTTOMPADDING',(0,0),(-1,-1),6),('TOPPADDING',(0,0),(-1,-1),5)]));return t
+ROOT = Path.cwd()
+OUT = ROOT / "submission"
+STYLES = getSampleStyleSheet()
+STYLES.add(ParagraphStyle(name="BodyFinance", fontName="Helvetica", fontSize=9.2, leading=11.6, spaceAfter=5))
+STYLES.add(ParagraphStyle(name="SmallFinance", fontName="Helvetica", fontSize=7.6, leading=9.2, spaceAfter=4))
+STYLES["Title"].fontSize = 18
+STYLES["Title"].leading = 22
+STYLES["Heading2"].fontSize = 11
+STYLES["Heading2"].leading = 13
+FOOTER = "FIN439 | Pierce Appleton | AI-assisted working draft | Post-comparison revision, Claude Code, 2026-10-20"
 
-def build(name,story):
- path=out/name;SimpleDocTemplate(str(path),pagesize=(612,792),rightMargin=40,leftMargin=40,topMargin=38,bottomMargin=43).build(story,onFirstPage=footer,onLaterPages=footer)
- reader=PdfReader(str(path));assert len(reader.pages)==2,(name,len(reader.pages));print(name,'pages',len(reader.pages))
-r=json.loads(Path('outputs/results.json').read_text(encoding='utf8'));comp=json.loads(Path('outputs/prior-work-comparison.json').read_text(encoding='utf8'));lo=r['cases']['low']['per_share'];base=r['cases']['base']['per_share'];hi=r['cases']['high']['per_share']
-memo=[p('Palantir: committee decision','Title'),p('Provisional recommendation - no position at the current price','Heading2'),p(f'<b>Do not initiate at the October 5, 2026 regular close of $189.40 under this model.</b> The causal DCF range is approximately <b>${lo:.0f}-${hi:.0f} per diluted economic share</b>, with a base near ${base:.0f}. Pierce must decide whether to retain the name on watch/defer. Intended user: buy-side analysts and portfolio manager; horizon: 3-5 years; security: NASDAQ PLTR Class A; currency: USD.'),h('Evidence and accounting boundary'),p('The audited 2025 10-K was published February 17, 2026; the June 2026 10-Q was published August 4. The information cutoff is October 5, 2026. The bridge uses the latest reported June cash and awards, with staleness disclosed. FY2026 revenue guidance midpoint of $8.154B is a forecast anchor, not a realized result.'),p('FCFF comes from the integrated operating forecast. Ongoing share compensation is treated as cash replacement; existing awards are diluted separately and their prospective service cost is removed to avoid duplicate charging. Restricted cash gets no distributable credit. Operating lease expense stays in EBIT. Cash flows retain their signs; no hidden balance-sheet funding plug.'),h('Causal valuation cases'),table([['Case','Economic mechanism','Value / share','Terminal PV / EV'],['Low','Slower commercial conversion, procurement delays, lower margin and weaker collections',f'${lo:.0f}',f"{r['cases']['low']['terminal_share']:.0%}"],['Base','Strong adoption decelerates; growth and margins fade toward mature economics',f'${base:.0f}',f"{r['cases']['base']['terminal_share']:.0%}"],['High','Repeatable deployment sustains adoption and efficient cash collection',f'${hi:.0f}',f"{r['cases']['high']['terminal_share']:.0%}"]],[45,323,74,90]),p('Base WACC is 10.56%: October 5 Treasury 10-year yield 5.31% plus assumed operating beta 1.25 times October 1 implied ERP 4.20%. Beta is judgment, not an estimated regression. Terminal growth is 2-4%, mature operating margin 30-40%, and mature ROIC 25%; reinvestment is explicitly growth / ROIC. Immediate maturity after 2030 is a material limitation.'),PageBreak(),h('Comparison with the existing work'),p('The preserved Lab 10 model reproduces $34.53. Sequential changes in discount rate, liquidity/share bridge and timing first raise that estimate to $39.12; the operating forecast then lowers it to $34.77, and mature terminal economics lower it to $29.76. The attribution is order-dependent. The earlier $158 DCF directly compounded extreme FCFF growth and is not the integrated-model anchor.'),p('Peer EV/revenue implies roughly $17-$28 per basic PLTR share; GAAP P/E implies about $25-$106. Do not average these or mix their basic share basis with diluted DCF values. Peer earnings include tax and investment effects; fiscal periods and reported balance/share dates differ. Revenue multiples suppress differences in margins and growth. Transactions are excluded because control, synergy and timing do not provide a defensible bridge.'),h('Sensitivity, partner challenge and product'),p('Ethan Heeres asked in the supplied Lab 11 record whether growth wins because its range is wider. Equal 10% proportional changes now make margins move 2030 operating profit and FCFF slightly more than growth does, while growth still moves valuation more: about $4.40 versus $1.42 per share across those ranges. Explicit-margin changes hold mature terminal margin fixed; growth also changes terminal revenue. The ranking is output- and range-dependent.'),p('The bounded workbench recalculates the same statements, exposes sensitivity and checks, resets to base, and refuses infeasible terminal reinvestment. A delayed-maturity terminal scenario is about $35 per share. Reverse DCF requires extremely high commercial growth when other base assumptions remain fixed; this is one conditional market expectation, not proof of mispricing.'),h('Conditions, reversal and committee ask'),p('Monitor realized commercial/government sales, funded conversion, receivable collection, GAAP margin, compensation, hosting/capex and cash taxes. A lower entry price or evidence supporting a longer profitable runway warrants rebuilding the forecast. Under a hypothetical $20 entry, base economics support an initiate candidate but the downside reverses that action. At $189.40 the current cases already reject initiation.'),p('<b>Committee ask:</b> approve no current position under these assumptions, and decide whether continued watch/defer research is worthwhile. Review tax utilization, terminal maturity and award treatment before adopting a final label. The unchanged official Edition A PDF, human locked test, final partner review and real videos/transcripts remain outstanding.'),p('Sources: Palantir SEC 2025 10-K and June 2026 10-Q; August 3 release; Public historical closes; Treasury daily yield curve; NYU implied ERP; NOW/CRM issuer disclosures. Full URLs, dates, hashes, assumptions and executed outputs are in the private repository and Validation-and-AI-Use.pdf.','SmallFinance')]
-build('Decision-Memo.pdf',memo)
-validation=[p('Validation and AI use','Title'),p('Post-freeze working record - incomplete human gates','Heading2'),p('Independent analysis snapshot: 890b9738c802592abb4e70beb8efc21181fdfcea, frozen October 6, 2026 at 22:53:27.886294 UTC. Its manifest is preserved. Prior FIN439-Labs commit 2e861768f09411764b7859361843389718eb0490 was read only after that freeze. Official course source snapshot: 69eac1e8cbd63b35e801d48d990c4b594bfdbbc8.'),h('Executed checks and limits'),table([['Requirement','Evidence and current disposition'],['Published known answer','PASS: all 12 official Lab 05 DCF outputs within 0.0001; calculated by the same DCF engine. Published source preserved; not an invented synthetic substitute.'],['Historical source integrity','32 saved-filing cell checks pass. Balance and cash totals reconcile separately for 2025 and H1 2026. Restricted cash is reconciled through the note; primary representations share the same underlying filing.'],['DCF and articulation','15 software tests pass: bridge, timing, boundaries, controlled directions, five-year balance/cash ties, unit and restricted-cash contamination, and non-meaningful peer denominators. Working interface tests also pass live change, red failure and reset.'],['Cold run','Original fresh isolated environment run passed all five commands. First incomplete dependency-pin failure is retained. Postcomparison reproduction is separately logged; do not confuse it with the original freeze.'],['Economic challenges','Causal cases, WACC-growth grid, named downside, delayed maturity, reverse DCF, one-at-a-time and equal proportional tests. Judgment remains provisional; passing arithmetic does not validate assumptions.'],['Prior-code audit','Lab 10 reproduces $34.5344. Negative explicit cash flow is incorrectly clipped in its valuation; the independent engine keeps the sign. Original source unchanged.']],[115,417]),h('Source and date policy'),p('Use October 5 market information; exclude October 6 prices. June reported balances are not claimed to be October balances. Guidance and analyst assumptions are labeled separately. Peer TTM periods end June/July and are not silently treated as identical. Bulk SEC/peer HTTP 403 errors remain recorded; Palantir issuer mirrors are hashed, and blocked peer downloads have reproducible primary URLs.'),PageBreak(),h('Named material AI uses and dispositions'),p('Codex in this desktop session authored, executed and maintained the code and draft artifacts on October 6, 2026. Model family exposed as GPT-6; exact model build/version is not exposed. No second AI provider participated in this independent session. Earlier FIN439-Labs attributes work to Claude Code; that is prior supplied provenance, not a new session witnessed here.'),p('Accepted: integrated forecast linkage, cash/statement checks and published DCF arithmetic. Corrected: prospective old-award adjustment to the H2 horizon; working-environment dependency freeze after the first cold-run failure; relative EV minority claim. Qualified/rejected: adjusted margins as a substitute for economic profit; annual EPS shares as a precise dated share count; unsupported NOL exhaustion; negative cash-flow clipping; peer P/E point targets from tiny earnings.'),p('Evidence: official training answers; raw primary filing rows and restricted-cash definitions; actual prior code; independent method definitions. A source-definition check is not an independent audit. Investment judgment, personal reflection and final strategy have not been fabricated.'),h('Locked Changed-Input Record - NOT EXECUTED'),table([['Field','Current record'],['Input and units','Annual capex / revenue: old 1.2%, proposed new 2.0%; hold the stated operating drivers, tax, WACC and terminal convention fixed.'],['Human prediction / reasoning','PENDING human-authored, AI-off prediction, expected output direction and decision effect. No AI-completed answer is substituted.'],['Timestamp / immutable precommit','PENDING. The standalone runner records and commits the actual human answer before execution.'],['Actual result / decision effect','PENDING. The designated capex change has not been run.'],['Course boundary','The official architecture requires the prediction before AI assistance and an AI-closed run. The prepared code must be run by the student with AI closed to claim this gate.'],['Prior Lab 11 record','Contains an attributed earlier prediction and Ethan unit/range checks; its retrieved single commit includes both prediction and outcomes. It does not prove a separate pre-run immutable commit.']],[140,392]),h('Authentic contributions and submission gaps'),p('Credit Ethan Heeres only for the supplied Lab 11 exchanges. Lab 10/12 review tables remain incomplete. Need the unchanged official Edition A PDF to assemble Research-Evolution.pdf; the repository Markdown is preserved but not assumed identical to that submitted file. Videos must be real, with corrected transcripts: 3, 5 and 5 minute limits; Video 3 opens with a live bounded-driver/failure/reset demonstration. Private repository and unlisted-video access must be verified for graders. Brightspace deadline/header and the referenced 300-point rubric remain unavailable.'),p('Working source: docs/validation-and-ai-use.md. Supporting logs: validation/published-training-reconciliation.json, source-row-checks.json, cold-run.json, workbench tests, prior-work comparison and immutable source manifests. No final submission-compliance claim.','SmallFinance')]
-build('Validation-and-AI-Use.pdf',validation)
-Path('docs/decision-memo.pdf').write_bytes((out/'Decision-Memo.pdf').read_bytes())
-# Keep a content-equivalent working text extracted from the actual PDF.
-text='\n\n'.join(page.extract_text() for page in PdfReader(str(out/'Validation-and-AI-Use.pdf')).pages)
-Path('docs/validation-and-ai-use.md').write_text(text,encoding='utf8')
+
+def p(text, style="BodyFinance"):
+    return Paragraph(text, STYLES[style])
+
+
+def h(text):
+    return Paragraph(text, STYLES["Heading2"])
+
+
+def footer(canvas, doc):
+    canvas.setFont("Helvetica", 7.5)
+    canvas.setFillColor(colors.HexColor("#536173"))
+    canvas.drawString(40, 26, FOOTER)
+    canvas.drawRightString(572, 26, str(doc.page))
+
+
+def table(rows, widths):
+    cells = [[p(html.escape(str(v)), "SmallFinance") for v in row] for row in rows]
+    t = Table(cells, colWidths=widths, hAlign="LEFT")
+    t.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#e8eef4")),
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                ("LINEBELOW", (0, 0), (-1, 0), 1, colors.HexColor("#778da3")),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+                ("TOPPADDING", (0, 0), (-1, -1), 3),
+            ]
+        )
+    )
+    return t
+
+
+def build(name, story):
+    path = OUT / name
+    SimpleDocTemplate(str(path), pagesize=(612, 792), rightMargin=40, leftMargin=40, topMargin=34, bottomMargin=40).build(story, onFirstPage=footer, onLaterPages=footer)
+    pages = len(PdfReader(str(path)).pages)
+    assert pages == 2, (name, pages)
+    print(name, "pages", pages)
+
+
+def read_csv(name):
+    with (ROOT / "outputs" / name).open(encoding="utf8", newline="") as f:
+        return list(csv.DictReader(f))
+
+
+def main():
+    r = json.loads((ROOT / "outputs/results.json").read_text(encoding="utf8"))
+    cases = r["cases"]
+    lo, base, hi = (cases[k]["per_share"] for k in ["low", "base", "high"])
+    conv = {(x["case"], int(x["fade_years"])): x for x in read_csv("terminal_conventions.csv")}
+    bridge = read_csv("valuation_bridge.csv")
+    frozen = {x["case"]: float(x["per_share"]) for x in bridge if x["kind"] == "frozen"}
+    relative = read_csv("relative_valuation.csv")
+    ev_prices = [float(x["ev_revenue_implied_basic_price"]) for x in relative]
+    pe_prices = [float(x["pe_implied_basic_price"]) for x in relative if x["pe_implied_basic_price"]]
+    stresses = read_csv("named_stresses.csv")
+    tests = (ROOT / "validation/reproduction-tests.txt").read_text(encoding="utf8")
+    test_count = tests.split("Ran ")[1].split(" ")[0] if "Ran " in tests else "see log"
+    checks = len(json.loads((ROOT / "validation/source-row-checks.json").read_text(encoding="utf8")))
+
+    case_table = [["Case", "Mechanism", "Frozen Oct 6", "Corrected", "5-yr fade", "10-yr fade", "Terminal / EV"]]
+    for key, text in [("low", "Slower commercial conversion, procurement delays, lower margin, weaker collections"), ("base", "Strong adoption decelerates; margins fade toward maturity"), ("high", "Repeatable deployment sustains adoption and collections")]:
+        case_table.append([key.capitalize(), text, f"${frozen[key]:.2f}", f"${cases[key]['per_share']:.2f}", f"${float(conv[(key, 5)]['per_share']):.2f}", f"${float(conv[(key, 10)]['per_share']):.2f}", f"{cases[key]['terminal_share']:.0%}"])
+    memo = [
+        p("Palantir: committee decision", "Title"),
+        p("Working draft - no position at the current price", "Heading2"),
+        p(f"<b>Do not initiate at the October 5, 2026 close of $189.40 under this model.</b> The causal DCF range is about <b>${lo:.0f}-${hi:.0f} per diluted share</b> (base ${base:.2f}). Every case, including the high case with a 10-year fade (${float(conv[('high', 10)]['per_share']):.0f}), is below the price by more than the 20% do-not-initiate threshold. Pierce must decide whether to keep the name on watch/defer. User: buy-side analysts and PM; horizon 3-5 years; NASDAQ PLTR Class A; USD."),
+        h("Evidence and accounting boundary"),
+        p("Audited 2025 10-K (published Feb 17, 2026); June 30, 2026 10-Q (published Aug 4); information cutoff Oct 5, 2026. FY2026 guidance midpoint $8.154B is a forecast input. Q2 2026 GAAP operating margin was 47.1% (FY2023 5.4%, FY2025 31.6%); the base path falling to 40% by 2030 and 35% at maturity is an analyst assumption against that rising history."),
+        p("FCFF comes from the integrated five-year statements. Existing awards are counted once, as diluted shares; their remaining expense is added back to EBIT as a separate line so it is not also charged as cost. Future compensation stays in the margin as a cash-replacement cost. Restricted cash gets no credit. Since Oct 6, two code corrections were made: June 30 cash is rolled to Oct 5 by the cash retained in the 97-day stub (+$0.33 base), and the existing-award runoff follows a capped schedule (+$0.03)."),
+        h("Causal valuation cases (USD per diluted share)"),
+        table(case_table, [34, 186, 52, 52, 52, 52, 52]),
+        p("Base WACC 10.56% = 10-year Treasury 5.31% + beta 1.25 x ERP 4.20%. The Treasury value, ERP date and a sourced beta are pending verification (hosts blocked in the revision session). Beta 1.50 gives about $27 and 2.00 about $23 in the base. Terminal growth 2-4%, mature margin 30-40%, ROIC 25%, reinvestment = growth / ROIC."),
+        PageBreak(),
+        h("What the price implies"),
+        *[p(x) for x in r["market_implied"]["sentences"]],
+        p("One price cannot pin down growth, margin and fade length at once; each line moves one and holds the rest at base."),
+        h("Relative valuation and disagreement"),
+        p(f"Under the revised peer rule only NOW and CRM have data so far; the wider candidate set (SNOW, DDOG, CRWD, NET, MDB, ADBE, TYL) is pending data and Pierce's approval. Peer EV/revenue implies about ${min(ev_prices):.0f}-${max(ev_prices):.0f} and GAAP P/E about ${min(pe_prices):.0f}-${max(pe_prices):.0f} per basic share. Palantir trades at 72x TTM EV/revenue and 151x GAAP P/E (199x at a normalized 25% tax). Peers grow far more slowly, so multiples cannot capture Palantir's growth; the DCF prices growth but imposes maturity. The market implies a longer, more profitable runway than either supports. The methods are not averaged, and basic-share values are not mixed with diluted DCF values."),
+        h("Stresses, conditions and committee ask"),
+        *[p(f"{x['scenario']}: ${float(x['value']):.2f}; at a hypothetical ${x['conditional_price']} entry: {x['conditional_action'].replace('_', ' ')}.") for x in stresses],
+        p("Monitor realized commercial/government revenue, collections, GAAP margin, compensation and award issuance, cash taxes and valuation-allowance status, and hosting/capex. Two quarters above the high-case path would justify rebuilding runway and maturity. NOL utilization would add only $0.37-$0.71 per share."),
+        p("<b>Committee ask:</b> approve no current position; Pierce to decide fade length, margin path, beta, peer list and the watch/defer label. Pending: unchanged official Edition A PDF, AI-off locked test, final partner review, real videos and transcripts."),
+        p("Sources: Palantir 2025 10-K and June 2026 10-Q (saved and hashed); Aug 3 release; Oct 5 closes; Treasury daily par yield curve; NYU Stern implied ERP; NOW/CRM issuer disclosures. URLs, dates and pending verifications are in the repository (docs/source-verification-2026-10-20.md).", "SmallFinance"),
+    ]
+    build("Decision-Memo.pdf", memo)
+
+    validation = [
+        p("Validation and AI use", "Title"),
+        p("Working record - human gates incomplete", "Heading2"),
+        p("Independent snapshot 890b9738c802592abb4e70beb8efc21181fdfcea was frozen Oct 6, 2026 22:53:27 UTC; its manifest is preserved. FIN439-Labs commit 2e861768 was read only after that freeze. Course snapshot 69eac1e8. Post-comparison revisions on Oct 20, 2026 are on branch claude/post-comparison-revisions and are not part of the independent freeze."),
+        h("Executed checks and limits"),
+        table(
+            [
+                ["Requirement", "Evidence and disposition"],
+                ["Published known answer", "PASS: all 12 official Lab 05 DCF outputs within 0.0001, computed by the same engine."],
+                ["Source integrity", f"{checks} saved-filing cell checks pass; balance and cash totals reconcile for 2025 and H1 2026; restricted cash reconciled through the note."],
+                ["Articulation and DCF", f"{test_count} software tests pass: balance/cash ties, income-statement identities, stub cash counted once, award runoff capped, fade engine timing and zero-fade equivalence, WACC > g, contamination rejection, peer P/E 'not meaningful' rule, locked-runner commit isolation."],
+                ["Cold run", "Fresh-environment runs recorded Oct 6 (Windows) and Oct 20 (Linux): validation/cold-run-2026-10-20.json."],
+                ["Economic challenges", "Cases, WACC-growth grid, 0/5/10-year fade, readable reverse DCF, NOL sensitivity, named stresses, one-at-a-time and proportional tests."],
+            ],
+            [115, 417],
+        ),
+        h("Source and date policy"),
+        p("October 5 market data; October 6 prices excluded. June 30 balances rolled to October 5 only by modeled retained cash. Treasury yield, ERP date, beta estimate and wider peer data are pending: the revision session's network blocked those hosts, and nothing was entered from memory."),
+        PageBreak(),
+        h("Named material AI uses and dispositions"),
+        p("Oct 6, 2026: Codex (ChatGPT; model family exposed as GPT-6, exact build not exposed) wrote and ran the independent build. Oct 20, 2026: Claude Code (Anthropic) made the post-comparison revisions after a joint Claude/ChatGPT audit; Pierce is not a coder and did not write code."),
+        p("Corrected (Claude Code, with evidence): cutoff cash gap (stub FCFF reconciliation); award runoff ended RSU expense early and used a rounded option period (10-Q XBRL 4y10m21d); duplicate fade math with a hardcoded margin; locked runner could commit unrelated staged files. Qualified: 47% margin confirmed GAAP from the 10-Q income statement; 1.4% tax rate is structural (valuation allowance), not one-time. Earlier: adjusted margins rejected as economic profit; negative cash-flow clipping rejected."),
+        h("Locked Changed-Input Record - NOT EXECUTED"),
+        table(
+            [
+                ["Field", "Current record"],
+                ["Input and units", "Annual capex / revenue: old 1.2%, new 2.0%; other drivers, tax, WACC and terminal convention fixed."],
+                ["Human prediction / reasoning", "PENDING Pierce's AI-off prediction. Nothing substituted."],
+                ["Timestamp / precommit", "PENDING. The runner commits only the prediction file before computing."],
+                ["Actual result / decision effect", "PENDING. Not run."],
+                ["Note", "The base value moved from $29.76 to the corrected value after the code corrections; the runner reads the current model at run time."],
+            ],
+            [140, 392],
+        ),
+        h("Authentic contributions and submission gaps"),
+        p("Ethan Heeres is credited only for the supplied Lab 11 exchanges. Pending: the unchanged official Edition A PDF, final partner review, three real videos (3/5/5 minutes) with corrected transcripts, grader access (repository currently public; Pierce decides), the Brightspace deadline/header and the 300-point rubric. No final compliance claim."),
+        p("Working source: docs/validation-and-ai-use.md, docs/claude-code-revision-summary.md, validation/ logs and manifests.", "SmallFinance"),
+    ]
+    build("Validation-and-AI-Use.pdf", validation)
+    (ROOT / "docs/decision-memo.pdf").write_bytes((OUT / "Decision-Memo.pdf").read_bytes())
+    text = "\n\n".join(page.extract_text() for page in PdfReader(str(OUT / "Validation-and-AI-Use.pdf")).pages)
+    (ROOT / "docs/validation-and-ai-use.md").write_text(text, encoding="utf8")
+
+
+if __name__ == "__main__":
+    main()

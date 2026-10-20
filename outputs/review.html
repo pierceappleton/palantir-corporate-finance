@@ -1,56 +1,1940 @@
-<!doctype html><meta charset="utf-8"><title>Palantir finance review</title><style>body{font:16px system-ui;margin:40px;color:#1b2735}table{border-collapse:collapse;font-size:13px;display:block;overflow:auto}td,th{padding:7px;border:1px solid #ccd3dc}pre{white-space:pre-wrap;line-height:1.5}h2{margin-top:35px}</style><h1>Palantir â€” independent finance review</h1><p>Valuation date October5,2026 | Provisional DCF range $16â€“$65 | Conditional action: do not initiate at $189.40</p><p>All currency and shares in millions; DCF values diluted, peer-relative values basic. Required course and human gates pending.</p><h2>Case results</h2><pre>{
-  &quot;created_utc&quot;: &quot;2026-10-06T23:22:19.692177+00:00&quot;,
+<!doctype html><meta charset="utf-8"><title>Palantir finance review</title><style>body{font:16px system-ui;margin:40px;color:#1b2735;background:#fff}table{border-collapse:collapse;font-size:13px;display:block;overflow:auto}td,th{padding:7px;border:1px solid #ccd3dc}pre{white-space:pre-wrap;line-height:1.5}h2{margin-top:35px}</style><h1>Palantir finance review</h1><p>Post-comparison revision, Claude Code, 2026-10-20. Valuation date October 5, 2026 | DCF range $17-$66 per diluted share | Conditional action: do not initiate at $189.40</p><p>All currency and shares in millions unless stated; DCF values diluted, peer-relative values basic. Required course and human gates pending.</p><h2>Old-to-new valuation bridge (code corrections adopted; options not adopted)</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>case</th>
+      <th>kind</th>
+      <th>step</th>
+      <th>per_share</th>
+      <th>change</th>
+      <th>adopted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>low</td>
+      <td>frozen</td>
+      <td>Frozen October 6 model (7c190eb)</td>
+      <td>16.445</td>
+      <td>0.000</td>
+      <td>historical</td>
+    </tr>
+    <tr>
+      <td>low</td>
+      <td>code correction</td>
+      <td>Code correction: roll June 30 cash to October 5 with retained stub cash</td>
+      <td>16.625</td>
+      <td>0.180</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>low</td>
+      <td>code correction</td>
+      <td>Code correction: capped existing-award runoff schedule (RSUs to June 2029; filed option period)</td>
+      <td>16.657</td>
+      <td>0.032</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>low</td>
+      <td>subtotal</td>
+      <td>Corrected model (current base convention)</td>
+      <td>16.657</td>
+      <td>0.000</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>low</td>
+      <td>assumption option</td>
+      <td>Option: 5-year linear fade before maturity</td>
+      <td>18.171</td>
+      <td>1.514</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>low</td>
+      <td>assumption option</td>
+      <td>Option: 10-year linear fade before maturity</td>
+      <td>19.605</td>
+      <td>2.948</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>low</td>
+      <td>assumption option</td>
+      <td>Option: hold 2026 input margin flat through 2030 (terminal margin unchanged)</td>
+      <td>17.229</td>
+      <td>0.572</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>low</td>
+      <td>assumption option</td>
+      <td>Option: NOL tax shield, 50% of pools usable</td>
+      <td>17.023</td>
+      <td>0.365</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>low</td>
+      <td>assumption option</td>
+      <td>Option: NOL tax shield, 100% of pools usable</td>
+      <td>17.346</td>
+      <td>0.689</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>frozen</td>
+      <td>Frozen October 6 model (7c190eb)</td>
+      <td>29.756</td>
+      <td>0.000</td>
+      <td>historical</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>code correction</td>
+      <td>Code correction: roll June 30 cash to October 5 with retained stub cash</td>
+      <td>30.085</td>
+      <td>0.329</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>code correction</td>
+      <td>Code correction: capped existing-award runoff schedule (RSUs to June 2029; filed option period)</td>
+      <td>30.118</td>
+      <td>0.033</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>subtotal</td>
+      <td>Corrected model (current base convention)</td>
+      <td>30.118</td>
+      <td>0.000</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>assumption option</td>
+      <td>Option: 5-year linear fade before maturity</td>
+      <td>35.674</td>
+      <td>5.556</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>assumption option</td>
+      <td>Option: 10-year linear fade before maturity</td>
+      <td>42.036</td>
+      <td>11.918</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>assumption option</td>
+      <td>Option: hold 2026 input margin flat through 2030 (terminal margin unchanged)</td>
+      <td>30.551</td>
+      <td>0.432</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>assumption option</td>
+      <td>Option: NOL tax shield, 50% of pools usable</td>
+      <td>30.490</td>
+      <td>0.372</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>assumption option</td>
+      <td>Option: NOL tax shield, 100% of pools usable</td>
+      <td>30.830</td>
+      <td>0.712</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>assumption option</td>
+      <td>Option: beta 1.00 (WACC 9.51%), hypothetical, not a sourced estimate</td>
+      <td>34.263</td>
+      <td>4.145</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>assumption option</td>
+      <td>Option: beta 1.50 (WACC 11.61%), hypothetical, not a sourced estimate</td>
+      <td>26.981</td>
+      <td>-3.138</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>assumption option</td>
+      <td>Option: beta 2.00 (WACC 13.71%), hypothetical, not a sourced estimate</td>
+      <td>22.543</td>
+      <td>-7.576</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>frozen</td>
+      <td>Frozen October 6 model (7c190eb)</td>
+      <td>65.480</td>
+      <td>0.000</td>
+      <td>historical</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>code correction</td>
+      <td>Code correction: roll June 30 cash to October 5 with retained stub cash</td>
+      <td>65.876</td>
+      <td>0.395</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>code correction</td>
+      <td>Code correction: capped existing-award runoff schedule (RSUs to June 2029; filed option period)</td>
+      <td>65.910</td>
+      <td>0.035</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>subtotal</td>
+      <td>Corrected model (current base convention)</td>
+      <td>65.910</td>
+      <td>0.000</td>
+      <td>yes</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>assumption option</td>
+      <td>Option: 5-year linear fade before maturity</td>
+      <td>94.957</td>
+      <td>29.047</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>assumption option</td>
+      <td>Option: 10-year linear fade before maturity</td>
+      <td>139.491</td>
+      <td>73.580</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>assumption option</td>
+      <td>Option: hold 2026 input margin flat through 2030 (terminal margin unchanged)</td>
+      <td>65.964</td>
+      <td>0.053</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>assumption option</td>
+      <td>Option: NOL tax shield, 50% of pools usable</td>
+      <td>66.287</td>
+      <td>0.376</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>assumption option</td>
+      <td>Option: NOL tax shield, 100% of pools usable</td>
+      <td>66.642</td>
+      <td>0.732</td>
+      <td>no: awaiting Pierce</td>
+    </tr>
+  </tbody>
+</table><h2>Terminal conventions: value and terminal share by fade length</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>case</th>
+      <th>fade_years</th>
+      <th>maturity_year</th>
+      <th>per_share</th>
+      <th>explicit_pv</th>
+      <th>fade_pv</th>
+      <th>terminal_pv</th>
+      <th>terminal_share</th>
+      <th>action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>low</td>
+      <td>0</td>
+      <td>2030</td>
+      <td>16.657</td>
+      <td>10957.380</td>
+      <td>0.000</td>
+      <td>21571.994</td>
+      <td>0.663</td>
+      <td>do_not_initiate</td>
+    </tr>
+    <tr>
+      <td>low</td>
+      <td>5</td>
+      <td>2035</td>
+      <td>18.171</td>
+      <td>10957.380</td>
+      <td>7725.420</td>
+      <td>17783.001</td>
+      <td>0.488</td>
+      <td>do_not_initiate</td>
+    </tr>
+    <tr>
+      <td>low</td>
+      <td>10</td>
+      <td>2040</td>
+      <td>19.605</td>
+      <td>10957.380</td>
+      <td>14586.867</td>
+      <td>14648.828</td>
+      <td>0.364</td>
+      <td>do_not_initiate</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>0</td>
+      <td>2030</td>
+      <td>30.118</td>
+      <td>17893.439</td>
+      <td>0.000</td>
+      <td>49242.613</td>
+      <td>0.733</td>
+      <td>do_not_initiate</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>5</td>
+      <td>2035</td>
+      <td>35.674</td>
+      <td>17893.439</td>
+      <td>12736.004</td>
+      <td>50949.694</td>
+      <td>0.625</td>
+      <td>do_not_initiate</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>10</td>
+      <td>2040</td>
+      <td>42.036</td>
+      <td>17893.439</td>
+      <td>27584.026</td>
+      <td>52640.342</td>
+      <td>0.537</td>
+      <td>do_not_initiate</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>0</td>
+      <td>2030</td>
+      <td>65.910</td>
+      <td>27726.391</td>
+      <td>0.000</td>
+      <td>132283.547</td>
+      <td>0.827</td>
+      <td>do_not_initiate</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>5</td>
+      <td>2035</td>
+      <td>94.957</td>
+      <td>27726.391</td>
+      <td>17012.794</td>
+      <td>190781.820</td>
+      <td>0.810</td>
+      <td>do_not_initiate</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>10</td>
+      <td>2040</td>
+      <td>139.491</td>
+      <td>27726.391</td>
+      <td>49330.805</td>
+      <td>274233.252</td>
+      <td>0.781</td>
+      <td>do_not_initiate</td>
+    </tr>
+  </tbody>
+</table><h2>Market-implied expectations</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>expectation</th>
+      <th>sentence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>At $189.40, with base margins, discount rate and immediate maturity after 2030 held fixed, the market implies revenue compounding about 122% a year from 2026 to 2030, versus 31% in the base case.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>At $189.40, with base growth held fixed, no steady-state operating margin up to 100% of revenue is enough (even 100% gives $65); the price cannot be explained by maturity-year profitability alone.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>At $189.40, with base growth and margins held fixed, the market implies about 60 years of linear fade before maturity.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Diagnostic only: scaling base commercial growth alone requires 4.58x the base path (252%, 183%, 137%, 101% for 2027-2030).</td>
+    </tr>
+  </tbody>
+</table><h2>Five-year base integrated forecast</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>cost_of_revenue</th>
+      <th>gross_profit</th>
+      <th>sales_marketing</th>
+      <th>research_development</th>
+      <th>general_administrative</th>
+      <th>annual_interest</th>
+      <th>annual_other_income</th>
+      <th>annual_pretax_income</th>
+      <th>annual_tax</th>
+      <th>annual_net_income</th>
+      <th>year</th>
+      <th>commercial_revenue</th>
+      <th>government_revenue</th>
+      <th>revenue</th>
+      <th>ebit_before_old_award_adjustment</th>
+      <th>existing_award_service_adjustment</th>
+      <th>ebit</th>
+      <th>input_operating_margin</th>
+      <th>reported_ebit_margin</th>
+      <th>period_ebit</th>
+      <th>period_interest</th>
+      <th>period_pretax_income</th>
+      <th>period_tax</th>
+      <th>operating_tax</th>
+      <th>book_tax_expense</th>
+      <th>cash_tax_paid</th>
+      <th>period_net_income</th>
+      <th>da</th>
+      <th>capex</th>
+      <th>delta_nwc</th>
+      <th>fcff</th>
+      <th>valued_fcff</th>
+      <th>cash</th>
+      <th>investments</th>
+      <th>ar</th>
+      <th>prepaid</th>
+      <th>ppe</th>
+      <th>rou</th>
+      <th>other_assets</th>
+      <th>ap_accrued</th>
+      <th>contract_current</th>
+      <th>contract_noncurrent</th>
+      <th>lease_noncurrent</th>
+      <th>other_liabilities</th>
+      <th>assets</th>
+      <th>liabilities</th>
+      <th>equity</th>
+      <th>nci</th>
+      <th>cfo</th>
+      <th>cfi</th>
+      <th>cff</th>
+      <th>balance_residual</th>
+      <th>cash_residual</th>
+      <th>period_label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1223.100</td>
+      <td>6930.900</td>
+      <td>1431.027</td>
+      <td>795.015</td>
+      <td>954.018</td>
+      <td>286.196</td>
+      <td>160.045</td>
+      <td>4396.781</td>
+      <td>634.291</td>
+      <td>3762.490</td>
+      <td>2026</td>
+      <td>3929.785</td>
+      <td>4224.215</td>
+      <td>8154.000</td>
+      <td>3750.840</td>
+      <td>199.700</td>
+      <td>3950.540</td>
+      <td>0.46</td>
+      <td>0.484</td>
+      <td>2284.538</td>
+      <td>142.297</td>
+      <td>2426.835</td>
+      <td>606.709</td>
+      <td>571.135</td>
+      <td>606.709</td>
+      <td>606.709</td>
+      <td>1820.126</td>
+      <td>50.247</td>
+      <td>75.893</td>
+      <td>171.328</td>
+      <td>1516.430</td>
+      <td>717.007</td>
+      <td>3653.199</td>
+      <td>7379.052</td>
+      <td>1630.800</td>
+      <td>163.080</td>
+      <td>87.049</td>
+      <td>230.268</td>
+      <td>287.38</td>
+      <td>407.700</td>
+      <td>1060.020</td>
+      <td>34.259</td>
+      <td>211.4</td>
+      <td>12.439</td>
+      <td>13430.828</td>
+      <td>1725.818</td>
+      <td>11594.320</td>
+      <td>110.69</td>
+      <td>1699.045</td>
+      <td>-75.893</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-0.0</td>
+      <td>2026 H2 modeled flows; annual revenue/EBIT</td>
+    </tr>
+    <tr>
+      <td>1769.079</td>
+      <td>10024.779</td>
+      <td>2069.822</td>
+      <td>1149.901</td>
+      <td>1379.881</td>
+      <td>330.968</td>
+      <td>0.000</td>
+      <td>6152.286</td>
+      <td>1538.072</td>
+      <td>4614.215</td>
+      <td>2027</td>
+      <td>6091.167</td>
+      <td>5702.690</td>
+      <td>11793.857</td>
+      <td>5425.174</td>
+      <td>396.144</td>
+      <td>5821.319</td>
+      <td>0.46</td>
+      <td>0.494</td>
+      <td>5821.319</td>
+      <td>330.968</td>
+      <td>6152.286</td>
+      <td>1538.072</td>
+      <td>1455.330</td>
+      <td>1538.072</td>
+      <td>1538.072</td>
+      <td>4614.215</td>
+      <td>94.351</td>
+      <td>141.526</td>
+      <td>145.594</td>
+      <td>4173.219</td>
+      <td>4173.219</td>
+      <td>8074.644</td>
+      <td>7379.052</td>
+      <td>2358.771</td>
+      <td>235.877</td>
+      <td>134.224</td>
+      <td>230.268</td>
+      <td>287.38</td>
+      <td>589.693</td>
+      <td>1533.201</td>
+      <td>34.259</td>
+      <td>211.4</td>
+      <td>12.439</td>
+      <td>18700.217</td>
+      <td>2380.992</td>
+      <td>16208.535</td>
+      <td>110.69</td>
+      <td>4562.971</td>
+      <td>-141.526</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>-0.0</td>
+      <td>full year</td>
+    </tr>
+    <tr>
+      <td>2374.062</td>
+      <td>13453.016</td>
+      <td>2848.874</td>
+      <td>1582.708</td>
+      <td>1899.249</td>
+      <td>463.611</td>
+      <td>0.000</td>
+      <td>7981.940</td>
+      <td>1995.485</td>
+      <td>5986.455</td>
+      <td>2028</td>
+      <td>8527.634</td>
+      <td>7299.443</td>
+      <td>15827.077</td>
+      <td>7122.185</td>
+      <td>396.144</td>
+      <td>7518.329</td>
+      <td>0.45</td>
+      <td>0.475</td>
+      <td>7518.329</td>
+      <td>463.611</td>
+      <td>7981.940</td>
+      <td>1995.485</td>
+      <td>1879.582</td>
+      <td>1995.485</td>
+      <td>1995.485</td>
+      <td>5986.455</td>
+      <td>126.617</td>
+      <td>189.925</td>
+      <td>161.329</td>
+      <td>5414.110</td>
+      <td>5414.110</td>
+      <td>13836.462</td>
+      <td>7379.052</td>
+      <td>3165.415</td>
+      <td>316.542</td>
+      <td>197.533</td>
+      <td>230.268</td>
+      <td>287.38</td>
+      <td>791.354</td>
+      <td>2057.520</td>
+      <td>34.259</td>
+      <td>211.4</td>
+      <td>12.439</td>
+      <td>25412.651</td>
+      <td>3106.972</td>
+      <td>22194.990</td>
+      <td>110.69</td>
+      <td>5951.743</td>
+      <td>-189.925</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>full year</td>
+    </tr>
+    <tr>
+      <td>2998.687</td>
+      <td>16992.558</td>
+      <td>3778.345</td>
+      <td>2099.081</td>
+      <td>2518.897</td>
+      <td>636.465</td>
+      <td>0.000</td>
+      <td>9474.924</td>
+      <td>2368.731</td>
+      <td>7106.193</td>
+      <td>2029</td>
+      <td>11085.925</td>
+      <td>8905.320</td>
+      <td>19991.245</td>
+      <td>8596.235</td>
+      <td>242.223</td>
+      <td>8838.458</td>
+      <td>0.43</td>
+      <td>0.442</td>
+      <td>8838.458</td>
+      <td>636.465</td>
+      <td>9474.924</td>
+      <td>2368.731</td>
+      <td>2209.615</td>
+      <td>2368.731</td>
+      <td>2368.731</td>
+      <td>7106.193</td>
+      <td>159.930</td>
+      <td>239.895</td>
+      <td>166.567</td>
+      <td>6382.312</td>
+      <td>6382.312</td>
+      <td>20696.123</td>
+      <td>7379.052</td>
+      <td>3998.249</td>
+      <td>399.825</td>
+      <td>277.498</td>
+      <td>230.268</td>
+      <td>287.38</td>
+      <td>999.562</td>
+      <td>2598.862</td>
+      <td>34.259</td>
+      <td>211.4</td>
+      <td>12.439</td>
+      <td>33268.394</td>
+      <td>3856.522</td>
+      <td>29301.182</td>
+      <td>110.69</td>
+      <td>7099.556</td>
+      <td>-239.895</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>full year</td>
+    </tr>
+    <tr>
+      <td>3591.608</td>
+      <td>20352.445</td>
+      <td>4848.671</td>
+      <td>2693.706</td>
+      <td>3232.447</td>
+      <td>842.255</td>
+      <td>0.000</td>
+      <td>10510.687</td>
+      <td>2627.672</td>
+      <td>7883.016</td>
+      <td>2030</td>
+      <td>13524.828</td>
+      <td>10419.225</td>
+      <td>23944.053</td>
+      <td>9577.621</td>
+      <td>90.811</td>
+      <td>9668.432</td>
+      <td>0.40</td>
+      <td>0.404</td>
+      <td>9668.432</td>
+      <td>842.255</td>
+      <td>10510.687</td>
+      <td>2627.672</td>
+      <td>2417.108</td>
+      <td>2627.672</td>
+      <td>2627.672</td>
+      <td>7883.016</td>
+      <td>191.552</td>
+      <td>287.329</td>
+      <td>158.112</td>
+      <td>6997.436</td>
+      <td>6997.436</td>
+      <td>28325.250</td>
+      <td>7379.052</td>
+      <td>4788.811</td>
+      <td>478.881</td>
+      <td>373.274</td>
+      <td>230.268</td>
+      <td>287.38</td>
+      <td>1197.203</td>
+      <td>3112.727</td>
+      <td>34.259</td>
+      <td>211.4</td>
+      <td>12.439</td>
+      <td>41862.915</td>
+      <td>4568.027</td>
+      <td>37184.198</td>
+      <td>110.69</td>
+      <td>7916.456</td>
+      <td>-287.329</td>
+      <td>0.0</td>
+      <td>-0.0</td>
+      <td>-0.0</td>
+      <td>full year</td>
+    </tr>
+  </tbody>
+</table><h2>Base fade schedule (5-year comparison)</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>fade_year</th>
+      <th>growth</th>
+      <th>margin</th>
+      <th>revenue</th>
+      <th>existing_award_service_adjustment</th>
+      <th>ebit</th>
+      <th>nopat</th>
+      <th>reinvestment</th>
+      <th>fcff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2031</td>
+      <td>0.170</td>
+      <td>0.392</td>
+      <td>28009.093</td>
+      <td>45.547</td>
+      <td>11015.775</td>
+      <td>8261.831</td>
+      <td>5610.526</td>
+      <td>2651.306</td>
+    </tr>
+    <tr>
+      <td>2032</td>
+      <td>0.142</td>
+      <td>0.383</td>
+      <td>31981.286</td>
+      <td>17.000</td>
+      <td>12276.493</td>
+      <td>9207.370</td>
+      <td>5223.082</td>
+      <td>3984.288</td>
+    </tr>
+    <tr>
+      <td>2033</td>
+      <td>0.114</td>
+      <td>0.375</td>
+      <td>35622.786</td>
+      <td>17.000</td>
+      <td>13375.545</td>
+      <td>10031.659</td>
+      <td>4568.958</td>
+      <td>5462.701</td>
+    </tr>
+    <tr>
+      <td>2034</td>
+      <td>0.086</td>
+      <td>0.367</td>
+      <td>38683.104</td>
+      <td>8.430</td>
+      <td>14192.235</td>
+      <td>10644.176</td>
+      <td>3657.721</td>
+      <td>6986.455</td>
+    </tr>
+    <tr>
+      <td>2035</td>
+      <td>0.058</td>
+      <td>0.358</td>
+      <td>40924.963</td>
+      <td>0.000</td>
+      <td>14664.779</td>
+      <td>10998.584</td>
+      <td>2549.669</td>
+      <td>8448.915</td>
+    </tr>
+  </tbody>
+</table><h2>Existing-award runoff schedule</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>period_index</th>
+      <th>start_years</th>
+      <th>end_years</th>
+      <th>options</th>
+      <th>sars</th>
+      <th>rsus</th>
+      <th>total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0.000</td>
+      <td>0.504</td>
+      <td>37.209</td>
+      <td>8.57</td>
+      <td>153.921</td>
+      <td>199.700</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>0.504</td>
+      <td>1.504</td>
+      <td>73.811</td>
+      <td>17.00</td>
+      <td>305.333</td>
+      <td>396.144</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1.504</td>
+      <td>2.504</td>
+      <td>73.811</td>
+      <td>17.00</td>
+      <td>305.333</td>
+      <td>396.144</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>2.504</td>
+      <td>3.504</td>
+      <td>73.811</td>
+      <td>17.00</td>
+      <td>151.412</td>
+      <td>242.223</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>3.504</td>
+      <td>4.504</td>
+      <td>73.811</td>
+      <td>17.00</td>
+      <td>0.000</td>
+      <td>90.811</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>4.504</td>
+      <td>5.504</td>
+      <td>28.547</td>
+      <td>17.00</td>
+      <td>0.000</td>
+      <td>45.547</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>5.504</td>
+      <td>6.504</td>
+      <td>0.000</td>
+      <td>17.00</td>
+      <td>0.000</td>
+      <td>17.000</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>6.504</td>
+      <td>7.504</td>
+      <td>0.000</td>
+      <td>17.00</td>
+      <td>0.000</td>
+      <td>17.000</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>7.504</td>
+      <td>8.504</td>
+      <td>0.000</td>
+      <td>8.43</td>
+      <td>0.000</td>
+      <td>8.430</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>8.504</td>
+      <td>9.504</td>
+      <td>0.000</td>
+      <td>0.00</td>
+      <td>0.000</td>
+      <td>0.000</td>
+    </tr>
+  </tbody>
+</table><h2>GAAP margin and SBC history from filings</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>period</th>
+      <th>period_type</th>
+      <th>revenue</th>
+      <th>gaap_operating_income</th>
+      <th>gaap_operating_margin</th>
+      <th>sbc</th>
+      <th>sbc_pct_revenue</th>
+      <th>gaap_plus_sbc_margin</th>
+      <th>company_adjusted_operating_margin</th>
+      <th>source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2023</td>
+      <td>fiscal year</td>
+      <td>2225.012</td>
+      <td>119.966</td>
+      <td>0.054</td>
+      <td>475.903</td>
+      <td>0.214</td>
+      <td>0.268</td>
+      <td>pending: earnings release not saved in data/raw</td>
+      <td>2025 10-K income statement and cash-flow SBC (data/raw/pltr_2025_10k_issuer.html)</td>
+    </tr>
+    <tr>
+      <td>2024</td>
+      <td>fiscal year</td>
+      <td>2865.507</td>
+      <td>310.403</td>
+      <td>0.108</td>
+      <td>691.638</td>
+      <td>0.241</td>
+      <td>0.350</td>
+      <td>pending: earnings release not saved in data/raw</td>
+      <td>2025 10-K income statement and cash-flow SBC (data/raw/pltr_2025_10k_issuer.html)</td>
+    </tr>
+    <tr>
+      <td>2025</td>
+      <td>fiscal year</td>
+      <td>4475.446</td>
+      <td>1414.015</td>
+      <td>0.316</td>
+      <td>684.033</td>
+      <td>0.153</td>
+      <td>0.469</td>
+      <td>pending: earnings release not saved in data/raw</td>
+      <td>2025 10-K income statement and cash-flow SBC (data/raw/pltr_2025_10k_issuer.html)</td>
+    </tr>
+    <tr>
+      <td>2025 Q1</td>
+      <td>quarter (derived: six months less Q2)</td>
+      <td>883.855</td>
+      <td>176.048</td>
+      <td>0.199</td>
+      <td>155.339</td>
+      <td>0.176</td>
+      <td>0.375</td>
+      <td>pending: earnings release not saved in data/raw</td>
+      <td>2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)</td>
+    </tr>
+    <tr>
+      <td>2025 Q2</td>
+      <td>quarter</td>
+      <td>1003.697</td>
+      <td>269.317</td>
+      <td>0.268</td>
+      <td>159.971</td>
+      <td>0.159</td>
+      <td>0.428</td>
+      <td>pending: earnings release not saved in data/raw</td>
+      <td>2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)</td>
+    </tr>
+    <tr>
+      <td>2026 Q1</td>
+      <td>quarter (derived: six months less Q2)</td>
+      <td>1632.583</td>
+      <td>753.998</td>
+      <td>0.462</td>
+      <td>201.592</td>
+      <td>0.123</td>
+      <td>0.585</td>
+      <td>pending: earnings release not saved in data/raw</td>
+      <td>2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)</td>
+    </tr>
+    <tr>
+      <td>2026 Q2</td>
+      <td>quarter</td>
+      <td>1935.464</td>
+      <td>912.004</td>
+      <td>0.471</td>
+      <td>265.209</td>
+      <td>0.137</td>
+      <td>0.608</td>
+      <td>pending: earnings release not saved in data/raw</td>
+      <td>2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)</td>
+    </tr>
+    <tr>
+      <td>2026 H1</td>
+      <td>six months</td>
+      <td>3568.047</td>
+      <td>1666.002</td>
+      <td>0.467</td>
+      <td>466.801</td>
+      <td>0.131</td>
+      <td>0.598</td>
+      <td>pending: earnings release not saved in data/raw</td>
+      <td>2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)</td>
+    </tr>
+  </tbody>
+</table><h2>NOL utilization sensitivity (not in base)</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>case</th>
+      <th>availability</th>
+      <th>pv_tax_saved</th>
+      <th>per_share</th>
+      <th>nol_left_after_2030</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>low</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>low</td>
+      <td>0.5</td>
+      <td>950.041</td>
+      <td>0.365</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>low</td>
+      <td>1.0</td>
+      <td>1790.595</td>
+      <td>0.689</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>0.5</td>
+      <td>965.942</td>
+      <td>0.372</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>base</td>
+      <td>1.0</td>
+      <td>1851.252</td>
+      <td>0.712</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>0.0</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>0.5</td>
+      <td>978.717</td>
+      <td>0.376</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td>high</td>
+      <td>1.0</td>
+      <td>1902.528</td>
+      <td>0.732</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table><h2>WACC-growth sensitivity</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>wacc</th>
+      <th>growth</th>
+      <th>per_share</th>
+      <th>terminal_share</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.080</td>
+      <td>0.02</td>
+      <td>38.922</td>
+      <td>0.788</td>
+    </tr>
+    <tr>
+      <td>0.080</td>
+      <td>0.03</td>
+      <td>43.263</td>
+      <td>0.812</td>
+    </tr>
+    <tr>
+      <td>0.080</td>
+      <td>0.04</td>
+      <td>49.740</td>
+      <td>0.839</td>
+    </tr>
+    <tr>
+      <td>0.090</td>
+      <td>0.02</td>
+      <td>33.943</td>
+      <td>0.759</td>
+    </tr>
+    <tr>
+      <td>0.090</td>
+      <td>0.03</td>
+      <td>36.798</td>
+      <td>0.780</td>
+    </tr>
+    <tr>
+      <td>0.090</td>
+      <td>0.04</td>
+      <td>40.767</td>
+      <td>0.804</td>
+    </tr>
+    <tr>
+      <td>0.105</td>
+      <td>0.02</td>
+      <td>28.669</td>
+      <td>0.717</td>
+    </tr>
+    <tr>
+      <td>0.105</td>
+      <td>0.03</td>
+      <td>30.324</td>
+      <td>0.735</td>
+    </tr>
+    <tr>
+      <td>0.105</td>
+      <td>0.04</td>
+      <td>32.469</td>
+      <td>0.755</td>
+    </tr>
+    <tr>
+      <td>0.120</td>
+      <td>0.02</td>
+      <td>24.973</td>
+      <td>0.679</td>
+    </tr>
+    <tr>
+      <td>0.120</td>
+      <td>0.03</td>
+      <td>26.001</td>
+      <td>0.694</td>
+    </tr>
+    <tr>
+      <td>0.120</td>
+      <td>0.04</td>
+      <td>27.270</td>
+      <td>0.711</td>
+    </tr>
+    <tr>
+      <td>0.130</td>
+      <td>0.02</td>
+      <td>23.068</td>
+      <td>0.654</td>
+    </tr>
+    <tr>
+      <td>0.130</td>
+      <td>0.03</td>
+      <td>23.836</td>
+      <td>0.668</td>
+    </tr>
+    <tr>
+      <td>0.130</td>
+      <td>0.04</td>
+      <td>24.761</td>
+      <td>0.683</td>
+    </tr>
+  </tbody>
+</table><h2>Comparables</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ticker</th>
+      <th>price</th>
+      <th>price_asof</th>
+      <th>shares</th>
+      <th>shares_asof</th>
+      <th>ttm_end</th>
+      <th>ttm_revenue</th>
+      <th>ttm_gaap_common_income</th>
+      <th>market_cap</th>
+      <th>ev</th>
+      <th>ev_revenue</th>
+      <th>pe</th>
+      <th>pe_status</th>
+      <th>ytd_revenue_growth</th>
+      <th>private_portfolio_excluded_from_ev_bridge</th>
+      <th>qualification</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>NOW</td>
+      <td>136.08</td>
+      <td>2026-10-05</td>
+      <td>1034.000</td>
+      <td>2026-06-30</td>
+      <td>2026-06-30</td>
+      <td>14732.000</td>
+      <td>1670.000</td>
+      <td>140706.720</td>
+      <td>141516.720</td>
+      <td>9.606</td>
+      <td>84.256</td>
+      <td>meaningful</td>
+      <td>0.231</td>
+      <td>2073</td>
+      <td>Book/face debt approximation; operating leases excluded with lease expense retained; strategic equity holdings receive zero separate credit, contaminate GAAP earnings. Latest balance/share dates differ from price date.</td>
+    </tr>
+    <tr>
+      <td>CRM</td>
+      <td>229.79</td>
+      <td>2026-10-05</td>
+      <td>823.000</td>
+      <td>2026-08-20</td>
+      <td>2026-07-31</td>
+      <td>43938.000</td>
+      <td>9662.000</td>
+      <td>189117.170</td>
+      <td>217214.170</td>
+      <td>4.944</td>
+      <td>19.573</td>
+      <td>meaningful</td>
+      <td>0.120</td>
+      <td>11324</td>
+      <td>Book/face debt approximation; operating leases excluded with lease expense retained; strategic equity holdings receive zero separate credit, contaminate GAAP earnings. Latest balance/share dates differ from price date.</td>
+    </tr>
+    <tr>
+      <td>PLTR</td>
+      <td>189.40</td>
+      <td>2026-10-05</td>
+      <td>2402.897</td>
+      <td>2026-06-30</td>
+      <td>2026-06-30</td>
+      <td>6155.941</td>
+      <td>3016.692</td>
+      <td>455108.692</td>
+      <td>445810.283</td>
+      <td>72.420</td>
+      <td>150.863</td>
+      <td>meaningful</td>
+      <td>0.890</td>
+      <td>167</td>
+      <td>Book/face debt approximation; operating leases excluded with lease expense retained; strategic equity holdings receive zero separate credit, contaminate GAAP earnings. Latest balance/share dates differ from price date.</td>
+    </tr>
+  </tbody>
+</table><h2>Relative valuation (basic shares)</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>peer</th>
+      <th>ev_revenue_implied_basic_price</th>
+      <th>pe_implied_basic_price</th>
+      <th>pe_status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>NOW</td>
+      <td>28.479</td>
+      <td>105.778</td>
+      <td>meaningful</td>
+    </tr>
+    <tr>
+      <td>CRM</td>
+      <td>16.535</td>
+      <td>24.573</td>
+      <td>meaningful</td>
+    </tr>
+  </tbody>
+</table><h2>Palantir P/E normalization</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ttm_end</th>
+      <th>ttm_pretax_income</th>
+      <th>ttm_reported_tax</th>
+      <th>ttm_effective_tax_rate</th>
+      <th>ttm_gaap_common_income</th>
+      <th>normalized_tax_rate</th>
+      <th>ttm_normalized_common_income</th>
+      <th>market_cap</th>
+      <th>pe_gaap</th>
+      <th>pe_normalized_tax</th>
+      <th>one_time_tax_item_identified</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2026-06-30</td>
+      <td>3071.83</td>
+      <td>41.111</td>
+      <td>0.013</td>
+      <td>3016.692</td>
+      <td>0.25</td>
+      <td>2289.845</td>
+      <td>455108.692</td>
+      <td>150.863</td>
+      <td>198.751</td>
+      <td>none: low rate reflects excess stock-compensation deductions and a full valuation allowance (2025 10-K tax note); a future allowance release would be a one-time benefit and is not in these figures</td>
+    </tr>
+  </tbody>
+</table><h2>Named stresses</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>scenario</th>
+      <th>value</th>
+      <th>current_action</th>
+      <th>conditional_price</th>
+      <th>conditional_action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Procurement delay and AI deployment failure</td>
+      <td>14.328</td>
+      <td>do_not_initiate</td>
+      <td>20</td>
+      <td>do_not_initiate</td>
+    </tr>
+    <tr>
+      <td>Commercial conversion slowdown</td>
+      <td>16.657</td>
+      <td>do_not_initiate</td>
+      <td>20</td>
+      <td>do_not_initiate</td>
+    </tr>
+    <tr>
+      <td>Maturity deferred to2035 with five-year fade</td>
+      <td>35.596</td>
+      <td>do_not_initiate</td>
+      <td>20</td>
+      <td>initiate_candidate</td>
+    </tr>
+  </tbody>
+</table><h2>One-at-a-time sensitivities</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>driver</th>
+      <th>input</th>
+      <th>units</th>
+      <th>operating_profit_2030</th>
+      <th>fcff_2030</th>
+      <th>per_share</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>growth_shift</td>
+      <td>-0.10</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>7059.918</td>
+      <td>5163.040</td>
+      <td>23.864</td>
+    </tr>
+    <tr>
+      <td>growth_shift</td>
+      <td>0.00</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>9668.432</td>
+      <td>6997.436</td>
+      <td>30.118</td>
+    </tr>
+    <tr>
+      <td>growth_shift</td>
+      <td>0.10</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>12948.443</td>
+      <td>9287.961</td>
+      <td>37.883</td>
+    </tr>
+    <tr>
+      <td>margin_shift</td>
+      <td>-0.03</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>8950.111</td>
+      <td>6458.694</td>
+      <td>29.588</td>
+    </tr>
+    <tr>
+      <td>margin_shift</td>
+      <td>0.00</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>9668.432</td>
+      <td>6997.436</td>
+      <td>30.118</td>
+    </tr>
+    <tr>
+      <td>margin_shift</td>
+      <td>0.03</td>
+      <td>absolute percentage-point shift as decimal</td>
+      <td>10386.754</td>
+      <td>7536.177</td>
+      <td>30.648</td>
+    </tr>
+  </tbody>
+</table><h2>Equal proportional sensitivities</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>driver</th>
+      <th>multiplier</th>
+      <th>operating_profit_2030</th>
+      <th>fcff_2030</th>
+      <th>per_share</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>growth_rates</td>
+      <td>0.9</td>
+      <td>8795.995</td>
+      <td>6378.587</td>
+      <td>27.989</td>
+    </tr>
+    <tr>
+      <td>growth_rates</td>
+      <td>1.0</td>
+      <td>9668.432</td>
+      <td>6997.436</td>
+      <td>30.118</td>
+    </tr>
+    <tr>
+      <td>growth_rates</td>
+      <td>1.1</td>
+      <td>10604.725</td>
+      <td>7660.379</td>
+      <td>32.394</td>
+    </tr>
+    <tr>
+      <td>operating_margins</td>
+      <td>0.9</td>
+      <td>8710.670</td>
+      <td>6279.114</td>
+      <td>29.349</td>
+    </tr>
+    <tr>
+      <td>operating_margins</td>
+      <td>1.0</td>
+      <td>9668.432</td>
+      <td>6997.436</td>
+      <td>30.118</td>
+    </tr>
+    <tr>
+      <td>operating_margins</td>
+      <td>1.1</td>
+      <td>10626.194</td>
+      <td>7715.757</td>
+      <td>30.887</td>
+    </tr>
+  </tbody>
+</table><h2>Prior-work attribution (October 6 comparison, unchanged)</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>step</th>
+      <th>per_share</th>
+      <th>change_from_previous</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Prior Lab10 rebuilt through FCFF engine: debt zero, cash interest removed</td>
+      <td>34.534</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <td>Change discount rate11% to10.56%; all cash flows fixed</td>
+      <td>36.560</td>
+      <td>2.025</td>
+    </tr>
+    <tr>
+      <td>Change reported liquidity/claims and share/award bridge</td>
+      <td>37.317</td>
+      <td>0.758</td>
+    </tr>
+    <tr>
+      <td>Change yearend timing to Oct5 stub; approximate prorated first annual cash flow</td>
+      <td>39.123</td>
+      <td>1.805</td>
+    </tr>
+    <tr>
+      <td>Replace operating forecast: segment growth, margins, tax and WC/reinvestment</td>
+      <td>34.774</td>
+      <td>-4.349</td>
+    </tr>
+    <tr>
+      <td>Replace terminal shortcut with mature margin and growth/ROIC reinvestment</td>
+      <td>29.756</td>
+      <td>-5.018</td>
+    </tr>
+  </tbody>
+</table><h2>Case results and checks (results.json)</h2><pre>{
+  &quot;created_utc&quot;: &quot;2026-10-20T00:18:39.747126+00:00&quot;,
   &quot;valuation_date&quot;: &quot;2026-10-05&quot;,
   &quot;status&quot;: &quot;Independent provisional analysis: postcomparison version: human locked test, final partner review and submission requirements pending&quot;,
   &quot;cases&quot;: {
     &quot;low&quot;: {
-      &quot;explicit_pv&quot;: 10874.852408272147,
+      &quot;explicit_pv&quot;: 10957.379678151403,
+      &quot;fade_pv&quot;: 0,
       &quot;terminal_pv&quot;: 21571.994069234115,
-      &quot;enterprise_value&quot;: 32446.84647750626,
-      &quot;equity_value&quot;: 42751.00609750626,
-      &quot;per_share&quot;: 16.44512979710698,
-      &quot;terminal_share&quot;: 0.6648410064808263,
+      &quot;terminal_time&quot;: 4.238356164383561,
+      &quot;enterprise_value&quot;: 32529.373747385518,
+      &quot;equity_value&quot;: 43302.344917172704,
+      &quot;per_share&quot;: 16.65721459415056,
+      &quot;terminal_share&quot;: 0.6631542997647756,
+      &quot;fade_years&quot;: 0,
+      &quot;fade&quot;: [],
       &quot;terminal_revenue&quot;: 16847.034163006872,
       &quot;terminal_nopat&quot;: 3790.582686676546,
       &quot;terminal_fcff&quot;: 3487.3360717424225,
       &quot;action&quot;: &quot;do_not_initiate&quot;
     },
     &quot;base&quot;: {
-      &quot;explicit_pv&quot;: 17807.421350923047,
+      &quot;explicit_pv&quot;: 17893.438967917493,
+      &quot;fade_pv&quot;: 0,
       &quot;terminal_pv&quot;: 49242.61305527987,
-      &quot;enterprise_value&quot;: 67050.03440620292,
-      &quot;equity_value&quot;: 77354.19402620292,
-      &quot;per_share&quot;: 29.75601926677717,
-      &quot;terminal_share&quot;: 0.7344159252321629,
+      &quot;terminal_time&quot;: 4.238356164383561,
+      &quot;enterprise_value&quot;: 67136.05202319736,
+      &quot;equity_value&quot;: 78295.89504081063,
+      &quot;per_share&quot;: 30.118265605026373,
+      &quot;terminal_share&quot;: 0.733474959746891,
+      &quot;fade_years&quot;: 0,
+      &quot;fade&quot;: [],
       &quot;terminal_revenue&quot;: 24662.374349691236,
       &quot;terminal_nopat&quot;: 6473.873266793949,
       &quot;terminal_fcff&quot;: 5697.008474778676,
       &quot;action&quot;: &quot;do_not_initiate&quot;
     },
     &quot;high&quot;: {
-      &quot;explicit_pv&quot;: 27636.368795293813,
+      &quot;explicit_pv&quot;: 27726.391293018743,
+      &quot;fade_pv&quot;: 0,
       &quot;terminal_pv&quot;: 132283.5471436939,
-      &quot;enterprise_value&quot;: 159919.91593898772,
-      &quot;equity_value&quot;: 170224.0755589877,
-      &quot;per_share&quot;: 65.4804944420569,
-      &quot;terminal_share&quot;: 0.8271861973349361,
+      &quot;terminal_time&quot;: 4.238356164383561,
+      &quot;enterprise_value&quot;: 160009.93843671263,
+      &quot;equity_value&quot;: 171341.72449780416,
+      &quot;per_share&quot;: 65.91042308103475,
+      &quot;terminal_share&quot;: 0.8267208176948014,
+      &quot;fade_years&quot;: 0,
+      &quot;fade&quot;: [],
       &quot;terminal_revenue&quot;: 37818.31054101812,
       &quot;terminal_nopat&quot;: 11345.493162305438,
       &quot;terminal_fcff&quot;: 9530.214256336567,
       &quot;action&quot;: &quot;do_not_initiate&quot;
     }
   },
+  &quot;terminal_conventions&quot;: [
+    {
+      &quot;case&quot;: &quot;low&quot;,
+      &quot;fade_years&quot;: 0,
+      &quot;maturity_year&quot;: 2030,
+      &quot;per_share&quot;: 16.65721459415056,
+      &quot;explicit_pv&quot;: 10957.379678151403,
+      &quot;fade_pv&quot;: 0,
+      &quot;terminal_pv&quot;: 21571.994069234115,
+      &quot;terminal_share&quot;: 0.6631542997647756,
+      &quot;action&quot;: &quot;do_not_initiate&quot;
+    },
+    {
+      &quot;case&quot;: &quot;low&quot;,
+      &quot;fade_years&quot;: 5,
+      &quot;maturity_year&quot;: 2035,
+      &quot;per_share&quot;: 18.171449129884927,
+      &quot;explicit_pv&quot;: 10957.379678151403,
+      &quot;fade_pv&quot;: 7725.420306925334,
+      &quot;terminal_pv&quot;: 17783.000574921884,
+      &quot;terminal_share&quot;: 0.48766242072932997,
+      &quot;action&quot;: &quot;do_not_initiate&quot;
+    },
+    {
+      &quot;case&quot;: &quot;low&quot;,
+      &quot;fade_years&quot;: 10,
+      &quot;maturity_year&quot;: 2040,
+      &quot;per_share&quot;: 19.605228318637106,
+      &quot;explicit_pv&quot;: 10957.379678151403,
+      &quot;fade_pv&quot;: 14586.867046247455,
+      &quot;terminal_pv&quot;: 14648.82772136775,
+      &quot;terminal_share&quot;: 0.3644614880390335,
+      &quot;action&quot;: &quot;do_not_initiate&quot;
+    },
+    {
+      &quot;case&quot;: &quot;base&quot;,
+      &quot;fade_years&quot;: 0,
+      &quot;maturity_year&quot;: 2030,
+      &quot;per_share&quot;: 30.118265605026373,
+      &quot;explicit_pv&quot;: 17893.438967917493,
+      &quot;fade_pv&quot;: 0,
+      &quot;terminal_pv&quot;: 49242.61305527987,
+      &quot;terminal_share&quot;: 0.733474959746891,
+      &quot;action&quot;: &quot;do_not_initiate&quot;
+    },
+    {
+      &quot;case&quot;: &quot;base&quot;,
+      &quot;fade_years&quot;: 5,
+      &quot;maturity_year&quot;: 2035,
+      &quot;per_share&quot;: 35.67412108681193,
+      &quot;explicit_pv&quot;: 17893.438967917493,
+      &quot;fade_pv&quot;: 12736.004292445241,
+      &quot;terminal_pv&quot;: 50949.69401111658,
+      &quot;terminal_share&quot;: 0.6245431824262375,
+      &quot;action&quot;: &quot;do_not_initiate&quot;
+    },
+    {
+      &quot;case&quot;: &quot;base&quot;,
+      &quot;fade_years&quot;: 10,
+      &quot;maturity_year&quot;: 2040,
+      &quot;per_share&quot;: 42.03608982493415,
+      &quot;explicit_pv&quot;: 17893.438967917493,
+      &quot;fade_pv&quot;: 27584.026008239533,
+      &quot;terminal_pv&quot;: 52640.34165647589,
+      &quot;terminal_share&quot;: 0.5365014105295774,
+      &quot;action&quot;: &quot;do_not_initiate&quot;
+    },
+    {
+      &quot;case&quot;: &quot;high&quot;,
+      &quot;fade_years&quot;: 0,
+      &quot;maturity_year&quot;: 2030,
+      &quot;per_share&quot;: 65.91042308103475,
+      &quot;explicit_pv&quot;: 27726.391293018743,
+      &quot;fade_pv&quot;: 0,
+      &quot;terminal_pv&quot;: 132283.5471436939,
+      &quot;terminal_share&quot;: 0.8267208176948014,
+      &quot;action&quot;: &quot;do_not_initiate&quot;
+    },
+    {
+      &quot;case&quot;: &quot;high&quot;,
+      &quot;fade_years&quot;: 5,
+      &quot;maturity_year&quot;: 2035,
+      &quot;per_share&quot;: 94.95744236064411,
+      &quot;explicit_pv&quot;: 27726.391293018743,
+      &quot;fade_pv&quot;: 17012.794275173488,
+      &quot;terminal_pv&quot;: 190781.81989308208,
+      &quot;terminal_share&quot;: 0.8100416330994796,
+      &quot;action&quot;: &quot;do_not_initiate&quot;
+    },
+    {
+      &quot;case&quot;: &quot;high&quot;,
+      &quot;fade_years&quot;: 10,
+      &quot;maturity_year&quot;: 2040,
+      &quot;per_share&quot;: 139.49074574312908,
+      &quot;explicit_pv&quot;: 27726.391293018743,
+      &quot;fade_pv&quot;: 49330.805160235235,
+      &quot;terminal_pv&quot;: 274233.25248067896,
+      &quot;terminal_share&quot;: 0.7806453415198144,
+      &quot;action&quot;: &quot;do_not_initiate&quot;
+    }
+  ],
+  &quot;cutoff_cash&quot;: {
+    &quot;low&quot;: {
+      &quot;june_30_cash&quot;: 2030.047,
+      &quot;stub_days&quot;: 97,
+      &quot;stub_fraction&quot;: 0.5271739130434783,
+      &quot;stub_fcff&quot;: 412.55029343787146,
+      &quot;stub_after_tax_interest&quot;: 56.26125634931512,
+      &quot;stub_financing&quot;: 0.0,
+      &quot;stub_retained_cash&quot;: 468.81154978718655,
+      &quot;stub_retained_cash_credited&quot;: 468.81154978718655,
+      &quot;valuation_date_cash&quot;: 2498.8585497871863
+    },
+    &quot;base&quot;: {
+      &quot;june_30_cash&quot;: 2030.047,
+      &quot;stub_days&quot;: 97,
+      &quot;stub_fraction&quot;: 0.5271739130434783,
+      &quot;stub_fcff&quot;: 799.4221412639586,
+      &quot;stub_after_tax_interest&quot;: 56.261256349315,
+      &quot;stub_financing&quot;: 0.0,
+      &quot;stub_retained_cash&quot;: 855.6833976132735,
+      &quot;stub_retained_cash_credited&quot;: 855.6833976132735,
+      &quot;valuation_date_cash&quot;: 2885.7303976132735
+    },
+    &quot;high&quot;: {
+      &quot;june_30_cash&quot;: 2030.047,
+      &quot;stub_days&quot;: 97,
+      &quot;stub_fraction&quot;: 0.5271739130434783,
+      &quot;stub_fcff&quot;: 971.3651847422194,
+      &quot;stub_after_tax_interest&quot;: 56.261256349315,
+      &quot;stub_financing&quot;: 0.0,
+      &quot;stub_retained_cash&quot;: 1027.6264410915344,
+      &quot;stub_retained_cash_credited&quot;: 1027.6264410915344,
+      &quot;valuation_date_cash&quot;: 3057.673441091534
+    }
+  },
+  &quot;existing_awards&quot;: {
+    &quot;options&quot;: {
+      &quot;unrecognized_compensation&quot;: 361,
+      &quot;remaining_service_years&quot;: 4.890868,
+      &quot;added_back_2026h2_to_2030&quot;: 332.4529636955721,
+      &quot;recognized_after_2030_not_added_back&quot;: 28.547036304427877
+    },
+    &quot;sars&quot;: {
+      &quot;unrecognized_compensation&quot;: 136,
+      &quot;remaining_service_years&quot;: 8,
+      &quot;added_back_2026h2_to_2030&quot;: 76.56986301369864,
+      &quot;recognized_after_2030_not_added_back&quot;: 59.43013698630136
+    },
+    &quot;rsus&quot;: {
+      &quot;unrecognized_compensation&quot;: 916,
+      &quot;remaining_service_years&quot;: 3,
+      &quot;added_back_2026h2_to_2030&quot;: 915.9999999999999,
+      &quot;recognized_after_2030_not_added_back&quot;: 1.1368683772161603e-13
+    },
+    &quot;dilutive_shares_counted&quot;: {
+      &quot;options&quot;: 149.677,
+      &quot;rsus&quot;: 33.249,
+      &quot;prsus&quot;: 0.121,
+      &quot;sars&quot;: 13.671
+    },
+    &quot;treatment&quot;: &quot;Existing awards are counted once, as diluted shares in the bridge (options also credit exercise proceeds). Their remaining GAAP expense is added back to EBIT over the forecast so it is not charged a second time. Future grants are not added back: their cost stays inside the GAAP-like margin as an ongoing cash-replacement compensation cost, and no future share issuance is modeled.&quot;
+  },
   &quot;reverse_dcf&quot;: {
-    &quot;commercial_growth_multiplier&quot;: 4.584305279324997,
+    &quot;commercial_growth_multiplier&quot;: 4.580286573785633,
     &quot;annual_growths&quot;: [
-      2.521367903628749,
-      1.833722111729999,
-      1.3752915837974993,
-      1.0085471614514994
+      2.5191576155820985,
+      1.8321146295142534,
+      1.37408597213569,
+      1.0076630462328393
     ],
     &quot;price_target&quot;: 189.4,
     &quot;other_drivers&quot;: &quot;base held fixed; mechanical expectation, not forecast&quot;
   },
+  &quot;market_implied&quot;: {
+    &quot;price&quot;: 189.4,
+    &quot;revenue_cagr&quot;: {
+      &quot;implied_cagr_2026_2030&quot;: 1.22341029214452,
+      &quot;base_cagr_2026_2030&quot;: 0.30905151742674586,
+      &quot;revenue_2026&quot;: 8154.0
+    },
+    &quot;terminal_margin&quot;: {
+      &quot;implied_terminal_margin&quot;: null,
+      &quot;value_at_100pct_margin&quot;: 65.29676976916708,
+      &quot;base_terminal_margin&quot;: 0.35
+    },
+    &quot;fade_length&quot;: {
+      &quot;implied_fade_years&quot;: 60,
+      &quot;value_at_implied&quot;: 190.71898916314908,
+      &quot;value_at_max&quot;: null,
+      &quot;max_years&quot;: 100
+    },
+    &quot;sentences&quot;: [
+      &quot;At $189.40, with base margins, discount rate and immediate maturity after 2030 held fixed, the market implies revenue compounding about 122% a year from 2026 to 2030, versus 31% in the base case.&quot;,
+      &quot;At $189.40, with base growth held fixed, no steady-state operating margin up to 100% of revenue is enough (even 100% gives $65); the price cannot be explained by maturity-year profitability alone.&quot;,
+      &quot;At $189.40, with base growth and margins held fixed, the market implies about 60 years of linear fade before maturity.&quot;,
+      &quot;Diagnostic only: scaling base commercial growth alone requires 4.58x the base path (252%, 183%, 137%, 101% for 2027-2030).&quot;
+    ],
+    &quot;note&quot;: &quot;One price cannot pin down growth, steady-state margin and fade length at once; each line moves one and holds the rest at base.&quot;
+  },
+  &quot;nol_sensitivity&quot;: {
+    &quot;adopted_in_base&quot;: false,
+    &quot;rows&quot;: [
+      {
+        &quot;case&quot;: &quot;low&quot;,
+        &quot;availability&quot;: 0.0,
+        &quot;pv_tax_saved&quot;: 0.0,
+        &quot;per_share&quot;: 0.0,
+        &quot;nol_left_after_2030&quot;: 0.0
+      },
+      {
+        &quot;case&quot;: &quot;low&quot;,
+        &quot;availability&quot;: 0.5,
+        &quot;pv_tax_saved&quot;: 950.0409214769986,
+        &quot;per_share&quot;: 0.3654544697876411,
+        &quot;nol_left_after_2030&quot;: 0.0
+      },
+      {
+        &quot;case&quot;: &quot;low&quot;,
+        &quot;availability&quot;: 1.0,
+        &quot;pv_tax_saved&quot;: 1790.5954531743325,
+        &quot;per_share&quot;: 0.6887925531951203,
+        &quot;nol_left_after_2030&quot;: 0.0
+      },
+      {
+        &quot;case&quot;: &quot;base&quot;,
+        &quot;availability&quot;: 0.0,
+        &quot;pv_tax_saved&quot;: 0.0,
+        &quot;per_share&quot;: 0.0,
+        &quot;nol_left_after_2030&quot;: 0.0
+      },
+      {
+        &quot;case&quot;: &quot;base&quot;,
+        &quot;availability&quot;: 0.5,
+        &quot;pv_tax_saved&quot;: 965.9415248312993,
+        &quot;per_share&quot;: 0.3715709921781877,
+        &quot;nol_left_after_2030&quot;: 0.0
+      },
+      {
+        &quot;case&quot;: &quot;base&quot;,
+        &quot;availability&quot;: 1.0,
+        &quot;pv_tax_saved&quot;: 1851.2520933714025,
+        &quot;per_share&quot;: 0.7121254852627803,
+        &quot;nol_left_after_2030&quot;: 0.0
+      },
+      {
+        &quot;case&quot;: &quot;high&quot;,
+        &quot;availability&quot;: 0.0,
+        &quot;pv_tax_saved&quot;: 0.0,
+        &quot;per_share&quot;: 0.0,
+        &quot;nol_left_after_2030&quot;: 0.0
+      },
+      {
+        &quot;case&quot;: &quot;high&quot;,
+        &quot;availability&quot;: 0.5,
+        &quot;pv_tax_saved&quot;: 978.717154688118,
+        &quot;per_share&quot;: 0.37648542368316773,
+        &quot;nol_left_after_2030&quot;: 0.0
+      },
+      {
+        &quot;case&quot;: &quot;high&quot;,
+        &quot;availability&quot;: 1.0,
+        &quot;pv_tax_saved&quot;: 1902.5283239266814,
+        &quot;per_share&quot;: 0.7318500331497862,
+        &quot;nol_left_after_2030&quot;: 0.0
+      }
+    ]
+  },
+  &quot;margin_history&quot;: [
+    {
+      &quot;period&quot;: &quot;2023&quot;,
+      &quot;period_type&quot;: &quot;fiscal year&quot;,
+      &quot;revenue&quot;: 2225.012,
+      &quot;gaap_operating_income&quot;: 119.966,
+      &quot;gaap_operating_margin&quot;: 0.05391701258240404,
+      &quot;sbc&quot;: 475.903,
+      &quot;sbc_pct_revenue&quot;: 0.21388783521167526,
+      &quot;gaap_plus_sbc_margin&quot;: 0.2678048477940793,
+      &quot;company_adjusted_operating_margin&quot;: &quot;pending: earnings release not saved in data/raw&quot;,
+      &quot;source&quot;: &quot;2025 10-K income statement and cash-flow SBC (data/raw/pltr_2025_10k_issuer.html)&quot;
+    },
+    {
+      &quot;period&quot;: &quot;2024&quot;,
+      &quot;period_type&quot;: &quot;fiscal year&quot;,
+      &quot;revenue&quot;: 2865.507,
+      &quot;gaap_operating_income&quot;: 310.403,
+      &quot;gaap_operating_margin&quot;: 0.10832393709036482,
+      &quot;sbc&quot;: 691.638,
+      &quot;sbc_pct_revenue&quot;: 0.24136671102181917,
+      &quot;gaap_plus_sbc_margin&quot;: 0.349690648112184,
+      &quot;company_adjusted_operating_margin&quot;: &quot;pending: earnings release not saved in data/raw&quot;,
+      &quot;source&quot;: &quot;2025 10-K income statement and cash-flow SBC (data/raw/pltr_2025_10k_issuer.html)&quot;
+    },
+    {
+      &quot;period&quot;: &quot;2025&quot;,
+      &quot;period_type&quot;: &quot;fiscal year&quot;,
+      &quot;revenue&quot;: 4475.446,
+      &quot;gaap_operating_income&quot;: 1414.015,
+      &quot;gaap_operating_margin&quot;: 0.31594951653980413,
+      &quot;sbc&quot;: 684.033,
+      &quot;sbc_pct_revenue&quot;: 0.15284130341422955,
+      &quot;gaap_plus_sbc_margin&quot;: 0.4687908199540337,
+      &quot;company_adjusted_operating_margin&quot;: &quot;pending: earnings release not saved in data/raw&quot;,
+      &quot;source&quot;: &quot;2025 10-K income statement and cash-flow SBC (data/raw/pltr_2025_10k_issuer.html)&quot;
+    },
+    {
+      &quot;period&quot;: &quot;2025 Q1&quot;,
+      &quot;period_type&quot;: &quot;quarter (derived: six months less Q2)&quot;,
+      &quot;revenue&quot;: 883.8549999999999,
+      &quot;gaap_operating_income&quot;: 176.048,
+      &quot;gaap_operating_margin&quot;: 0.19918199252139776,
+      &quot;sbc&quot;: 155.339,
+      &quot;sbc_pct_revenue&quot;: 0.17575167872558284,
+      &quot;gaap_plus_sbc_margin&quot;: 0.37493367124698057,
+      &quot;company_adjusted_operating_margin&quot;: &quot;pending: earnings release not saved in data/raw&quot;,
+      &quot;source&quot;: &quot;2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)&quot;
+    },
+    {
+      &quot;period&quot;: &quot;2025 Q2&quot;,
+      &quot;period_type&quot;: &quot;quarter&quot;,
+      &quot;revenue&quot;: 1003.697,
+      &quot;gaap_operating_income&quot;: 269.317,
+      &quot;gaap_operating_margin&quot;: 0.26832500246588364,
+      &quot;sbc&quot;: 159.971,
+      &quot;sbc_pct_revenue&quot;: 0.15938176561253048,
+      &quot;gaap_plus_sbc_margin&quot;: 0.4277067680784141,
+      &quot;company_adjusted_operating_margin&quot;: &quot;pending: earnings release not saved in data/raw&quot;,
+      &quot;source&quot;: &quot;2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)&quot;
+    },
+    {
+      &quot;period&quot;: &quot;2026 Q1&quot;,
+      &quot;period_type&quot;: &quot;quarter (derived: six months less Q2)&quot;,
+      &quot;revenue&quot;: 1632.583,
+      &quot;gaap_operating_income&quot;: 753.9979999999999,
+      &quot;gaap_operating_margin&quot;: 0.4618435938632216,
+      &quot;sbc&quot;: 201.59199999999998,
+      &quot;sbc_pct_revenue&quot;: 0.12348039885261575,
+      &quot;gaap_plus_sbc_margin&quot;: 0.5853239927158373,
+      &quot;company_adjusted_operating_margin&quot;: &quot;pending: earnings release not saved in data/raw&quot;,
+      &quot;source&quot;: &quot;2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)&quot;
+    },
+    {
+      &quot;period&quot;: &quot;2026 Q2&quot;,
+      &quot;period_type&quot;: &quot;quarter&quot;,
+      &quot;revenue&quot;: 1935.464,
+      &quot;gaap_operating_income&quot;: 912.004,
+      &quot;gaap_operating_margin&quot;: 0.4712069043908851,
+      &quot;sbc&quot;: 265.209,
+      &quot;sbc_pct_revenue&quot;: 0.13702605680084984,
+      &quot;gaap_plus_sbc_margin&quot;: 0.6082329611917349,
+      &quot;company_adjusted_operating_margin&quot;: &quot;pending: earnings release not saved in data/raw&quot;,
+      &quot;source&quot;: &quot;2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)&quot;
+    },
+    {
+      &quot;period&quot;: &quot;2026 H1&quot;,
+      &quot;period_type&quot;: &quot;six months&quot;,
+      &quot;revenue&quot;: 3568.047,
+      &quot;gaap_operating_income&quot;: 1666.002,
+      &quot;gaap_operating_margin&quot;: 0.46692266105239083,
+      &quot;sbc&quot;: 466.801,
+      &quot;sbc_pct_revenue&quot;: 0.13082815332869774,
+      &quot;gaap_plus_sbc_margin&quot;: 0.5977508143810886,
+      &quot;company_adjusted_operating_margin&quot;: &quot;pending: earnings release not saved in data/raw&quot;,
+      &quot;source&quot;: &quot;2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)&quot;
+    }
+  ],
   &quot;historical_checks&quot;: [
     {
       &quot;period&quot;: &quot;annual_2025&quot;,
@@ -100,867 +1984,77 @@
     &quot;Existing awards assumed full vesting/exercise; SAR treated as full-share upper bound.&quot;,
     &quot;Future compensation modeled as cash replacement; old award service cost removed to avoid duplication.&quot;
   ]
-}</pre><h2>Five-year base integrated forecast</h2><table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>cost_of_revenue</th>
-      <th>gross_profit</th>
-      <th>sales_marketing</th>
-      <th>research_development</th>
-      <th>general_administrative</th>
-      <th>annual_interest</th>
-      <th>annual_other_income</th>
-      <th>annual_tax</th>
-      <th>annual_net_income</th>
-      <th>year</th>
-      <th>commercial_revenue</th>
-      <th>government_revenue</th>
-      <th>revenue</th>
-      <th>ebit_before_old_award_adjustment</th>
-      <th>existing_award_service_adjustment</th>
-      <th>ebit</th>
-      <th>period_ebit</th>
-      <th>period_interest</th>
-      <th>period_tax</th>
-      <th>period_net_income</th>
-      <th>da</th>
-      <th>capex</th>
-      <th>delta_nwc</th>
-      <th>fcff</th>
-      <th>valued_fcff</th>
-      <th>cash</th>
-      <th>investments</th>
-      <th>ar</th>
-      <th>prepaid</th>
-      <th>ppe</th>
-      <th>rou</th>
-      <th>other_assets</th>
-      <th>ap_accrued</th>
-      <th>contract_current</th>
-      <th>contract_noncurrent</th>
-      <th>lease_noncurrent</th>
-      <th>other_liabilities</th>
-      <th>assets</th>
-      <th>liabilities</th>
-      <th>equity</th>
-      <th>nci</th>
-      <th>cfo</th>
-      <th>cfi</th>
-      <th>cff</th>
-      <th>balance_residual</th>
-      <th>cash_residual</th>
-      <th>period_label</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1223.100</td>
-      <td>6930.900</td>
-      <td>1431.027</td>
-      <td>795.015</td>
-      <td>954.018</td>
-      <td>286.196</td>
-      <td>160.045</td>
-      <td>634.088</td>
-      <td>3761.881</td>
-      <td>2026</td>
-      <td>3929.785</td>
-      <td>4224.215</td>
-      <td>8154.000</td>
-      <td>3750.840</td>
-      <td>198.888</td>
-      <td>3949.728</td>
-      <td>2283.726</td>
-      <td>142.297</td>
-      <td>606.506</td>
-      <td>1819.517</td>
-      <td>50.247</td>
-      <td>75.893</td>
-      <td>171.328</td>
-      <td>1515.821</td>
-      <td>716.719</td>
-      <td>3652.590</td>
-      <td>7379.052</td>
-      <td>1630.800</td>
-      <td>163.080</td>
-      <td>87.049</td>
-      <td>230.268</td>
-      <td>287.38</td>
-      <td>407.700</td>
-      <td>1060.020</td>
-      <td>34.259</td>
-      <td>211.4</td>
-      <td>12.439</td>
-      <td>13430.219</td>
-      <td>1725.818</td>
-      <td>11593.711</td>
-      <td>110.69</td>
-      <td>1698.436</td>
-      <td>-75.893</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>-0.0</td>
-      <td>2026 H2 modeled flows; annual revenue/EBIT</td>
-    </tr>
-    <tr>
-      <td>1769.079</td>
-      <td>10024.779</td>
-      <td>2069.822</td>
-      <td>1149.901</td>
-      <td>1379.881</td>
-      <td>330.949</td>
-      <td>0.000</td>
-      <td>1537.664</td>
-      <td>4612.993</td>
-      <td>2027</td>
-      <td>6091.167</td>
-      <td>5702.690</td>
-      <td>11793.857</td>
-      <td>5425.174</td>
-      <td>394.533</td>
-      <td>5819.708</td>
-      <td>5819.708</td>
-      <td>330.949</td>
-      <td>1537.664</td>
-      <td>4612.993</td>
-      <td>94.351</td>
-      <td>141.526</td>
-      <td>145.594</td>
-      <td>4172.011</td>
-      <td>4172.011</td>
-      <td>8072.813</td>
-      <td>7379.052</td>
-      <td>2358.771</td>
-      <td>235.877</td>
-      <td>134.224</td>
-      <td>230.268</td>
-      <td>287.38</td>
-      <td>589.693</td>
-      <td>1533.201</td>
-      <td>34.259</td>
-      <td>211.4</td>
-      <td>12.439</td>
-      <td>18698.386</td>
-      <td>2380.992</td>
-      <td>16206.704</td>
-      <td>110.69</td>
-      <td>4561.749</td>
-      <td>-141.526</td>
-      <td>0.0</td>
-      <td>-0.0</td>
-      <td>-0.0</td>
-      <td>full year</td>
-    </tr>
-    <tr>
-      <td>2374.062</td>
-      <td>13453.016</td>
-      <td>2848.874</td>
-      <td>1582.708</td>
-      <td>1899.249</td>
-      <td>463.556</td>
-      <td>0.000</td>
-      <td>1995.069</td>
-      <td>5985.206</td>
-      <td>2028</td>
-      <td>8527.634</td>
-      <td>7299.443</td>
-      <td>15827.077</td>
-      <td>7122.185</td>
-      <td>394.533</td>
-      <td>7516.718</td>
-      <td>7516.718</td>
-      <td>463.556</td>
-      <td>1995.069</td>
-      <td>5985.206</td>
-      <td>126.617</td>
-      <td>189.925</td>
-      <td>161.329</td>
-      <td>5412.901</td>
-      <td>5412.901</td>
-      <td>13833.381</td>
-      <td>7379.052</td>
-      <td>3165.415</td>
-      <td>316.542</td>
-      <td>197.533</td>
-      <td>230.268</td>
-      <td>287.38</td>
-      <td>791.354</td>
-      <td>2057.520</td>
-      <td>34.259</td>
-      <td>211.4</td>
-      <td>12.439</td>
-      <td>25409.571</td>
-      <td>3106.972</td>
-      <td>22191.909</td>
-      <td>110.69</td>
-      <td>5950.493</td>
-      <td>-189.925</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>full year</td>
-    </tr>
-    <tr>
-      <td>2998.687</td>
-      <td>16992.558</td>
-      <td>3778.345</td>
-      <td>2099.081</td>
-      <td>2518.897</td>
-      <td>636.373</td>
-      <td>0.000</td>
-      <td>2330.452</td>
-      <td>6991.356</td>
-      <td>2029</td>
-      <td>11085.925</td>
-      <td>8905.320</td>
-      <td>19991.245</td>
-      <td>8596.235</td>
-      <td>89.200</td>
-      <td>8685.435</td>
-      <td>8685.435</td>
-      <td>636.373</td>
-      <td>2330.452</td>
-      <td>6991.356</td>
-      <td>159.930</td>
-      <td>239.895</td>
-      <td>166.567</td>
-      <td>6267.545</td>
-      <td>6267.545</td>
-      <td>20578.206</td>
-      <td>7379.052</td>
-      <td>3998.249</td>
-      <td>399.825</td>
-      <td>277.498</td>
-      <td>230.268</td>
-      <td>287.38</td>
-      <td>999.562</td>
-      <td>2598.862</td>
-      <td>34.259</td>
-      <td>211.4</td>
-      <td>12.439</td>
-      <td>33150.477</td>
-      <td>3856.522</td>
-      <td>29183.265</td>
-      <td>110.69</td>
-      <td>6984.719</td>
-      <td>-239.895</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>full year</td>
-    </tr>
-    <tr>
-      <td>3591.608</td>
-      <td>20352.445</td>
-      <td>4848.671</td>
-      <td>2693.706</td>
-      <td>3232.447</td>
-      <td>838.718</td>
-      <td>0.000</td>
-      <td>2626.385</td>
-      <td>7879.154</td>
-      <td>2030</td>
-      <td>13524.828</td>
-      <td>10419.225</td>
-      <td>23944.053</td>
-      <td>9577.621</td>
-      <td>89.200</td>
-      <td>9666.821</td>
-      <td>9666.821</td>
-      <td>838.718</td>
-      <td>2626.385</td>
-      <td>7879.154</td>
-      <td>191.552</td>
-      <td>287.329</td>
-      <td>158.112</td>
-      <td>6996.227</td>
-      <td>6996.227</td>
-      <td>28203.471</td>
-      <td>7379.052</td>
-      <td>4788.811</td>
-      <td>478.881</td>
-      <td>373.274</td>
-      <td>230.268</td>
-      <td>287.38</td>
-      <td>1197.203</td>
-      <td>3112.727</td>
-      <td>34.259</td>
-      <td>211.4</td>
-      <td>12.439</td>
-      <td>41741.137</td>
-      <td>4568.027</td>
-      <td>37062.419</td>
-      <td>110.69</td>
-      <td>7912.594</td>
-      <td>-287.329</td>
-      <td>0.0</td>
-      <td>-0.0</td>
-      <td>-0.0</td>
-      <td>full year</td>
-    </tr>
-  </tbody>
-</table><h2>WACCâ€“growth sensitivity</h2><table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>wacc</th>
-      <th>growth</th>
-      <th>per_share</th>
-      <th>terminal_share</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>0.080</td>
-      <td>0.02</td>
-      <td>38.557</td>
-      <td>0.789</td>
-    </tr>
-    <tr>
-      <td>0.080</td>
-      <td>0.03</td>
-      <td>42.898</td>
-      <td>0.812</td>
-    </tr>
-    <tr>
-      <td>0.080</td>
-      <td>0.04</td>
-      <td>49.375</td>
-      <td>0.839</td>
-    </tr>
-    <tr>
-      <td>0.090</td>
-      <td>0.02</td>
-      <td>33.580</td>
-      <td>0.760</td>
-    </tr>
-    <tr>
-      <td>0.090</td>
-      <td>0.03</td>
-      <td>36.434</td>
-      <td>0.781</td>
-    </tr>
-    <tr>
-      <td>0.090</td>
-      <td>0.04</td>
-      <td>40.403</td>
-      <td>0.805</td>
-    </tr>
-    <tr>
-      <td>0.105</td>
-      <td>0.02</td>
-      <td>28.306</td>
-      <td>0.718</td>
-    </tr>
-    <tr>
-      <td>0.105</td>
-      <td>0.03</td>
-      <td>29.962</td>
-      <td>0.736</td>
-    </tr>
-    <tr>
-      <td>0.105</td>
-      <td>0.04</td>
-      <td>32.107</td>
-      <td>0.756</td>
-    </tr>
-    <tr>
-      <td>0.120</td>
-      <td>0.02</td>
-      <td>24.612</td>
-      <td>0.680</td>
-    </tr>
-    <tr>
-      <td>0.120</td>
-      <td>0.03</td>
-      <td>25.640</td>
-      <td>0.695</td>
-    </tr>
-    <tr>
-      <td>0.120</td>
-      <td>0.04</td>
-      <td>26.909</td>
-      <td>0.712</td>
-    </tr>
-    <tr>
-      <td>0.130</td>
-      <td>0.02</td>
-      <td>22.708</td>
-      <td>0.656</td>
-    </tr>
-    <tr>
-      <td>0.130</td>
-      <td>0.03</td>
-      <td>23.476</td>
-      <td>0.669</td>
-    </tr>
-    <tr>
-      <td>0.130</td>
-      <td>0.04</td>
-      <td>24.401</td>
-      <td>0.684</td>
-    </tr>
-  </tbody>
-</table><h2>Comparables</h2><table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>ticker</th>
-      <th>price</th>
-      <th>price_asof</th>
-      <th>shares</th>
-      <th>shares_asof</th>
-      <th>ttm_end</th>
-      <th>ttm_revenue</th>
-      <th>ttm_gaap_common_income</th>
-      <th>market_cap</th>
-      <th>ev</th>
-      <th>ev_revenue</th>
-      <th>pe</th>
-      <th>private_portfolio_excluded_from_ev_bridge</th>
-      <th>qualification</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>NOW</td>
-      <td>136.08</td>
-      <td>2026-10-05</td>
-      <td>1034.000</td>
-      <td>2026-06-30</td>
-      <td>2026-06-30</td>
-      <td>14732.000</td>
-      <td>1670.000</td>
-      <td>140706.720</td>
-      <td>141516.720</td>
-      <td>9.606</td>
-      <td>84.256</td>
-      <td>2073</td>
-      <td>Book/face debt approximation; operating leases excluded with lease expense retained; strategic equity holdings receive zero separate credit, contaminate GAAP earnings. Latest balance/share dates differ from price date.</td>
-    </tr>
-    <tr>
-      <td>CRM</td>
-      <td>229.79</td>
-      <td>2026-10-05</td>
-      <td>823.000</td>
-      <td>2026-08-20</td>
-      <td>2026-07-31</td>
-      <td>43938.000</td>
-      <td>9662.000</td>
-      <td>189117.170</td>
-      <td>217214.170</td>
-      <td>4.944</td>
-      <td>19.573</td>
-      <td>11324</td>
-      <td>Book/face debt approximation; operating leases excluded with lease expense retained; strategic equity holdings receive zero separate credit, contaminate GAAP earnings. Latest balance/share dates differ from price date.</td>
-    </tr>
-    <tr>
-      <td>PLTR</td>
-      <td>189.40</td>
-      <td>2026-10-05</td>
-      <td>2402.897</td>
-      <td>2026-06-30</td>
-      <td>2026-06-30</td>
-      <td>6155.941</td>
-      <td>3016.692</td>
-      <td>455108.692</td>
-      <td>445810.283</td>
-      <td>72.420</td>
-      <td>150.863</td>
-      <td>167</td>
-      <td>Book/face debt approximation; operating leases excluded with lease expense retained; strategic equity holdings receive zero separate credit, contaminate GAAP earnings. Latest balance/share dates differ from price date.</td>
-    </tr>
-  </tbody>
-</table><h2>Relative valuation</h2><table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>peer</th>
-      <th>ev_revenue_implied_basic_price</th>
-      <th>pe_implied_basic_price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>NOW</td>
-      <td>28.479</td>
-      <td>105.778</td>
-    </tr>
-    <tr>
-      <td>CRM</td>
-      <td>16.535</td>
-      <td>24.573</td>
-    </tr>
-  </tbody>
-</table><h2>Named stresses</h2><table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>scenario</th>
-      <th>value</th>
-      <th>current_action</th>
-      <th>conditional_price</th>
-      <th>conditional_action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Procurement delay and AI deployment failure</td>
-      <td>14.099</td>
-      <td>do_not_initiate</td>
-      <td>20</td>
-      <td>do_not_initiate</td>
-    </tr>
-    <tr>
-      <td>Commercial conversion slowdown</td>
-      <td>16.445</td>
-      <td>do_not_initiate</td>
-      <td>20</td>
-      <td>do_not_initiate</td>
-    </tr>
-    <tr>
-      <td>Maturity deferred to2035 with five-year fade</td>
-      <td>35.229</td>
-      <td>do_not_initiate</td>
-      <td>20</td>
-      <td>initiate_candidate</td>
-    </tr>
-  </tbody>
-</table><h2>One-at-a-time sensitivities</h2><table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>driver</th>
-      <th>input</th>
-      <th>units</th>
-      <th>operating_profit_2030</th>
-      <th>fcff_2030</th>
-      <th>per_share</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>growth_shift</td>
-      <td>-0.10</td>
-      <td>absolute percentage-point shift as decimal</td>
-      <td>7058.307</td>
-      <td>5161.831</td>
-      <td>23.502</td>
-    </tr>
-    <tr>
-      <td>growth_shift</td>
-      <td>0.00</td>
-      <td>absolute percentage-point shift as decimal</td>
-      <td>9666.821</td>
-      <td>6996.227</td>
-      <td>29.756</td>
-    </tr>
-    <tr>
-      <td>growth_shift</td>
-      <td>0.10</td>
-      <td>absolute percentage-point shift as decimal</td>
-      <td>12946.832</td>
-      <td>9286.753</td>
-      <td>37.521</td>
-    </tr>
-    <tr>
-      <td>margin_shift</td>
-      <td>-0.03</td>
-      <td>absolute percentage-point shift as decimal</td>
-      <td>8948.500</td>
-      <td>6457.486</td>
-      <td>29.263</td>
-    </tr>
-    <tr>
-      <td>margin_shift</td>
-      <td>0.00</td>
-      <td>absolute percentage-point shift as decimal</td>
-      <td>9666.821</td>
-      <td>6996.227</td>
-      <td>29.756</td>
-    </tr>
-    <tr>
-      <td>margin_shift</td>
-      <td>0.03</td>
-      <td>absolute percentage-point shift as decimal</td>
-      <td>10385.143</td>
-      <td>7534.968</td>
-      <td>30.249</td>
-    </tr>
-  </tbody>
-</table><h2>Equal proportional sensitivities</h2><table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>driver</th>
-      <th>multiplier</th>
-      <th>operating_profit_2030</th>
-      <th>fcff_2030</th>
-      <th>per_share</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>growth_rates</td>
-      <td>0.9</td>
-      <td>8794.384</td>
-      <td>6377.379</td>
-      <td>27.627</td>
-    </tr>
-    <tr>
-      <td>growth_rates</td>
-      <td>1.0</td>
-      <td>9666.821</td>
-      <td>6996.227</td>
-      <td>29.756</td>
-    </tr>
-    <tr>
-      <td>growth_rates</td>
-      <td>1.1</td>
-      <td>10603.114</td>
-      <td>7659.171</td>
-      <td>32.031</td>
-    </tr>
-    <tr>
-      <td>operating_margins</td>
-      <td>0.9</td>
-      <td>8709.059</td>
-      <td>6277.906</td>
-      <td>29.044</td>
-    </tr>
-    <tr>
-      <td>operating_margins</td>
-      <td>1.0</td>
-      <td>9666.821</td>
-      <td>6996.227</td>
-      <td>29.756</td>
-    </tr>
-    <tr>
-      <td>operating_margins</td>
-      <td>1.1</td>
-      <td>10624.583</td>
-      <td>7714.549</td>
-      <td>30.468</td>
-    </tr>
-  </tbody>
-</table><h2>Prior-work attribution</h2><table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>step</th>
-      <th>per_share</th>
-      <th>change_from_previous</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Prior Lab10 rebuilt through FCFF engine: debt zero, cash interest removed</td>
-      <td>34.534</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <td>Change discount rate11% to10.56%; all cash flows fixed</td>
-      <td>36.560</td>
-      <td>2.025</td>
-    </tr>
-    <tr>
-      <td>Change reported liquidity/claims and share/award bridge</td>
-      <td>37.317</td>
-      <td>0.758</td>
-    </tr>
-    <tr>
-      <td>Change yearend timing to Oct5 stub; approximate prorated first annual cash flow</td>
-      <td>39.123</td>
-      <td>1.805</td>
-    </tr>
-    <tr>
-      <td>Replace operating forecast: segment growth, margins, tax and WC/reinvestment</td>
-      <td>34.774</td>
-      <td>-4.349</td>
-    </tr>
-    <tr>
-      <td>Replace terminal shortcut with mature margin and growth/ROIC reinvestment</td>
-      <td>29.756</td>
-      <td>-5.018</td>
-    </tr>
-  </tbody>
-</table><h2>One-at-a-time sensitivities</h2><table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>driver</th>
-      <th>input</th>
-      <th>units</th>
-      <th>operating_profit_2030</th>
-      <th>fcff_2030</th>
-      <th>per_share</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>growth_shift</td>
-      <td>-0.10</td>
-      <td>absolute percentage-point shift as decimal</td>
-      <td>7058.307</td>
-      <td>5161.831</td>
-      <td>23.502</td>
-    </tr>
-    <tr>
-      <td>growth_shift</td>
-      <td>0.00</td>
-      <td>absolute percentage-point shift as decimal</td>
-      <td>9666.821</td>
-      <td>6996.227</td>
-      <td>29.756</td>
-    </tr>
-    <tr>
-      <td>growth_shift</td>
-      <td>0.10</td>
-      <td>absolute percentage-point shift as decimal</td>
-      <td>12946.832</td>
-      <td>9286.753</td>
-      <td>37.521</td>
-    </tr>
-    <tr>
-      <td>margin_shift</td>
-      <td>-0.03</td>
-      <td>absolute percentage-point shift as decimal</td>
-      <td>8948.500</td>
-      <td>6457.486</td>
-      <td>29.263</td>
-    </tr>
-    <tr>
-      <td>margin_shift</td>
-      <td>0.00</td>
-      <td>absolute percentage-point shift as decimal</td>
-      <td>9666.821</td>
-      <td>6996.227</td>
-      <td>29.756</td>
-    </tr>
-    <tr>
-      <td>margin_shift</td>
-      <td>0.03</td>
-      <td>absolute percentage-point shift as decimal</td>
-      <td>10385.143</td>
-      <td>7534.968</td>
-      <td>30.249</td>
-    </tr>
-  </tbody>
-</table><h2>Equal proportional sensitivities</h2><table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>driver</th>
-      <th>multiplier</th>
-      <th>operating_profit_2030</th>
-      <th>fcff_2030</th>
-      <th>per_share</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>growth_rates</td>
-      <td>0.9</td>
-      <td>8794.384</td>
-      <td>6377.379</td>
-      <td>27.627</td>
-    </tr>
-    <tr>
-      <td>growth_rates</td>
-      <td>1.0</td>
-      <td>9666.821</td>
-      <td>6996.227</td>
-      <td>29.756</td>
-    </tr>
-    <tr>
-      <td>growth_rates</td>
-      <td>1.1</td>
-      <td>10603.114</td>
-      <td>7659.171</td>
-      <td>32.031</td>
-    </tr>
-    <tr>
-      <td>operating_margins</td>
-      <td>0.9</td>
-      <td>8709.059</td>
-      <td>6277.906</td>
-      <td>29.044</td>
-    </tr>
-    <tr>
-      <td>operating_margins</td>
-      <td>1.0</td>
-      <td>9666.821</td>
-      <td>6996.227</td>
-      <td>29.756</td>
-    </tr>
-    <tr>
-      <td>operating_margins</td>
-      <td>1.1</td>
-      <td>10624.583</td>
-      <td>7714.549</td>
-      <td>30.468</td>
-    </tr>
-  </tbody>
-</table><h2>Prior-work attribution</h2><table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>step</th>
-      <th>per_share</th>
-      <th>change_from_previous</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Prior Lab10 rebuilt through FCFF engine: debt zero, cash interest removed</td>
-      <td>34.534</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <td>Change discount rate11% to10.56%; all cash flows fixed</td>
-      <td>36.560</td>
-      <td>2.025</td>
-    </tr>
-    <tr>
-      <td>Change reported liquidity/claims and share/award bridge</td>
-      <td>37.317</td>
-      <td>0.758</td>
-    </tr>
-    <tr>
-      <td>Change yearend timing to Oct5 stub; approximate prorated first annual cash flow</td>
-      <td>39.123</td>
-      <td>1.805</td>
-    </tr>
-    <tr>
-      <td>Replace operating forecast: segment growth, margins, tax and WC/reinvestment</td>
-      <td>34.774</td>
-      <td>-4.349</td>
-    </tr>
-    <tr>
-      <td>Replace terminal shortcut with mature margin and growth/ROIC reinvestment</td>
-      <td>29.756</td>
-      <td>-5.018</td>
-    </tr>
-  </tbody>
-</table><h2>Committee memo</h2><pre># Palantir independent committee memo â€” provisional
-Created 2026-10-06T23:22:19.882309+00:00. AI-generated after the official checkpoint; not official EditionA or Pierce&#x27;s original judgment.
+}</pre><h2>Working committee memo</h2><pre># Palantir committee memo (working draft)
+Post-comparison revision, Claude Code, 2026-10-20. Generated 2026-10-20T00:18:39.805854+00:00. AI-generated after the official Edition A checkpoint. This is not the official Edition A and not Pierce&#x27;s original judgment. The October 6 independent freeze (commit 890b973) and its memo (`submission/independent-memo.md`) are preserved unchanged.
 
-Conditional action: **do not initiate at the October5,2026 regular close of $189.40 under this evidence and model.** Fundamental DCF case range is approximately **$16â€“$65 per diluted economic share**, with base around $30. This is a judgment-dependent interval, not a statistical confidence interval or a universal price ceiling. Senior analysts retain sector strategy; Pierce must review the material assumptions. Course and human validations remain pending.
+**Conditional action: do not initiate at the October 5, 2026 regular close of $189.40 under this evidence and model.** The fundamental DCF case range is about **$17 to $66 per diluted economic share**, with the base near $30. Even the high case is below the price by more than the 120% do-not-initiate threshold. This is a judgment-dependent interval, not a statistical confidence interval. Pierce must still adopt or reject the material assumptions listed under &quot;Decisions pending&quot; before a final label (do not initiate vs. watch/defer) is chosen.
 
-The fund has no position. Intended user: buy-side analyst group and portfolio manager. Decision horizon:3â€“5 years. Security: NASDAQ PLTR ClassA; USD; count ClassA/B/F economic ownership, distinguish point-in-time basic from weighted-average EPS shares. Palantir sells software and services with identifiable operating revenue, costs, working capital and reinvestment; operating-company enterprise FCFF is appropriate. It is not a regulated financial intermediary or property trust. No trading execution or public publishing is authorized by this analysis.
+The fund has no position. Intended user: buy-side analyst group and portfolio manager. Decision horizon: 3-5 years. Security: NASDAQ PLTR Class A; USD; Class A/B/F economic ownership counted; point-in-time basic shares distinguished from weighted-average EPS shares. Palantir sells software and services with identifiable operating revenue, costs, working capital and reinvestment, so operating-company enterprise FCFF is appropriate.
+
+## What changed since the October 6 freeze (code corrections only)
+| Case | Frozen Oct 6 | Corrected now |
+|---|---:|---:|
+| Low | $16.45 | $16.66 |
+| Base | $29.76 | $30.12 |
+| High | $65.48 | $65.91 |
+
+1. **Cutoff cash.** The equity bridge used June 30 cash, but the valued FCFF only starts October 5. The 97 days in between were counted nowhere. Cash is now rolled forward by the cash the model retains in that stub: FCFF $799M + after-tax interest $56M + financing $0M = $856M, counted once.
+2. **Existing-award runoff.** Remaining stock-compensation expense on awards outstanding at June 30 now follows an explicit straight-line schedule that stops at each unrecognized balance (options $361M over 4.89 years, SARs $136M over 8 years, RSUs $916M over 3 years). The old code stopped RSU expense six months early.
+3. **Income-statement checks.** Displayed lines must add to EBIT and pretax income less tax must equal net income, or the run fails.
+
+No economic assumption was changed. Every assumption option is shown separately in `docs/valuation-bridge-2026-10-20.md` and is **not adopted**.
 
 ## Evidence and accounting
-2025 annual10K published February17,2026 supplies the audited base. June30,2026 10Q published August4 supplies separate interim statements and the bridge. October5 close is the valuation/information cutoff; October6 quotes are excluded. Cash and awards remain latest reported June30 amounts, not claims of an October5 balance. Management&#x27;s August3 guidance midpoint is a forecast input, not realized revenue. Every raw source and its failures are in the source manifest; peer snapshots have reproducible primary URLs when bulk downloads were blocked.
+The audited 2025 10-K (published February 17, 2026) supplies the annual base; the June 30, 2026 10-Q (published August 4) supplies interim statements, cash and awards. The October 5 close is the valuation and information cutoff. The August 3 FY2026 revenue guidance midpoint ($8.154B) is a forecast input, not realized revenue.
 
-Retain ongoing stock-compensation costs through cash-replacement economics; explicitly dilute existing awards and remove their remaining service expense before future replacement costs. Full award vesting and SAR full-share treatment are conservative approximations, not option pricing. Exclude restricted cash from distributable equity credit. Normalize operating cash taxes to25%; remove non-operating interest/investment income from FCFF. Operating lease expense remains within EBIT, so lease liabilities are not arbitrarily treated as financial debt. No hidden funding plug: cash is generated by the cash-flow roll-forward and an explicit deficit would fail.
+**Margins are GAAP.** Q2 2026 GAAP operating margin was 47.1% (operating income $912M on revenue $1,935M), up from 31.6% for FY2025 and 5.4% for FY2023. Stock-based compensation fell to 13.7% of revenue. The base path (46% in 2026 falling to 40% in 2030 and 35% at maturity) runs against this rising history. It is an analyst assumption about competition and compute/compensation cost, not something the filings show (see `outputs/margin_history.csv`).
 
-## Cases and expectations
-Low: commercial conversion slows, government procurement delays, margins compress and collections absorb cash. Base: strong commercial adoption decelerates; government growth moderates; margin fades toward maturity. High: repeatable deployment extends strong adoption and efficient cash collection. Terminal PV accounts for about 66%â€“83% of EV. The high case is especially maturity-dependent. Five-year immediate maturity is a major assumption: delaying maturity to2035 in a separate terminal fade produces roughly $35; it still does not support the observed price in this specification.
+**Existing-award add-back.** The input margins are GAAP-like and therefore include stock compensation. The awards already outstanding are counted as 196.7M extra diluted shares in the bridge, so their remaining expense ($1,325M over 2026 H2-2030) is added back to EBIT as its own line (&quot;existing award service adjustment&quot;). Charging both the dilution and the expense would count the same cost twice. This is why reported EBIT margin is above the input margin. Future grants are not added back: their cost stays inside the margin as an ongoing cash-replacement compensation cost.
 
-Base WACC10.56%=Treasury10-year5.31% on October5 + assumed operating beta1.25 times October1 implied ERP4.20%. The beta is analyst judgment, not a completed regression. WACC8â€“13% sensitivity is reported; no borrowed precision from a provider beta. Terminal growth2â€“4%, terminal margins30â€“40%, mature ROIC25%; reinvestment is explicitly growth/ROIC. The terminal convention can still understate intangible reinvestment and competitive fade.
+**Taxes.** Operating tax (used in FCFF), book tax expense and cash tax paid are separate lines; all three use the normalized 25% because no deferred tax is modeled under the full valuation allowance. The 2025 10-K reports about $9.0B federal and $4.8B state NOLs, but face value alone does not prove zero cash taxes: $8.3B of the federal NOLs can offset only 80% of taxable income a year, and an ownership change could limit use further. A bounded utilization schedule adds $0.37 (50% usable) to $0.71 (100% usable) per share. It is not in the base.
 
-Reverse DCF holds base margins, government growth, tax, WACC and maturity fixed and scales commercial growth until price matches. It implies commercial growth of approximately 252%, 183%, 138%, 101% over2027â€“30. This isolates one burden of expectations; it is not the only combination consistent with market price. A longer competitive-growth runway or different risk/terminal assumptions could redistribute that burden.
+Restricted cash gets no equity credit. Operating lease expense stays in EBIT. There is no hidden funding plug: cash comes from the cash-flow roll-forward, and a deficit would fail.
 
-## Relative valuation and disagreement
-Policy was recorded before name selection. NOW provides a workflow/platform comparison; CRM provides a mature enterprise-application comparison. Their latest TTM periods end June30 and July31; that one-month fiscal-calendar mismatch is exposed rather than presented as identical. All prices use October5 regular close and all numerators use point-in-time basic share counts. Balances and shares precede prices. EV/revenue uses debt less cash and marketable securities; operating leases stay in operating costs. Strategic equity portfolios receive no separate credit consistently, which is conservative and economically imperfect. GAAP P/E includes investment gains and discrete tax effects; it is a qualified comparison.
+## Terminal convention and maturity
+Terminal value is 66% to 83% of enterprise value with immediate maturity after 2030, so this assumption largely decides the answer. The shared engine now supports a fade period between 2030 and maturity (growth and margin move linearly toward terminal values; reinvestment = growth / ROIC). The base keeps immediate maturity until Pierce decides.
 
-Peer EV/revenue implies roughly $17â€“$28 per basic PLTR share. Peer GAAP P/E implies roughly $25â€“$106. Do not average these or splice basic-share relative results into diluted DCF values. Revenue multiples suppress differences in growth and economic margin. P/E can reward unusually low taxes and investment gains; CRM&#x27;s investment gains and NOW&#x27;s tax release make earnings denominators poor clean operating anchors. DCF explicitly prices fade, compensation and reinvestment; relative methods reflect what buyers currently pay for different companies. Disagreement is evidence about assumptions and accounting, not a reason to average numbers.
+| Case | Immediate maturity (2030) | 5-year fade (2035) | 10-year fade (2040) |
+|---|---:|---:|---:|
+| Low | $16.66 (66% terminal) | $18.17 (49%) | $19.61 (36%) |
+| Base | $30.12 (73% terminal) | $35.67 (62%) | $42.04 (54%) |
+| High | $65.91 (83% terminal) | $94.96 (81%) | $139.49 (78%) |
 
-No transaction multiple is forced into the analysis: control, synergy, integration and timing differences lack a defensible PLTR bridge.
+A longer fade is another assumption to defend, not automatically the right answer. Even the high case with a 10-year fade stays below the price. The October 6 delayed-maturity path (five fixed fade years) gives $35.60.
+
+Base WACC is 10.56% = 10-year Treasury 5.31% (Oct 5) + beta 1.25 x ERP 4.20%. The Treasury value, the ERP date and a sourced beta are **pending verification**: the source hosts were blocked in this session (`docs/source-verification-2026-10-20.md`). Beta is an analyst assumption. At beta 1.50 the base is $26.98; at 2.00 it is $22.54.
+
+## What the price implies
+One price cannot pin down growth, steady-state margin and fade length at once. Each line below moves one of them and holds the rest at base:
+- At $189.40, with base margins, discount rate and immediate maturity after 2030 held fixed, the market implies revenue compounding about 122% a year from 2026 to 2030, versus 31% in the base case.
+- At $189.40, with base growth held fixed, no steady-state operating margin up to 100% of revenue is enough (even 100% gives $65); the price cannot be explained by maturity-year profitability alone.
+- At $189.40, with base growth and margins held fixed, the market implies about 60 years of linear fade before maturity.
+- Diagnostic only: scaling base commercial growth alone requires 4.58x the base path (252%, 183%, 137%, 101% for 2027-2030).
+
+## Relative valuation and why it disagrees with the DCF
+The revised peer policy (`docs/peer-policy-revised-2026-10-20.md`) widens the candidate set under a written rule, but data for the new candidates are pending, so only ServiceNow and Salesforce are measured. Palantir trades at 72.4x TTM EV/revenue, against 9.6x for NOW and 4.9x for CRM. Palantir&#x27;s year-to-date revenue growth was 89%, against 23% and 12%. Applied to Palantir, peer EV/revenue implies about $17 to $28 per basic share and peer GAAP P/E about $25 to $106. Palantir&#x27;s own P/E is 151x on GAAP earnings (1.3% TTM tax rate) and 199x with a 25% tax.
+
+The methods disagree for identifiable reasons, and they are not averaged. Peer multiples price slower-growing companies, so they cannot capture Palantir&#x27;s growth. The DCF does price that growth explicitly, but then imposes a maturity date, a margin path and growth / ROIC reinvestment. The market price implies a much longer and more profitable runway than either method supports under these assumptions (see &quot;What the price implies&quot;). Basic-share relative values are not mixed with diluted DCF values. No transaction multiple is used: control, synergy and timing differences give no defensible bridge.
+
+## Named stresses
+- Procurement delay and AI deployment failure: $14.33 per share; action at today&#x27;s price do not initiate; at a hypothetical $20 entry, do not initiate.
+- Commercial conversion slowdown: $16.66 per share; action at today&#x27;s price do not initiate; at a hypothetical $20 entry, do not initiate.
+- Maturity deferred to2035 with five-year fade: $35.60 per share; action at today&#x27;s price do not initiate; at a hypothetical $20 entry, initiate candidate.
 
 ## Conditions, reversals and monitoring
-Revisit after reported commercial/government sales and collection evidence, not options-inclusive deal value alone. Require funded commitments and realizable conversion; distinguish RPO from cancellable RDV/TCV. Monitor GAAP margin, ongoing compensation payroll, award issuance, cash taxes, hosting commitments, capex, receivable concentration and competitive pricing. Two consecutive quarters of realized adoption above the high-case path warrant a rebuilt runway/maturity model rather than mechanically moving a single multiple. A materially lower market price or independently evidenced longer profitable runway can reverse the decision. Under a hypothetical future $20 price, base economics support an initiate candidate while the conversion/procurement downside reverses that action; this is a conditional downside, not a forecast of a price decline.
+Revisit after reported commercial and government revenue, collections and GAAP margin, not deal value alone. Distinguish RPO from cancellable contract value. Monitor ongoing compensation, award issuance, cash taxes and valuation-allowance status, hosting commitments, capex, receivable concentration and pricing. Two consecutive quarters of realized growth above the high-case path would justify rebuilding the runway and maturity assumptions rather than moving a single multiple. A materially lower price or independently evidenced longer profitable runway could reverse the decision. At a hypothetical $20 price, base economics would support an initiate candidate while the low case reverses it. That is a conditional downside, not a forecast.
+
+## Decisions pending (Pierce)
+- Base-case fade length and margin path (currently immediate maturity and the October 6 margin path).
+- Beta: keep 1.25 or adopt a sourced estimate.
+- Final peer list under the revised rule.
+- Whether to adopt the NOL utilization schedule.
+- Final label: do not initiate vs. watch/defer.
 
 ## Validation limits and human work
-Arithmetic and boundary tests pass; this is not proof of sound investment judgment. Published starter reconciliation now passes. Genuine AI-off prediction and AI-closed locked test, completed final attributed partner review, actual recordings/transcripts, official rubric/checklist and comparison with Pierce&#x27;s existing work remain pending. Independent research has not been substituted for the official EditionA receipt. No complete course-compliant submission is claimed.
+Arithmetic and boundary tests pass; that is not proof of investment judgment. Still pending: Pierce&#x27;s AI-off locked prediction and AI-closed locked run, the final partner review, the three recordings and corrected transcripts, the unchanged official Edition A PDF, the Brightspace deadline/header, the 300-point rubric and grader access. No complete course submission is claimed.
 </pre>

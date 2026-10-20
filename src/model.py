@@ -1,124 +1,555 @@
 """Transparent provisional integrated cash-replacement pro-forma, USD millions."""
-import json, csv, copy
+import copy
+import csv
+import json
+from datetime import datetime, timezone
 from pathlib import Path
-from datetime import date,datetime,timezone
-from src.dcf import dcf,Bridge
+
+from src.dcf import Bridge, staged_dcf
+
+ASSET_KEYS = ["cash", "investments", "ar", "prepaid", "ppe", "rou", "other_assets"]
+LIABILITY_KEYS = [
+    "ap_accrued",
+    "contract_current",
+    "lease_current",
+    "contract_noncurrent",
+    "lease_noncurrent",
+    "other_liabilities",
+]
+
 
 def load():
- return json.loads(Path('data/processed/historical.json').read_text(encoding='utf8')),json.loads(Path('config/assumptions.json').read_text(encoding='utf8'))
+    """Return (historical inputs, assumptions) from the repository data files."""
+    data = json.loads(Path("data/processed/historical.json").read_text(encoding="utf8"))
+    config = json.loads(Path("config/assumptions.json").read_text(encoding="utf8"))
+    return data, config
+
 
 def check_history(data):
- checks=[]
- for key in ['annual_2025','interim_2026h1']:
-  b=data[key]
-  assets=sum(b[k] for k in ['cash','investments','ar','prepaid','ppe','rou','other_assets'])
-  liabilities=sum(b[k] for k in ['ap_accrued','contract_current','lease_current','contract_noncurrent','lease_noncurrent','other_liabilities'])
-  for name,residual in [('assets',assets-b['assets']),('liabilities',liabilities-b['liabilities']),('balance',b['assets']-b['liabilities']-b['equity']-b['nci']),('cash',b['cash_total_start']+b['cfo']+b['cfi']+b['cff']+b['fx']-b['cash_total'])]:
-   if abs(residual)>1e-6:raise ValueError(f'{key} {name} reconciliation failed: {residual}')
-   checks.append(dict(period=key,check=name,residual=residual))
- return checks
+    """Reconcile reported balance sheets and cash roll-forwards; fail loudly on any residual."""
+    checks = []
+    for key in ["annual_2025", "interim_2026h1"]:
+        b = data[key]
+        assets = sum(b[k] for k in ASSET_KEYS)
+        liabilities = sum(b[k] for k in LIABILITY_KEYS)
+        residuals = [
+            ("assets", assets - b["assets"]),
+            ("liabilities", liabilities - b["liabilities"]),
+            ("balance", b["assets"] - b["liabilities"] - b["equity"] - b["nci"]),
+            ("cash", b["cash_total_start"] + b["cfo"] + b["cfi"] + b["cff"] + b["fx"] - b["cash_total"]),
+        ]
+        for name, residual in residuals:
+            if abs(residual) > 1e-6:
+                raise ValueError(f"{key} {name} reconciliation failed: {residual}")
+            checks.append(dict(period=key, check=name, residual=residual))
+    return checks
+
+
+def forecast_periods(config, count):
+    """Return (start, end) of each forecast period in years after the June 30, 2026 balance sheet."""
+    h2_fraction = config["cashflow_days_h2"] / config["days_in_year"]
+    periods = [(0.0, h2_fraction)]
+    for i in range(1, count):
+        periods.append((h2_fraction + i - 1, h2_fraction + i))
+    return periods
+
+
+AWARD_TYPES = [
+    ("options", "unrecognized_option_comp", "option_service_years"),
+    ("sars", "unrecognized_sar_comp", "sar_service_years"),
+    ("rsus", "unrecognized_rsu_comp", "rsu_service_years"),
+]
+
+
+def existing_award_runoff(data, config, count):
+    """Straight-line remaining-service schedule for awards outstanding at June 30, 2026.
+
+    Each award type's unrecognized compensation is spread evenly over its disclosed
+    weighted-average remaining service period, starting July 1, 2026, and stops once the
+    balance is fully recognized. Returns one dict per period with each type's amortization.
+    """
+    h = data["interim_2026h1"]
+    legacy = not config.get("corrections", {}).get("award_runoff_schedule", True)
+    h2_fraction = config["cashflow_days_h2"] / config["days_in_year"]
+    rows = []
+    for i, (start, end) in enumerate(forecast_periods(config, count)):
+        row = {"period_index": i, "start_years": start, "end_years": end}
+        for name, balance_key, years_key in AWARD_TYPES:
+            balance = h[balance_key]
+            if legacy:
+                # Frozen October 6 convention, kept only to reproduce the valuation bridge:
+                # rounded service periods and RSU expense switched off after the third index.
+                years = h.get(years_key + "_text", h[years_key])
+                annual = balance / years
+                if name == "rsus" and i >= years:
+                    annual = 0
+                amount = annual * (h2_fraction if i == 0 else 1)
+            else:
+                years = h[years_key]
+                overlap = max(0.0, min(end, years) - max(start, 0.0))
+                amount = balance * overlap / years
+            row[name] = amount
+        row["total"] = sum(row[name] for name, _, _ in AWARD_TYPES)
+        rows.append(row)
+    return rows
+
 
 def forecast(case, data, config):
- h=data['interim_2026h1'];prev=copy.deepcopy(h); rows=[]
- commercial=config['base_2026_revenue']*h['commercial']/h['revenue']
- government=config['base_2026_revenue']-commercial
- # Other assets/ROU, investments, noncurrent leases/contract liabilities and NCI held constant.
- # Cash is calculated from cash flows, never used to fix the balance residual.
- for i,year in enumerate(range(2026,2031)):
-  if i:
-   commercial*=1+case['commercial_growth'][i];government*=1+case['government_growth'][i]
-  revenue=commercial+government
-  raw_ebit=revenue*case['margins'][i]
-  # Previously issued awards receive explicit dilution. Remove prospective service
-  # expense of those same awards before applying a cash-replacement convention.
-  old_award_amort=(h['unrecognized_option_comp']/h['option_service_years']+h['unrecognized_sar_comp']/h['sar_service_years']+(h['unrecognized_rsu_comp']/h['rsu_service_years'] if i<h['rsu_service_years'] else 0))*(184/365 if i==0 else 1)
-  ebit=raw_ebit+old_award_amort
-  da=revenue*config['da_ratio'];capex=revenue*config['capex_ratio']
-  period_fraction=184/365 if i==0 else 1
-  # H2 normalized operations derived from full-year forecast less reported H1.
-  ebit_period=ebit-h['ebit'] if i==0 else ebit
-  da_period=da-h['da'] if i==0 else da
-  capex_period=capex-h['capex'] if i==0 else capex
-  if capex_period<0 or da_period<0:raise ValueError('Forecast full-year reinvestment below realized H1')
-  tax_operating=max(ebit_period,0)*config['tax']
-  interest=(prev['cash']+prev['investments'])*config['interest_yield']*period_fraction
-  period_net=ebit_period+interest-max(ebit_period+interest,0)*config['tax']
-  ar=revenue*config['working_capital']['ar_ratio']; prepaid=revenue*config['working_capital']['prepaid_ratio']
-  ap=revenue*config['working_capital']['accrual_ratio'];contract=revenue*(config['working_capital']['contract_offset_ratio']-case['nwc_ratio'])
-  old_nwc=prev['ar']+prev['prepaid']-prev['ap_accrued']-prev['contract_current']
-  nwc=ar+prepaid-ap-contract; delta=nwc-old_nwc
-  cfo=period_net+da_period-delta; cfi=-capex_period;cff=0.
-  cash=prev['cash']+cfo+cfi+cff
-  if cash<0:raise ValueError('Cash deficit: financing required; no hidden funding plug')
-  ppe=prev['ppe']+capex_period-da_period
-  equity=prev['equity']+period_net
-  liabilities=ap+contract+h['contract_noncurrent']+h['lease_noncurrent']+h['other_liabilities']
-  assets=cash+h['investments']+ar+prepaid+ppe+h['rou']+h['other_assets']
-  residual=assets-liabilities-equity-h['nci']
-  if abs(residual)>1e-6:raise ValueError(f'{year}: statements fail {residual}')
-  fcff=ebit_period-tax_operating+da_period-capex_period-delta
-  # First explicit FCFF includes only post-Oct5 portion of H2; uniform H2
-  # cash timing is an approximation and is exposed for challenge.
-  valued_fcff=fcff*config['remaining_days']/184 if i==0 else fcff
-  cost_of_revenue=revenue*config['presentation']['cost_of_revenue_ratio']
-  operating_cost=revenue-cost_of_revenue-raw_ebit
-  annual_interest=interest+(h['interest_income'] if i==0 else 0)
-  annual_tax=max(ebit_period+interest,0)*config['tax']+(h['tax'] if i==0 else 0)
-  annual_net=period_net+(h['net_income'] if i==0 else 0)
-  row=dict(cost_of_revenue=cost_of_revenue,gross_profit=revenue-cost_of_revenue,sales_marketing=operating_cost*config['presentation']['sales_share_opex'],research_development=operating_cost*config['presentation']['rd_share_opex'],general_administrative=operating_cost*config['presentation']['ga_share_opex'],annual_interest=annual_interest,annual_other_income=(h['other_income'] if i==0 else 0),annual_tax=annual_tax,annual_net_income=annual_net,year=year,commercial_revenue=commercial,government_revenue=government,revenue=revenue,
-    ebit_before_old_award_adjustment=raw_ebit,existing_award_service_adjustment=old_award_amort,ebit=ebit,
-    period_ebit=ebit_period,period_interest=interest,period_tax=max(ebit_period+interest,0)*config['tax'],
-    period_net_income=period_net,da=da_period,capex=capex_period,delta_nwc=delta,fcff=fcff,valued_fcff=valued_fcff,
-    cash=cash,investments=h['investments'],ar=ar,prepaid=prepaid,ppe=ppe,rou=h['rou'],other_assets=h['other_assets'],
-    ap_accrued=ap,contract_current=contract,contract_noncurrent=h['contract_noncurrent'],lease_noncurrent=h['lease_noncurrent'],
-    other_liabilities=h['other_liabilities'],assets=assets,liabilities=liabilities,equity=equity,nci=h['nci'],
-    cfo=cfo,cfi=cfi,cff=cff,balance_residual=residual,cash_residual=cash-prev['cash']-cfo-cfi-cff,
-    period_label='2026 H2 modeled flows; annual revenue/EBIT' if i==0 else 'full year')
-  rows.append(row);prev=row
- return rows
+    """Build five integrated annual statements (2026 H2 flows, then 2027-2030 full years)."""
+    h = data["interim_2026h1"]
+    prev = copy.deepcopy(h)
+    rows = []
+    commercial = config["base_2026_revenue"] * h["commercial"] / h["revenue"]
+    government = config["base_2026_revenue"] - commercial
+    working_capital = config["working_capital"]
+    presentation = config["presentation"]
+    h2_days = config["cashflow_days_h2"]
+    h2_fraction = h2_days / config["days_in_year"]
+    runoff = existing_award_runoff(data, config, 5)
+    # Other assets/ROU, investments, noncurrent leases/contract liabilities and NCI held constant.
+    # Cash is calculated from cash flows, never used to fix the balance residual.
+    for i, year in enumerate(range(2026, 2031)):
+        if i:
+            commercial *= 1 + case["commercial_growth"][i]
+            government *= 1 + case["government_growth"][i]
+        revenue = commercial + government
+        raw_ebit = revenue * case["margins"][i]
 
-def bridge(data,config):
- h=data['interim_2026h1']
- return Bridge(max(0,h['cash']-config['cash_reserve']),h['investments']+h['options']*h['option_strike'],0,h['nci'],
-  h['basic_shares']+h['options']+h['rsus']+h['prsus']+h['sars'])
+        # Previously issued awards receive explicit dilution. Remove prospective service
+        # expense of those same awards before applying a cash-replacement convention.
+        # The input margin is GAAP-like (it includes stock compensation). The old awards are
+        # already counted as diluted shares, so their remaining expense is added back once here.
+        old_award_amort = runoff[i]["total"]
+        ebit = raw_ebit + old_award_amort
 
-def value(rows,case,data,config):
- final=rows[-1]['revenue']; terminal_revenue=final*(1+case['growth'])
- nopat=terminal_revenue*case['terminal_margin']*(1-config['tax'])
- terminal_fcff=nopat*(1-case['growth']/config['terminal_roic'])
- if terminal_fcff<=0:raise ValueError('Terminal reinvestment incompatible with growth/ROIC')
- periods=[config['remaining_days']/365+i for i in range(5)]
- v=dcf([r['valued_fcff'] for r in rows],periods,case['wacc'],case['growth'],terminal_fcff,bridge(data,config))
- v.update(terminal_revenue=terminal_revenue,terminal_nopat=nopat,terminal_fcff=terminal_fcff,
-  action='initiate_candidate' if config['price']<v['per_share']*.8 else ('do_not_initiate' if config['price']>v['per_share']*1.2 else 'watch_defer'))
- return v
+        da = revenue * config["da_ratio"]
+        capex = revenue * config["capex_ratio"]
+        period_fraction = h2_fraction if i == 0 else 1
+        # H2 normalized operations derived from full-year forecast less reported H1.
+        ebit_period = ebit - h["ebit"] if i == 0 else ebit
+        da_period = da - h["da"] if i == 0 else da
+        capex_period = capex - h["capex"] if i == 0 else capex
+        if capex_period < 0 or da_period < 0:
+            raise ValueError("Forecast full-year reinvestment below realized H1")
 
-def dump_csv(path,rows):
- with Path(path).open('w',newline='',encoding='utf8') as f:
-  w=csv.DictWriter(f,fieldnames=rows[0].keys());w.writeheader();w.writerows(rows)
+        # Three tax measures are kept apart. Operating tax: normalized tax on EBIT used in FCFF.
+        # Book tax expense: tax on pretax income in the income statement. Cash tax paid: equals
+        # book tax here because no deferred tax is modeled (full valuation allowance; see docs).
+        tax_operating = max(ebit_period, 0) * config["tax"]
+        interest = (prev["cash"] + prev["investments"]) * config["interest_yield"] * period_fraction
+        period_pretax = ebit_period + interest
+        period_tax = max(period_pretax, 0) * config["tax"]
+        period_net = period_pretax - period_tax
+
+        ar = revenue * working_capital["ar_ratio"]
+        prepaid = revenue * working_capital["prepaid_ratio"]
+        ap = revenue * working_capital["accrual_ratio"]
+        contract = revenue * (working_capital["contract_offset_ratio"] - case["nwc_ratio"])
+        old_nwc = prev["ar"] + prev["prepaid"] - prev["ap_accrued"] - prev["contract_current"]
+        nwc = ar + prepaid - ap - contract
+        delta = nwc - old_nwc
+
+        cfo = period_net + da_period - delta
+        cfi = -capex_period
+        cff = 0.0
+        cash = prev["cash"] + cfo + cfi + cff
+        if cash < 0:
+            raise ValueError("Cash deficit: financing required; no hidden funding plug")
+        ppe = prev["ppe"] + capex_period - da_period
+        equity = prev["equity"] + period_net
+        liabilities = ap + contract + h["contract_noncurrent"] + h["lease_noncurrent"] + h["other_liabilities"]
+        assets = cash + h["investments"] + ar + prepaid + ppe + h["rou"] + h["other_assets"]
+        residual = assets - liabilities - equity - h["nci"]
+        if abs(residual) > 1e-6:
+            raise ValueError(f"{year}: statements fail {residual}")
+
+        fcff = ebit_period - tax_operating + da_period - capex_period - delta
+        # First explicit FCFF includes only post-Oct5 portion of H2; uniform H2
+        # cash timing is an approximation and is exposed for challenge.
+        valued_fcff = fcff * config["remaining_days"] / h2_days if i == 0 else fcff
+
+        cost_of_revenue = revenue * presentation["cost_of_revenue_ratio"]
+        operating_cost = revenue - cost_of_revenue - raw_ebit
+        annual_interest = interest + (h["interest_income"] if i == 0 else 0)
+        annual_other_income = h["other_income"] if i == 0 else 0
+        annual_tax = period_tax + (h["tax"] if i == 0 else 0)
+        annual_net = period_net + (h["net_income"] if i == 0 else 0)
+        annual_pretax = ebit + annual_interest + annual_other_income
+        sales_marketing = operating_cost * presentation["sales_share_opex"]
+        research_development = operating_cost * presentation["rd_share_opex"]
+        general_administrative = operating_cost * presentation["ga_share_opex"]
+        check_income_statement(
+            year,
+            revenue=revenue,
+            expense_lines=[cost_of_revenue, sales_marketing, research_development, general_administrative],
+            award_adjustment=old_award_amort,
+            ebit=ebit,
+            pretax=annual_pretax,
+            tax=annual_tax,
+            net_income=annual_net,
+        )
+        check_income_statement(
+            f"{year} modeled period",
+            revenue=0,
+            expense_lines=[],
+            award_adjustment=0,
+            ebit=0,
+            pretax=period_pretax,
+            tax=period_tax,
+            net_income=period_net,
+        )
+        row = dict(
+            cost_of_revenue=cost_of_revenue,
+            gross_profit=revenue - cost_of_revenue,
+            sales_marketing=sales_marketing,
+            research_development=research_development,
+            general_administrative=general_administrative,
+            annual_interest=annual_interest,
+            annual_other_income=annual_other_income,
+            annual_pretax_income=annual_pretax,
+            annual_tax=annual_tax,
+            annual_net_income=annual_net,
+            year=year,
+            commercial_revenue=commercial,
+            government_revenue=government,
+            revenue=revenue,
+            ebit_before_old_award_adjustment=raw_ebit,
+            existing_award_service_adjustment=old_award_amort,
+            ebit=ebit,
+            input_operating_margin=case["margins"][i],
+            reported_ebit_margin=ebit / revenue,
+            period_ebit=ebit_period,
+            period_interest=interest,
+            period_pretax_income=period_pretax,
+            period_tax=period_tax,
+            operating_tax=tax_operating,
+            book_tax_expense=period_tax,
+            cash_tax_paid=period_tax,
+            period_net_income=period_net,
+            da=da_period,
+            capex=capex_period,
+            delta_nwc=delta,
+            fcff=fcff,
+            valued_fcff=valued_fcff,
+            cash=cash,
+            investments=h["investments"],
+            ar=ar,
+            prepaid=prepaid,
+            ppe=ppe,
+            rou=h["rou"],
+            other_assets=h["other_assets"],
+            ap_accrued=ap,
+            contract_current=contract,
+            contract_noncurrent=h["contract_noncurrent"],
+            lease_noncurrent=h["lease_noncurrent"],
+            other_liabilities=h["other_liabilities"],
+            assets=assets,
+            liabilities=liabilities,
+            equity=equity,
+            nci=h["nci"],
+            cfo=cfo,
+            cfi=cfi,
+            cff=cff,
+            balance_residual=residual,
+            cash_residual=cash - prev["cash"] - cfo - cfi - cff,
+            period_label="2026 H2 modeled flows; annual revenue/EBIT" if i == 0 else "full year",
+        )
+        rows.append(row)
+        prev = row
+    return rows
+
+
+def check_income_statement(label, revenue, expense_lines, award_adjustment, ebit, pretax, tax, net_income):
+    """Fail loudly unless displayed lines add to EBIT and pretax income less tax equals net income."""
+    ebit_residual = revenue - sum(expense_lines) + award_adjustment - ebit
+    if abs(ebit_residual) > 1e-6:
+        raise ValueError(f"{label}: income statement lines do not add to EBIT ({ebit_residual})")
+    net_residual = pretax - tax - net_income
+    if abs(net_residual) > 1e-6:
+        raise ValueError(f"{label}: pretax income less tax does not equal net income ({net_residual})")
+
+
+def cutoff_cash(rows, data, config):
+    """Roll reported June 30 cash forward to the October 5 valuation date.
+
+    The first forecast row holds modeled July-December flows. The part before the valuation
+    date (cashflow_days_h2 - remaining_days days) is not in the valued FCFF, so the cash it
+    actually retains is added to the bridge exactly once. Retained cash is reconciled as
+    FCFF + after-tax interest + financing flows (zero: no debt, dividends, buybacks or NCI
+    distributions are modeled); marketable securities are held constant, so no investment
+    purchase or sale moves cash between the two credited balances.
+    """
+    h = data["interim_2026h1"]
+    first = rows[0]
+    stub_fraction = (config["cashflow_days_h2"] - config["remaining_days"]) / config["cashflow_days_h2"]
+    after_tax_interest = first["period_net_income"] - (first["period_ebit"] - first["operating_tax"])
+    stub = dict(
+        june_30_cash=h["cash"],
+        stub_days=config["cashflow_days_h2"] - config["remaining_days"],
+        stub_fraction=stub_fraction,
+        stub_fcff=first["fcff"] * stub_fraction,
+        stub_after_tax_interest=after_tax_interest * stub_fraction,
+        stub_financing=first["cff"] * stub_fraction,
+        stub_retained_cash=(first["cfo"] + first["cfi"] + first["cff"]) * stub_fraction,
+    )
+    reconciled = stub["stub_fcff"] + stub["stub_after_tax_interest"] + stub["stub_financing"]
+    if abs(reconciled - stub["stub_retained_cash"]) > 1e-6:
+        raise ValueError(f"Stub cash does not reconcile to FCFF, interest and financing ({reconciled - stub['stub_retained_cash']})")
+    if not config.get("corrections", {}).get("cutoff_cash_rollforward", True):
+        stub["stub_retained_cash_credited"] = 0.0
+    else:
+        stub["stub_retained_cash_credited"] = stub["stub_retained_cash"]
+    stub["valuation_date_cash"] = h["cash"] + stub["stub_retained_cash_credited"]
+    return stub
+
+
+def bridge(data, config, rows=None):
+    """Enterprise-to-equity bridge from the latest reported balance sheet and award counts.
+
+    Without forecast rows this is the June 30 bridge; with rows, cash is rolled to the
+    valuation date by cutoff_cash.
+    """
+    h = data["interim_2026h1"]
+    diluted_shares = h["basic_shares"] + h["options"] + h["rsus"] + h["prsus"] + h["sars"]
+    cash = h["cash"] if rows is None else cutoff_cash(rows, data, config)["valuation_date_cash"]
+    return Bridge(
+        max(0, cash - config["cash_reserve"]),
+        h["investments"] + h["options"] * h["option_strike"],
+        0,
+        h["nci"],
+        diluted_shares,
+    )
+
+
+def action_for(price, per_share, config):
+    """Map price versus value to the recorded committee action thresholds."""
+    policy = config["recommendation_policy"]
+    if price < per_share * policy["initiate_fraction"]:
+        return "initiate_candidate"
+    if price > per_share * policy["defer_ceiling_fraction"]:
+        return "do_not_initiate"
+    return "watch_defer"
+
+
+def interpolate(start, target, steps):
+    """Linear path from start toward target; step k of n lands at k/(n+1) of the way."""
+    return [start + (target - start) * k / (steps + 1) for k in range(1, steps + 1)]
+
+
+def fade_schedule(rows, case, data, config, years, path=None):
+    """Fade years between the 2030 forecast and the Gordon terminal.
+
+    Growth and margin move linearly from the final explicit year toward the terminal
+    values unless explicit lists are supplied. Reinvestment each year is growth / ROIC
+    of NOPAT. Remaining existing-award expense is added back in fade years exactly as in
+    the explicit forecast, so the cumulative add-back stays within the unrecognized balance.
+    """
+    fade = config["terminal_fade"]
+    roic = fade.get("roic", config["terminal_roic"])
+    final_growth = rows[-1]["revenue"] / rows[-2]["revenue"] - 1
+    if path is not None:
+        growths, margins = list(path["growth"]), list(path["margin"])
+        if len(growths) != years or len(margins) != years:
+            raise ValueError("Explicit fade path length must equal fade years")
+    else:
+        growths = interpolate(final_growth, case["growth"], years)
+        margins = interpolate(case["margins"][-1], case["terminal_margin"], years)
+    runoff = existing_award_runoff(data, config, 5 + years)[5:]
+    schedule = []
+    revenue = rows[-1]["revenue"]
+    for k, (growth, margin) in enumerate(zip(growths, margins)):
+        revenue *= 1 + growth
+        ebit = revenue * margin + runoff[k]["total"]
+        nopat = ebit * (1 - config["tax"])
+        reinvestment = nopat * growth / roic
+        schedule.append(
+            dict(
+                fade_year=rows[-1]["year"] + k + 1,
+                growth=growth,
+                margin=margin,
+                revenue=revenue,
+                existing_award_service_adjustment=runoff[k]["total"],
+                ebit=ebit,
+                nopat=nopat,
+                reinvestment=reinvestment,
+                fcff=nopat - reinvestment,
+            )
+        )
+    return schedule
+
+
+def value(rows, case, data, config, fade_years=None, fade_path=None):
+    """Value the forecast: explicit FCFF, optional fade years, mature Gordon terminal, shared bridge."""
+    if fade_years is None:
+        fade_years = case.get("fade_years", config["terminal_fade"]["base_years"])
+    schedule = fade_schedule(rows, case, data, config, fade_years, fade_path)
+    last_revenue = schedule[-1]["revenue"] if schedule else rows[-1]["revenue"]
+    terminal_revenue = last_revenue * (1 + case["growth"])
+    nopat = terminal_revenue * case["terminal_margin"] * (1 - config["tax"])
+    terminal_fcff = nopat * (1 - case["growth"] / config["terminal_roic"])
+    if terminal_fcff <= 0:
+        raise ValueError("Terminal reinvestment incompatible with growth/ROIC")
+    periods = [config["remaining_days"] / config["days_in_year"] + i for i in range(5)]
+    fcffs = [r["valued_fcff"] for r in rows]
+    fade_fcffs = [x["fcff"] for x in schedule]
+    v = staged_dcf(fcffs, periods, case["wacc"], case["growth"], terminal_fcff, bridge(data, config, rows), fade_fcffs)
+    v.update(
+        fade_years=fade_years,
+        fade=schedule,
+        terminal_revenue=terminal_revenue,
+        terminal_nopat=nopat,
+        terminal_fcff=terminal_fcff,
+        action=action_for(config["price"], v["per_share"], config),
+    )
+    return v
+
+
+def terminal_conventions(forecasts, data, config):
+    """Per-share value and terminal share for each case under each reported fade length."""
+    table = []
+    for name, case in config["cases"].items():
+        for years in config["terminal_fade"]["comparison_years"]:
+            v = value(forecasts[name], case, data, config, fade_years=years)
+            table.append(
+                dict(
+                    case=name,
+                    fade_years=years,
+                    maturity_year=forecasts[name][-1]["year"] + years,
+                    per_share=v["per_share"],
+                    explicit_pv=v["explicit_pv"],
+                    fade_pv=v["fade_pv"],
+                    terminal_pv=v["terminal_pv"],
+                    terminal_share=v["terminal_share"],
+                    action=v["action"],
+                )
+            )
+    return table
+
+
+def award_reconciliation_table(data, config, runoff):
+    """Show how existing awards are counted once: as dilution, never again as expense."""
+    h = data["interim_2026h1"]
+    in_forecast = runoff[:5]
+    table = {}
+    for name, balance_key, years_key in AWARD_TYPES:
+        added_back = sum(row[name] for row in in_forecast)
+        table[name] = dict(
+            unrecognized_compensation=h[balance_key],
+            remaining_service_years=h[years_key],
+            added_back_2026h2_to_2030=added_back,
+            recognized_after_2030_not_added_back=h[balance_key] - added_back,
+        )
+    table["dilutive_shares_counted"] = dict(options=h["options"], rsus=h["rsus"], prsus=h["prsus"], sars=h["sars"])
+    table["treatment"] = (
+        "Existing awards are counted once, as diluted shares in the bridge (options also credit exercise "
+        "proceeds). Their remaining GAAP expense is added back to EBIT over the forecast so it is not charged a "
+        "second time. Future grants are not added back: their cost stays inside the GAAP-like margin as an "
+        "ongoing cash-replacement compensation cost, and no future share issuance is modeled."
+    )
+    return table
+
+
+def dump_csv(path, rows):
+    """Write a list of dictionaries to CSV with UTF-8 encoding."""
+    with Path(path).open("w", newline="", encoding="utf8") as f:
+        writer = csv.DictWriter(f, fieldnames=rows[0].keys())
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def reverse_dcf(data, config):
+    """Find the multiplier on base commercial growth that reproduces the market price."""
+
+    def implied(multiplier):
+        case = copy.deepcopy(config["cases"]["base"])
+        case["commercial_growth"] = [x * multiplier for x in case["commercial_growth"]]
+        return value(forecast(case, data, config), case, data, config)["per_share"]
+
+    settings = config["reverse_dcf"]
+    lo, hi = settings["multiplier_lower"], settings["multiplier_upper"]
+    if implied(hi) < config["price"]:
+        return {"status": "unbracketed", "max_multiplier": hi, "value": implied(hi)}
+    for _ in range(settings["bisection_steps"]):
+        mid = (lo + hi) / 2
+        if implied(mid) < config["price"]:
+            lo = mid
+        else:
+            hi = mid
+    multiplier = (lo + hi) / 2
+    return {
+        "commercial_growth_multiplier": multiplier,
+        "annual_growths": [x * multiplier for x in config["cases"]["base"]["commercial_growth"][1:]],
+        "price_target": config["price"],
+        "other_drivers": "base held fixed; mechanical expectation, not forecast",
+    }
+
 
 def run():
- data,c=load();checks=check_history(data); results={};forecasts={}
- for name,case in c['cases'].items():
-  rows=forecast(case,data,c);forecasts[name]=rows;results[name]=value(rows,case,data,c);dump_csv(f'outputs/{name}_three_statements.csv',rows)
- sensitivity=[]
- for w in [.08,.09,.105,.12,.13]:
-  for g in [.02,.03,.04]:
-   case={**c['cases']['base'],'wacc':w,'growth':g};v=value(forecasts['base'],case,data,c);sensitivity.append(dict(wacc=w,growth=g,per_share=v['per_share'],terminal_share=v['terminal_share']))
- dump_csv('outputs/wacc_growth.csv',sensitivity)
- # Reverse DCF: multiplier on commercial annual growth increments after 2026.
- def implied(k):
-  case=copy.deepcopy(c['cases']['base']);case['commercial_growth']=[x*k for x in case['commercial_growth']]
-  return value(forecast(case,data,c),case,data,c)['per_share']
- lo,hi=0.,6.
- if implied(hi)<c['price']:reverse={'status':'unbracketed','max_multiplier':hi,'value':implied(hi)}
- else:
-  for _ in range(80):
-   mid=(lo+hi)/2
-   if implied(mid)<c['price']:lo=mid
-   else:hi=mid
-  reverse={'commercial_growth_multiplier':(lo+hi)/2,'annual_growths':[x*(lo+hi)/2 for x in c['cases']['base']['commercial_growth'][1:]],'price_target':c['price'],'other_drivers':'base held fixed; mechanical expectation, not forecast'}
- packet=dict(created_utc=datetime.now(timezone.utc).isoformat(),valuation_date=c['valuation_date'],status='Independent provisional analysis: postcomparison version: human locked test, final partner review and submission requirements pending',cases=results,reverse_dcf=reverse,historical_checks=checks,
-  caveats=['H1 balance sheet used at Oct5; no reported Q3 cash available.','2026 H2 normalized cash flows allocated uniformly after Oct5.','Current lease included within aggregated working capital; noncurrent operating lease and ROU held constant.','Existing awards assumed full vesting/exercise; SAR treated as full-share upper bound.','Future compensation modeled as cash replacement; old award service cost removed to avoid duplication.'])
- Path('outputs/results.json').write_text(json.dumps(packet,indent=2));print(json.dumps(packet,indent=2))
-if __name__=='__main__':run()
+    """Run all cases, the WACC-growth grid and the reverse DCF; write outputs/results.json."""
+    data, c = load()
+    checks = check_history(data)
+    results = {}
+    forecasts = {}
+    for name, case in c["cases"].items():
+        rows = forecast(case, data, c)
+        forecasts[name] = rows
+        results[name] = value(rows, case, data, c)
+        dump_csv(f"outputs/{name}_three_statements.csv", rows)
+
+    sensitivity = []
+    for wacc in c["sensitivity_grid"]["wacc"]:
+        for growth in c["sensitivity_grid"]["growth"]:
+            case = {**c["cases"]["base"], "wacc": wacc, "growth": growth}
+            v = value(forecasts["base"], case, data, c)
+            sensitivity.append(
+                dict(wacc=wacc, growth=growth, per_share=v["per_share"], terminal_share=v["terminal_share"])
+            )
+    dump_csv("outputs/wacc_growth.csv", sensitivity)
+
+    conventions = terminal_conventions(forecasts, data, c)
+    dump_csv("outputs/terminal_conventions.csv", conventions)
+    for name in results:
+        dump_csv(f"outputs/{name}_fade_schedule.csv", value(forecasts[name], c["cases"][name], data, c, fade_years=5)["fade"])
+
+    runoff = existing_award_runoff(data, c, 40)
+    dump_csv("outputs/existing_award_runoff.csv", runoff[:10])
+    award_reconciliation = award_reconciliation_table(data, c, runoff)
+
+    # Reverse DCF: multiplier on commercial annual growth increments after 2026 (diagnostic),
+    # plus readable one-variable expectations, the NOL sensitivity and the margin history.
+    from src import evidence, expectations, taxes
+
+    reverse = reverse_dcf(data, c)
+    market_implied = expectations.run(reverse)
+    nol = taxes.run()
+    margins = evidence.run()
+    packet = dict(
+        created_utc=datetime.now(timezone.utc).isoformat(),
+        valuation_date=c["valuation_date"],
+        status=(
+            "Independent provisional analysis: postcomparison version: human locked test, "
+            "final partner review and submission requirements pending"
+        ),
+        cases=results,
+        terminal_conventions=conventions,
+        cutoff_cash={name: cutoff_cash(rows, data, c) for name, rows in forecasts.items()},
+        existing_awards=award_reconciliation,
+        reverse_dcf=reverse,
+        market_implied=market_implied,
+        nol_sensitivity=dict(adopted_in_base=c["nol"]["adopted_in_base"], rows=nol),
+        margin_history=margins,
+        historical_checks=checks,
+        caveats=[
+            "H1 balance sheet used at Oct5; no reported Q3 cash available.",
+            "2026 H2 normalized cash flows allocated uniformly after Oct5.",
+            "Current lease included within aggregated working capital; noncurrent operating lease and ROU held constant.",
+            "Existing awards assumed full vesting/exercise; SAR treated as full-share upper bound.",
+            "Future compensation modeled as cash replacement; old award service cost removed to avoid duplication.",
+        ],
+    )
+    Path("outputs/results.json").write_text(json.dumps(packet, indent=2))
+    print(json.dumps(packet, indent=2))
+
+
+if __name__ == "__main__":
+    run()

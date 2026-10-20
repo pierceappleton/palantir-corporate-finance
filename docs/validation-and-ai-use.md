@@ -1,79 +1,60 @@
-FIN439 | Pierce Appleton | AI-assisted working draft | October 6, 2026
+FIN439 | Pierce Appleton | AI-assisted working draft | Post-comparison revision, Claude Code, 2026-10-20
 1
  Validation and AI use
-Post-freeze working record - incomplete human gates
-Independent analysis snapshot: 890b9738c802592abb4e70beb8efc21181fdfcea, frozen October 6, 2026 at
-22:53:27.886294 UTC. Its manifest is preserved. Prior FIN439-Labs commit
-2e861768f09411764b7859361843389718eb0490 was read only after that freeze. Official course source snapshot:
-69eac1e8cbd63b35e801d48d990c4b594bfdbbc8.
+Working record - human gates incomplete
+Independent snapshot 890b9738c802592abb4e70beb8efc21181fdfcea was frozen Oct 6, 2026 22:53:27 UTC; its manifest is
+preserved. FIN439-Labs commit 2e861768 was read only after that freeze. Course snapshot 69eac1e8. Post-comparison
+revisions on Oct 20, 2026 are on branch claude/post-comparison-revisions and are not part of the independent freeze.
 Executed checks and limits
-Requirement
-Evidence and current disposition
+ Requirement
+Evidence and disposition
 Published known answer
-PASS: all 12 official Lab 05 DCF outputs within 0.0001; calculated by the same DCF engine. Published source
-preserved; not an invented synthetic substitute.
-Historical source integrity
-32 saved-filing cell checks pass. Balance and cash totals reconcile separately for 2025 and H1 2026. Restricted
-cash is reconciled through the note; primary representations share the same underlying filing.
-DCF and articulation
-15 software tests pass: bridge, timing, boundaries, controlled directions, five-year balance/cash ties, unit and
-restricted-cash contamination, and non-meaningful peer denominators. Working interface tests also pass live
-change, red failure and reset.
+PASS: all 12 official Lab 05 DCF outputs within 0.0001, computed by the same engine.
+Source integrity
+38 saved-filing cell checks pass; balance and cash totals reconcile for 2025 and H1 2026; restricted cash reconciled
+through the note.
+Articulation and DCF
+34 software tests pass: balance/cash ties, income-statement identities, stub cash counted once, award runoff capped,
+fade engine timing and zero-fade equivalence, WACC > g, contamination rejection, peer P/E 'not meaningful' rule,
+locked-runner commit isolation.
 Cold run
-Original fresh isolated environment run passed all five commands. First incomplete dependency-pin failure is
-retained. Postcomparison reproduction is separately logged; do not confuse it with the original freeze.
+Fresh-environment runs recorded Oct 6 (Windows) and Oct 20 (Linux): validation/cold-run-2026-10-20.json.
 Economic challenges
-Causal cases, WACC-growth grid, named downside, delayed maturity, reverse DCF, one-at-a-time and equal
-proportional tests. Judgment remains provisional; passing arithmetic does not validate assumptions.
-Prior-code audit
-Lab 10 reproduces $34.5344. Negative explicit cash flow is incorrectly clipped in its valuation; the independent
-engine keeps the sign. Original source unchanged.
+Cases, WACC-growth grid, 0/5/10-year fade, readable reverse DCF, NOL sensitivity, named stresses, one-at-a-time and
+proportional tests.
 Source and date policy
-Use October 5 market information; exclude October 6 prices. June reported balances are not claimed to be October
-balances. Guidance and analyst assumptions are labeled separately. Peer TTM periods end June/July and are not
-silently treated as identical. Bulk SEC/peer HTTP 403 errors remain recorded; Palantir issuer mirrors are hashed, and
-blocked peer downloads have reproducible primary URLs.
+October 5 market data; October 6 prices excluded. June 30 balances rolled to October 5 only by modeled retained cash.
+Treasury yield, ERP date, beta estimate and wider peer data are pending: the revision session's network blocked those hosts,
+and nothing was entered from memory.
 
 
-FIN439 | Pierce Appleton | AI-assisted working draft | October 6, 2026
+FIN439 | Pierce Appleton | AI-assisted working draft | Post-comparison revision, Claude Code, 2026-10-20
 2
 Named material AI uses and dispositions
-Codex in this desktop session authored, executed and maintained the code and draft artifacts on October 6, 2026.
-Model family exposed as GPT-6; exact model build/version is not exposed. No second AI provider participated in this
-independent session. Earlier FIN439-Labs attributes work to Claude Code; that is prior supplied provenance, not a
-new session witnessed here.
-Accepted: integrated forecast linkage, cash/statement checks and published DCF arithmetic. Corrected: prospective
-old-award adjustment to the H2 horizon; working-environment dependency freeze after the first cold-run failure;
-relative EV minority claim. Qualified/rejected: adjusted margins as a substitute for economic profit; annual EPS shares
-as a precise dated share count; unsupported NOL exhaustion; negative cash-flow clipping; peer P/E point targets
-from tiny earnings.
-Evidence: official training answers; raw primary filing rows and restricted-cash definitions; actual prior code;
-independent method definitions. A source-definition check is not an independent audit. Investment judgment, personal
-reflection and final strategy have not been fabricated.
+Oct 6, 2026: Codex (ChatGPT; model family exposed as GPT-6, exact build not exposed) wrote and ran the independent build.
+Oct 20, 2026: Claude Code (Anthropic) made the post-comparison revisions after a joint Claude/ChatGPT audit; Pierce is not a
+coder and did not write code.
+Corrected (Claude Code, with evidence): cutoff cash gap (stub FCFF reconciliation); award runoff ended RSU expense early
+and used a rounded option period (10-Q XBRL 4y10m21d); duplicate fade math with a hardcoded margin; locked runner could
+commit unrelated staged files. Qualified: 47% margin confirmed GAAP from the 10-Q income statement; 1.4% tax rate is
+structural (valuation allowance), not one-time. Earlier: adjusted margins rejected as economic profit; negative cash-flow clipping
+rejected.
 Locked Changed-Input Record - NOT EXECUTED
-Field
+ Field
 Current record
 Input and units
-Annual capex / revenue: old 1.2%, proposed new 2.0%; hold the stated operating drivers, tax, WACC and
-terminal convention fixed.
+Annual capex / revenue: old 1.2%, new 2.0%; other drivers, tax, WACC and terminal convention fixed.
 Human prediction / reasoning
-PENDING human-authored, AI-off prediction, expected output direction and decision effect. No
-AI-completed answer is substituted.
-Timestamp / immutable precommit
-PENDING. The standalone runner records and commits the actual human answer before execution.
+PENDING Pierce's AI-off prediction. Nothing substituted.
+Timestamp / precommit
+PENDING. The runner commits only the prediction file before computing.
 Actual result / decision effect
-PENDING. The designated capex change has not been run.
-Course boundary
-The official architecture requires the prediction before AI assistance and an AI-closed run. The prepared
-code must be run by the student with AI closed to claim this gate.
-Prior Lab 11 record
-Contains an attributed earlier prediction and Ethan unit/range checks; its retrieved single commit includes
-both prediction and outcomes. It does not prove a separate pre-run immutable commit.
+PENDING. Not run.
+Note
+The base value moved from $29.76 to the corrected value after the code corrections; the runner reads the current
+model at run time.
 Authentic contributions and submission gaps
-Credit Ethan Heeres only for the supplied Lab 11 exchanges. Lab 10/12 review tables remain incomplete. Need the
-unchanged official Edition A PDF to assemble Research-Evolution.pdf; the repository Markdown is preserved but not
-assumed identical to that submitted file. Videos must be real, with corrected transcripts: 3, 5 and 5 minute limits; Video
-3 opens with a live bounded-driver/failure/reset demonstration. Private repository and unlisted-video access must be
-verified for graders. Brightspace deadline/header and the referenced 300-point rubric remain unavailable.
-Working source: docs/validation-and-ai-use.md. Supporting logs: validation/published-training-reconciliation.json, source-row-checks.json,
-cold-run.json, workbench tests, prior-work comparison and immutable source manifests. No final submission-compliance claim.
+Ethan Heeres is credited only for the supplied Lab 11 exchanges. Pending: the unchanged official Edition A PDF, final partner
+review, three real videos (3/5/5 minutes) with corrected transcripts, grader access (repository currently public; Pierce decides),
+the Brightspace deadline/header and the 300-point rubric. No final compliance claim.
+Working source: docs/validation-and-ai-use.md, docs/claude-code-revision-summary.md, validation/ logs and manifests.

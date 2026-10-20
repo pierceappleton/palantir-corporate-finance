@@ -1,9 +1,43 @@
-import subprocess,json,base64,hashlib
+"""Historical one-time script: snapshot official course files into data/reference/official-course. Do not rerun."""
+import base64
+import hashlib
+import json
+import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
-from datetime import datetime,timezone
-repo='CinderZhang/FIN43900-Fall2026';meta=json.loads(subprocess.check_output(['gh','api',f'repos/{repo}/commits/HEAD'],text=True,encoding='utf8'));sha=meta['sha'];tree=json.loads(subprocess.check_output(['gh','api',f'repos/{repo}/git/trees/{sha}?recursive=1'],text=True,encoding='utf8'))
-files=[x for x in tree['tree'] if x['type']=='blob' and (x['path'].startswith('projects/') and x['path'].endswith(('.md','.csv','.txt')) or x['path'] in ['PROJECT-SUBMISSION-ARCHITECTURE.md','lessons/week-03/lab-05-dcf-build.md','lessons/week-03/teach-dcf-worked-example.md','lessons/week-05/lab-10-proforma-your-company.md','lessons/week-06/lab-11-proforma-what-if.md','lessons/week-06/lab-12-proforma-present.md'] or 'rubric' in x['path'].lower())]
-root=Path('data/reference/official-course');manifest=[]
-for f in files:
- blob=json.loads(subprocess.check_output(['gh','api',f'repos/{repo}/git/blobs/{f["sha"]}'],text=True,encoding='utf8'));b=base64.b64decode(blob['content']);p=root/f['path'];p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b);manifest.append({'path':f['path'],'blob':f['sha'],'sha256':hashlib.sha256(b).hexdigest()})
-Path('docs/course-source-manifest.json').write_text(json.dumps({'repo':repo,'commit':sha,'retrieved_utc':datetime.now(timezone.utc).isoformat(),'files':manifest},indent=2));print('Official snapshot',sha,len(manifest))
+
+REPO = "CinderZhang/FIN43900-Fall2026"
+LESSONS = [
+    "PROJECT-SUBMISSION-ARCHITECTURE.md",
+    "lessons/week-03/lab-05-dcf-build.md",
+    "lessons/week-03/teach-dcf-worked-example.md",
+    "lessons/week-05/lab-10-proforma-your-company.md",
+    "lessons/week-06/lab-11-proforma-what-if.md",
+    "lessons/week-06/lab-12-proforma-present.md",
+]
+
+
+def gh(path):
+    return json.loads(subprocess.check_output(["gh", "api", path], text=True, encoding="utf8"))
+
+
+def wanted(entry):
+    path = entry["path"]
+    project_file = path.startswith("projects/") and path.endswith((".md", ".csv", ".txt"))
+    return entry["type"] == "blob" and (project_file or path in LESSONS or "rubric" in path.lower())
+
+
+if __name__ == "__main__":
+    sha = gh(f"repos/{REPO}/commits/HEAD")["sha"]
+    tree = gh(f"repos/{REPO}/git/trees/{sha}?recursive=1")
+    root = Path("data/reference/official-course")
+    manifest = []
+    for entry in [x for x in tree["tree"] if wanted(x)]:
+        content = base64.b64decode(gh(f"repos/{REPO}/git/blobs/{entry['sha']}")["content"])
+        target = root / entry["path"]
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(content)
+        manifest.append({"path": entry["path"], "blob": entry["sha"], "sha256": hashlib.sha256(content).hexdigest()})
+    record = {"repo": REPO, "commit": sha, "retrieved_utc": datetime.now(timezone.utc).isoformat(), "files": manifest}
+    Path("docs/course-source-manifest.json").write_text(json.dumps(record, indent=2))
+    print("Official snapshot", sha, len(manifest))

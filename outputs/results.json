@@ -1,56 +1,423 @@
 {
-  "created_utc": "2026-10-06T23:22:19.692177+00:00",
+  "created_utc": "2026-10-20T00:18:39.747126+00:00",
   "valuation_date": "2026-10-05",
   "status": "Independent provisional analysis: postcomparison version: human locked test, final partner review and submission requirements pending",
   "cases": {
     "low": {
-      "explicit_pv": 10874.852408272147,
+      "explicit_pv": 10957.379678151403,
+      "fade_pv": 0,
       "terminal_pv": 21571.994069234115,
-      "enterprise_value": 32446.84647750626,
-      "equity_value": 42751.00609750626,
-      "per_share": 16.44512979710698,
-      "terminal_share": 0.6648410064808263,
+      "terminal_time": 4.238356164383561,
+      "enterprise_value": 32529.373747385518,
+      "equity_value": 43302.344917172704,
+      "per_share": 16.65721459415056,
+      "terminal_share": 0.6631542997647756,
+      "fade_years": 0,
+      "fade": [],
       "terminal_revenue": 16847.034163006872,
       "terminal_nopat": 3790.582686676546,
       "terminal_fcff": 3487.3360717424225,
       "action": "do_not_initiate"
     },
     "base": {
-      "explicit_pv": 17807.421350923047,
+      "explicit_pv": 17893.438967917493,
+      "fade_pv": 0,
       "terminal_pv": 49242.61305527987,
-      "enterprise_value": 67050.03440620292,
-      "equity_value": 77354.19402620292,
-      "per_share": 29.75601926677717,
-      "terminal_share": 0.7344159252321629,
+      "terminal_time": 4.238356164383561,
+      "enterprise_value": 67136.05202319736,
+      "equity_value": 78295.89504081063,
+      "per_share": 30.118265605026373,
+      "terminal_share": 0.733474959746891,
+      "fade_years": 0,
+      "fade": [],
       "terminal_revenue": 24662.374349691236,
       "terminal_nopat": 6473.873266793949,
       "terminal_fcff": 5697.008474778676,
       "action": "do_not_initiate"
     },
     "high": {
-      "explicit_pv": 27636.368795293813,
+      "explicit_pv": 27726.391293018743,
+      "fade_pv": 0,
       "terminal_pv": 132283.5471436939,
-      "enterprise_value": 159919.91593898772,
-      "equity_value": 170224.0755589877,
-      "per_share": 65.4804944420569,
-      "terminal_share": 0.8271861973349361,
+      "terminal_time": 4.238356164383561,
+      "enterprise_value": 160009.93843671263,
+      "equity_value": 171341.72449780416,
+      "per_share": 65.91042308103475,
+      "terminal_share": 0.8267208176948014,
+      "fade_years": 0,
+      "fade": [],
       "terminal_revenue": 37818.31054101812,
       "terminal_nopat": 11345.493162305438,
       "terminal_fcff": 9530.214256336567,
       "action": "do_not_initiate"
     }
   },
+  "terminal_conventions": [
+    {
+      "case": "low",
+      "fade_years": 0,
+      "maturity_year": 2030,
+      "per_share": 16.65721459415056,
+      "explicit_pv": 10957.379678151403,
+      "fade_pv": 0,
+      "terminal_pv": 21571.994069234115,
+      "terminal_share": 0.6631542997647756,
+      "action": "do_not_initiate"
+    },
+    {
+      "case": "low",
+      "fade_years": 5,
+      "maturity_year": 2035,
+      "per_share": 18.171449129884927,
+      "explicit_pv": 10957.379678151403,
+      "fade_pv": 7725.420306925334,
+      "terminal_pv": 17783.000574921884,
+      "terminal_share": 0.48766242072932997,
+      "action": "do_not_initiate"
+    },
+    {
+      "case": "low",
+      "fade_years": 10,
+      "maturity_year": 2040,
+      "per_share": 19.605228318637106,
+      "explicit_pv": 10957.379678151403,
+      "fade_pv": 14586.867046247455,
+      "terminal_pv": 14648.82772136775,
+      "terminal_share": 0.3644614880390335,
+      "action": "do_not_initiate"
+    },
+    {
+      "case": "base",
+      "fade_years": 0,
+      "maturity_year": 2030,
+      "per_share": 30.118265605026373,
+      "explicit_pv": 17893.438967917493,
+      "fade_pv": 0,
+      "terminal_pv": 49242.61305527987,
+      "terminal_share": 0.733474959746891,
+      "action": "do_not_initiate"
+    },
+    {
+      "case": "base",
+      "fade_years": 5,
+      "maturity_year": 2035,
+      "per_share": 35.67412108681193,
+      "explicit_pv": 17893.438967917493,
+      "fade_pv": 12736.004292445241,
+      "terminal_pv": 50949.69401111658,
+      "terminal_share": 0.6245431824262375,
+      "action": "do_not_initiate"
+    },
+    {
+      "case": "base",
+      "fade_years": 10,
+      "maturity_year": 2040,
+      "per_share": 42.03608982493415,
+      "explicit_pv": 17893.438967917493,
+      "fade_pv": 27584.026008239533,
+      "terminal_pv": 52640.34165647589,
+      "terminal_share": 0.5365014105295774,
+      "action": "do_not_initiate"
+    },
+    {
+      "case": "high",
+      "fade_years": 0,
+      "maturity_year": 2030,
+      "per_share": 65.91042308103475,
+      "explicit_pv": 27726.391293018743,
+      "fade_pv": 0,
+      "terminal_pv": 132283.5471436939,
+      "terminal_share": 0.8267208176948014,
+      "action": "do_not_initiate"
+    },
+    {
+      "case": "high",
+      "fade_years": 5,
+      "maturity_year": 2035,
+      "per_share": 94.95744236064411,
+      "explicit_pv": 27726.391293018743,
+      "fade_pv": 17012.794275173488,
+      "terminal_pv": 190781.81989308208,
+      "terminal_share": 0.8100416330994796,
+      "action": "do_not_initiate"
+    },
+    {
+      "case": "high",
+      "fade_years": 10,
+      "maturity_year": 2040,
+      "per_share": 139.49074574312908,
+      "explicit_pv": 27726.391293018743,
+      "fade_pv": 49330.805160235235,
+      "terminal_pv": 274233.25248067896,
+      "terminal_share": 0.7806453415198144,
+      "action": "do_not_initiate"
+    }
+  ],
+  "cutoff_cash": {
+    "low": {
+      "june_30_cash": 2030.047,
+      "stub_days": 97,
+      "stub_fraction": 0.5271739130434783,
+      "stub_fcff": 412.55029343787146,
+      "stub_after_tax_interest": 56.26125634931512,
+      "stub_financing": 0.0,
+      "stub_retained_cash": 468.81154978718655,
+      "stub_retained_cash_credited": 468.81154978718655,
+      "valuation_date_cash": 2498.8585497871863
+    },
+    "base": {
+      "june_30_cash": 2030.047,
+      "stub_days": 97,
+      "stub_fraction": 0.5271739130434783,
+      "stub_fcff": 799.4221412639586,
+      "stub_after_tax_interest": 56.261256349315,
+      "stub_financing": 0.0,
+      "stub_retained_cash": 855.6833976132735,
+      "stub_retained_cash_credited": 855.6833976132735,
+      "valuation_date_cash": 2885.7303976132735
+    },
+    "high": {
+      "june_30_cash": 2030.047,
+      "stub_days": 97,
+      "stub_fraction": 0.5271739130434783,
+      "stub_fcff": 971.3651847422194,
+      "stub_after_tax_interest": 56.261256349315,
+      "stub_financing": 0.0,
+      "stub_retained_cash": 1027.6264410915344,
+      "stub_retained_cash_credited": 1027.6264410915344,
+      "valuation_date_cash": 3057.673441091534
+    }
+  },
+  "existing_awards": {
+    "options": {
+      "unrecognized_compensation": 361,
+      "remaining_service_years": 4.890868,
+      "added_back_2026h2_to_2030": 332.4529636955721,
+      "recognized_after_2030_not_added_back": 28.547036304427877
+    },
+    "sars": {
+      "unrecognized_compensation": 136,
+      "remaining_service_years": 8,
+      "added_back_2026h2_to_2030": 76.56986301369864,
+      "recognized_after_2030_not_added_back": 59.43013698630136
+    },
+    "rsus": {
+      "unrecognized_compensation": 916,
+      "remaining_service_years": 3,
+      "added_back_2026h2_to_2030": 915.9999999999999,
+      "recognized_after_2030_not_added_back": 1.1368683772161603e-13
+    },
+    "dilutive_shares_counted": {
+      "options": 149.677,
+      "rsus": 33.249,
+      "prsus": 0.121,
+      "sars": 13.671
+    },
+    "treatment": "Existing awards are counted once, as diluted shares in the bridge (options also credit exercise proceeds). Their remaining GAAP expense is added back to EBIT over the forecast so it is not charged a second time. Future grants are not added back: their cost stays inside the GAAP-like margin as an ongoing cash-replacement compensation cost, and no future share issuance is modeled."
+  },
   "reverse_dcf": {
-    "commercial_growth_multiplier": 4.584305279324997,
+    "commercial_growth_multiplier": 4.580286573785633,
     "annual_growths": [
-      2.521367903628749,
-      1.833722111729999,
-      1.3752915837974993,
-      1.0085471614514994
+      2.5191576155820985,
+      1.8321146295142534,
+      1.37408597213569,
+      1.0076630462328393
     ],
     "price_target": 189.4,
     "other_drivers": "base held fixed; mechanical expectation, not forecast"
   },
+  "market_implied": {
+    "price": 189.4,
+    "revenue_cagr": {
+      "implied_cagr_2026_2030": 1.22341029214452,
+      "base_cagr_2026_2030": 0.30905151742674586,
+      "revenue_2026": 8154.0
+    },
+    "terminal_margin": {
+      "implied_terminal_margin": null,
+      "value_at_100pct_margin": 65.29676976916708,
+      "base_terminal_margin": 0.35
+    },
+    "fade_length": {
+      "implied_fade_years": 60,
+      "value_at_implied": 190.71898916314908,
+      "value_at_max": null,
+      "max_years": 100
+    },
+    "sentences": [
+      "At $189.40, with base margins, discount rate and immediate maturity after 2030 held fixed, the market implies revenue compounding about 122% a year from 2026 to 2030, versus 31% in the base case.",
+      "At $189.40, with base growth held fixed, no steady-state operating margin up to 100% of revenue is enough (even 100% gives $65); the price cannot be explained by maturity-year profitability alone.",
+      "At $189.40, with base growth and margins held fixed, the market implies about 60 years of linear fade before maturity.",
+      "Diagnostic only: scaling base commercial growth alone requires 4.58x the base path (252%, 183%, 137%, 101% for 2027-2030)."
+    ],
+    "note": "One price cannot pin down growth, steady-state margin and fade length at once; each line moves one and holds the rest at base."
+  },
+  "nol_sensitivity": {
+    "adopted_in_base": false,
+    "rows": [
+      {
+        "case": "low",
+        "availability": 0.0,
+        "pv_tax_saved": 0.0,
+        "per_share": 0.0,
+        "nol_left_after_2030": 0.0
+      },
+      {
+        "case": "low",
+        "availability": 0.5,
+        "pv_tax_saved": 950.0409214769986,
+        "per_share": 0.3654544697876411,
+        "nol_left_after_2030": 0.0
+      },
+      {
+        "case": "low",
+        "availability": 1.0,
+        "pv_tax_saved": 1790.5954531743325,
+        "per_share": 0.6887925531951203,
+        "nol_left_after_2030": 0.0
+      },
+      {
+        "case": "base",
+        "availability": 0.0,
+        "pv_tax_saved": 0.0,
+        "per_share": 0.0,
+        "nol_left_after_2030": 0.0
+      },
+      {
+        "case": "base",
+        "availability": 0.5,
+        "pv_tax_saved": 965.9415248312993,
+        "per_share": 0.3715709921781877,
+        "nol_left_after_2030": 0.0
+      },
+      {
+        "case": "base",
+        "availability": 1.0,
+        "pv_tax_saved": 1851.2520933714025,
+        "per_share": 0.7121254852627803,
+        "nol_left_after_2030": 0.0
+      },
+      {
+        "case": "high",
+        "availability": 0.0,
+        "pv_tax_saved": 0.0,
+        "per_share": 0.0,
+        "nol_left_after_2030": 0.0
+      },
+      {
+        "case": "high",
+        "availability": 0.5,
+        "pv_tax_saved": 978.717154688118,
+        "per_share": 0.37648542368316773,
+        "nol_left_after_2030": 0.0
+      },
+      {
+        "case": "high",
+        "availability": 1.0,
+        "pv_tax_saved": 1902.5283239266814,
+        "per_share": 0.7318500331497862,
+        "nol_left_after_2030": 0.0
+      }
+    ]
+  },
+  "margin_history": [
+    {
+      "period": "2023",
+      "period_type": "fiscal year",
+      "revenue": 2225.012,
+      "gaap_operating_income": 119.966,
+      "gaap_operating_margin": 0.05391701258240404,
+      "sbc": 475.903,
+      "sbc_pct_revenue": 0.21388783521167526,
+      "gaap_plus_sbc_margin": 0.2678048477940793,
+      "company_adjusted_operating_margin": "pending: earnings release not saved in data/raw",
+      "source": "2025 10-K income statement and cash-flow SBC (data/raw/pltr_2025_10k_issuer.html)"
+    },
+    {
+      "period": "2024",
+      "period_type": "fiscal year",
+      "revenue": 2865.507,
+      "gaap_operating_income": 310.403,
+      "gaap_operating_margin": 0.10832393709036482,
+      "sbc": 691.638,
+      "sbc_pct_revenue": 0.24136671102181917,
+      "gaap_plus_sbc_margin": 0.349690648112184,
+      "company_adjusted_operating_margin": "pending: earnings release not saved in data/raw",
+      "source": "2025 10-K income statement and cash-flow SBC (data/raw/pltr_2025_10k_issuer.html)"
+    },
+    {
+      "period": "2025",
+      "period_type": "fiscal year",
+      "revenue": 4475.446,
+      "gaap_operating_income": 1414.015,
+      "gaap_operating_margin": 0.31594951653980413,
+      "sbc": 684.033,
+      "sbc_pct_revenue": 0.15284130341422955,
+      "gaap_plus_sbc_margin": 0.4687908199540337,
+      "company_adjusted_operating_margin": "pending: earnings release not saved in data/raw",
+      "source": "2025 10-K income statement and cash-flow SBC (data/raw/pltr_2025_10k_issuer.html)"
+    },
+    {
+      "period": "2025 Q1",
+      "period_type": "quarter (derived: six months less Q2)",
+      "revenue": 883.8549999999999,
+      "gaap_operating_income": 176.048,
+      "gaap_operating_margin": 0.19918199252139776,
+      "sbc": 155.339,
+      "sbc_pct_revenue": 0.17575167872558284,
+      "gaap_plus_sbc_margin": 0.37493367124698057,
+      "company_adjusted_operating_margin": "pending: earnings release not saved in data/raw",
+      "source": "2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)"
+    },
+    {
+      "period": "2025 Q2",
+      "period_type": "quarter",
+      "revenue": 1003.697,
+      "gaap_operating_income": 269.317,
+      "gaap_operating_margin": 0.26832500246588364,
+      "sbc": 159.971,
+      "sbc_pct_revenue": 0.15938176561253048,
+      "gaap_plus_sbc_margin": 0.4277067680784141,
+      "company_adjusted_operating_margin": "pending: earnings release not saved in data/raw",
+      "source": "2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)"
+    },
+    {
+      "period": "2026 Q1",
+      "period_type": "quarter (derived: six months less Q2)",
+      "revenue": 1632.583,
+      "gaap_operating_income": 753.9979999999999,
+      "gaap_operating_margin": 0.4618435938632216,
+      "sbc": 201.59199999999998,
+      "sbc_pct_revenue": 0.12348039885261575,
+      "gaap_plus_sbc_margin": 0.5853239927158373,
+      "company_adjusted_operating_margin": "pending: earnings release not saved in data/raw",
+      "source": "2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)"
+    },
+    {
+      "period": "2026 Q2",
+      "period_type": "quarter",
+      "revenue": 1935.464,
+      "gaap_operating_income": 912.004,
+      "gaap_operating_margin": 0.4712069043908851,
+      "sbc": 265.209,
+      "sbc_pct_revenue": 0.13702605680084984,
+      "gaap_plus_sbc_margin": 0.6082329611917349,
+      "company_adjusted_operating_margin": "pending: earnings release not saved in data/raw",
+      "source": "2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)"
+    },
+    {
+      "period": "2026 H1",
+      "period_type": "six months",
+      "revenue": 3568.047,
+      "gaap_operating_income": 1666.002,
+      "gaap_operating_margin": 0.46692266105239083,
+      "sbc": 466.801,
+      "sbc_pct_revenue": 0.13082815332869774,
+      "gaap_plus_sbc_margin": 0.5977508143810886,
+      "company_adjusted_operating_margin": "pending: earnings release not saved in data/raw",
+      "source": "2026Q2 10-Q income statement and SBC expense table (data/raw/pltr_2026q2_10q_issuer.html)"
+    }
+  ],
   "historical_checks": [
     {
       "period": "annual_2025",

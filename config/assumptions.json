@@ -120,7 +120,12 @@
     "beta_basis": "Analyst risk assumption; not estimated regression. Cash-rich firm beta should not be mechanically applied to operating enterprise. Sensitivity covers 8-13%.",
     "debt_weight": 0,
     "equity_weight": 1,
-    "formula": "WACC=cost of equity=5.31%+1.25*4.20%=10.56%"
+    "formula": "WACC=cost of equity=5.31%+1.25*4.20%=10.56%",
+    "riskfree_maturity": "10-year Treasury par yield",
+    "riskfree_verification": "Verified by Pierce (ChatGPT-assisted check, reported 2026-10-20): 5.31% in the 10 Yr column for 10/05/2026. Saved source row still pending (not retrievable in the Claude session).",
+    "erp_verification": "Verified by Pierce (ChatGPT-assisted check, reported 2026-10-20): 4.20% for October 1, 2026 on the method above; the page publishes several alternative estimates.",
+    "beta_sourced_estimate": "pending: needs a reproducible dated estimate disclosing benchmark, frequency, return definition, window and any adjustment",
+    "erp_method": "Damodaran implied ERP, trailing 12-month cash flows with adjusted payout"
   },
   "presentation": {
     "cost_of_revenue_ratio": 0.15,
@@ -135,20 +140,34 @@
     "contract_offset_ratio": 0.17
   },
   "terminal_fade": {
-    "growth": [
-      0.2,
-      0.15,
-      0.1,
-      0.07,
-      0.05
+    "base_years": 0,
+    "comparison_years": [
+      0,
+      5,
+      10
     ],
-    "margin": [
-      0.39,
-      0.38,
-      0.37,
-      0.36,
-      0.35
-    ]
+    "roic": 0.25,
+    "path": "linear from the 2030 forecast growth and input margin toward each case's terminal growth and terminal margin; fade year k of n is k/(n+1) of the way",
+    "basis": "Analyst assumption pending Pierce's decision. base_years 0 keeps the frozen immediate-maturity convention; 5 and 10 are reported comparisons. Fade ROIC equals the mature terminal ROIC (assumption).",
+    "named_path": {
+      "label": "Maturity deferred to2035 with five-year fade",
+      "growth": [
+        0.2,
+        0.15,
+        0.1,
+        0.07,
+        0.05
+      ],
+      "margin": [
+        0.39,
+        0.38,
+        0.37,
+        0.36,
+        0.35
+      ],
+      "basis": "Delayed-maturity comparison only (reported as a named stress); not the base-case terminal convention."
+    },
+    "terminal_margin_named_path_superseded": 0.35
   },
   "recommendation_policy": {
     "initiate_fraction": 0.8,
@@ -160,5 +179,86 @@
     "Noncontrolling income/distributions set to zero prospectively; opening NCI held fixed.",
     "Current lease balances remain in aggregated accruals; expense stays operating.",
     "Other noncurrent operating balances held fixed; not a granular lease/revenue tax-asset forecast."
-  ]
+  ],
+  "days_in_year": 365,
+  "named_stresses": {
+    "procurement_shock": {
+      "label": "Procurement delay and AI deployment failure",
+      "commercial_growth": [
+        0,
+        -0.1,
+        0.15,
+        0.2,
+        0.15
+      ],
+      "government_growth": [
+        0,
+        0.05,
+        0.1,
+        0.12,
+        0.12
+      ],
+      "margins": [
+        0.46,
+        0.25,
+        0.3,
+        0.34,
+        0.35
+      ],
+      "nwc_ratio": 0.12,
+      "wacc": 0.12,
+      "basis": "Analyst stress path, not a forecast"
+    }
+  },
+  "sensitivity_grid": {
+    "wacc": [
+      0.08,
+      0.09,
+      0.105,
+      0.12,
+      0.13
+    ],
+    "growth": [
+      0.02,
+      0.03,
+      0.04
+    ]
+  },
+  "reverse_dcf": {
+    "multiplier_lower": 0.0,
+    "multiplier_upper": 6.0,
+    "bisection_steps": 80
+  },
+  "corrections": {
+    "cutoff_cash_rollforward": true,
+    "award_runoff_schedule": true,
+    "basis": "Post-comparison code corrections (Claude Code, 2026-10-20). Set false only to reproduce the frozen October 6 calculation in the valuation bridge."
+  },
+  "nol": {
+    "as_of": "2025-12-31",
+    "source": "2025 10-K income tax note (data/processed/pltr_2025_10k_issuer.txt): federal NOLs about $9.0B, of which $8.3B indefinite; state about $4.8B; annual limitation caveat stated by the company",
+    "federal_nol": 9000,
+    "federal_indefinite": 8300,
+    "federal_definite": 700,
+    "state_nol": 4800,
+    "federal_rate": 0.21,
+    "state_rate": 0.04,
+    "indefinite_limit": 0.8,
+    "state_limit": 0.8,
+    "availability_scenarios": [
+      0.0,
+      0.5,
+      1.0
+    ],
+    "adopted_in_base": false,
+    "basis": "Sensitivity only. Assumes no NOL use in reported H1 2026 (1.4% 2025 effective rate; H1 2026 tax $27.6M). The state rate and 80% state cap are simplifications. Section 382 limits and expiries are represented only through the availability share."
+  },
+  "peer_policy": {
+    "document": "docs/peer-policy-revised-2026-10-20.md",
+    "pe_min_net_margin": 0.05,
+    "min_ttm_revenue": 1000,
+    "growth_diagnostic": "year-to-date revenue growth on the same window as the TTM build",
+    "normalized_tax_rate_for_pltr_pe": 0.25
+  },
+  "interest_yield_basis": "Assumption 3.0%; realized H1 2026 interest income is about 3.5% annualized on average cash + marketable securities (all Treasuries mature within one year), see docs/source-verification-2026-10-20.md"
 }
