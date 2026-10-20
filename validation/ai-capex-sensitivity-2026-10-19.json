@@ -1,0 +1,98 @@
+{
+  "classification": "AI-generated controlled sensitivity; not course Validation Gate D",
+  "prediction_precommit": {
+    "record": "validation/ai-capex-precommit-2026-10-19.md",
+    "recorded_utc": "2026-10-20T00:43:57Z",
+    "commit": "1e3cdb918d5c3d5e8d2051931e96ecb2e00ec9df"
+  },
+  "execution": {
+    "executed_utc": "2026-10-20T00:49:14.070372+00:00",
+    "repository_commit": "723cedbd029254a3075a31586bb818ffbdb98457",
+    "command": "python validation/run_ai_capex_sensitivity.py"
+  },
+  "input": {
+    "name": "annual capex / revenue",
+    "old_value": 0.012,
+    "new_value": 0.02,
+    "units": "fraction of annual revenue",
+    "controls": "Base case; revenue, margins, tax, WACC, working capital, and terminal assumptions held fixed. Base config was not modified."
+  },
+  "prediction": {
+    "per_share_direction": "decrease",
+    "decision_effect": "remain do_not_initiate at the unchanged $189.40 reference price",
+    "basis": "Capex is deducted from FCFF; other operating and terminal assumptions are fixed."
+  },
+  "result": {
+    "base_per_share_usd": 30.118265605026373,
+    "changed_per_share_usd": 29.929901800262922,
+    "per_share_change_usd": -0.18836380476345127,
+    "base_equity_value_usd_millions": 78295.89504081063,
+    "changed_equity_value_usd_millions": 77806.22166849049,
+    "actual_direction": "decrease",
+    "prediction_match": true,
+    "base_action": "do_not_initiate",
+    "changed_action": "do_not_initiate"
+  },
+  "annual_results_usd_millions": [
+    {
+      "year": 2026,
+      "base_capex": 75.893,
+      "changed_capex": 141.125,
+      "base_fcff": 1516.4296287893646,
+      "changed_fcff": 1451.1976287893647,
+      "base_balance_check_pass": true,
+      "changed_balance_check_pass": true,
+      "base_cash_check_pass": true,
+      "changed_cash_check_pass": true
+    },
+    {
+      "year": 2027,
+      "base_capex": 141.52628506956327,
+      "changed_capex": 235.87714178260546,
+      "base_fcff": 4173.219255611461,
+      "changed_fcff": 4078.8683988984194,
+      "base_balance_check_pass": true,
+      "changed_balance_check_pass": true,
+      "base_cash_check_pass": true,
+      "changed_cash_check_pass": true
+    },
+    {
+      "year": 2028,
+      "base_capex": 189.92492600373484,
+      "changed_capex": 316.5415433395581,
+      "base_fcff": 5414.109703856476,
+      "changed_fcff": 5287.4930865206525,
+      "base_balance_check_pass": true,
+      "changed_balance_check_pass": true,
+      "base_cash_check_pass": true,
+      "changed_cash_check_pass": true
+    },
+    {
+      "year": 2029,
+      "base_capex": 239.89493876493742,
+      "changed_capex": 399.82489794156237,
+      "base_fcff": 6382.31196640821,
+      "changed_fcff": 6222.382007231585,
+      "base_balance_check_pass": true,
+      "changed_balance_check_pass": true,
+      "base_cash_check_pass": true,
+      "changed_cash_check_pass": true
+    },
+    {
+      "year": 2030,
+      "base_capex": 287.3286332002862,
+      "changed_capex": 478.88105533381037,
+      "base_fcff": 6997.435575939147,
+      "changed_fcff": 6805.883153805624,
+      "base_balance_check_pass": true,
+      "changed_balance_check_pass": true,
+      "base_cash_check_pass": true,
+      "changed_cash_check_pass": true
+    }
+  ],
+  "source_hashes_at_execution": {
+    "config_assumptions_sha256": "800c5c9441ef331812a2fb1b2862662f6e7587f4ca960804f52372f79225be3a",
+    "src_model_sha256": "7ee5f5cf0e346007cd3e7593cc2a40bf05c5713224b63d0882f34d672433c49c"
+  },
+  "course_gate_d": "Still pending: a human-authored prediction and AI-closed run are explicitly required. This AI run is not represented as human work."
+}
