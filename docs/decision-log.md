@@ -18,3 +18,16 @@ Not part of the October 6 independent freeze. Commits 890b973, d248dc4 and 7c190
 - Peer policy: dated revision docs/peer-policy-revised-2026-10-20.md; original preserved.
 - Locked runner: commits restricted to the record file. The designated test was not run.
 - Repository visibility: GitHub reports the repo as public; left unchanged for Pierce's decision.
+- 2026-10-20: Pierce supplied `Edition A.pdf` from Downloads. Copied unchanged to `submission/Edition A.pdf`, five pages, SHA-256 `24087f84b272baba2eb9c6a3cb83f495c47e5e48f5270e833dd3fe3a2f4ba2b1`. It records a September 1 valuation date while citing a June 30 10-Q filed August 4; discrepancy disclosed, not silently corrected. The independent freeze predates this document.
+- 2026-10-20: Created `docs/ai-simulated-analyst-decisions.md` at Pierce's request. It proposes provisional choices but does not alter config/model inputs, does not claim human approval, and is not Validation Gate D. Created `submission/human-gate-inputs.md` with the human prediction/run order and copy/paste templates.
+
+## Pierce's committee action, 2026-10-20
+In this conversation, Pierce explicitly answered, "I adopt do not initiate," for PLTR at the model's October 5 reference price of $189.40. This is Pierce's adoption of the committee action on October 20, not a claim that he authored the model, approved every assumption, or completed the required AI-off locked changed-input record. The existing source and valuation limitations remain disclosed.
+
+## Post-submission corrections and cleanup, 2026-10-20
+- 2026-10-20: correction. The 2026-10-20 Edition A entry above, the Edition B PDF and several status files said Edition A's September 1, 2026 valuation date predates its cited 10-Q. That was backwards: the June 30, 2026 Form 10-Q was published August 4, 2026, before September 1, so Edition A's date and source are consistent. The current model uses an October 5, 2026 cutoff. Corrected in docs/research-evolution-edition-b.md, docs/STATUS.md, docs/submission-compliance.md, docs/ai-use-record.md (appended note) and the Validation-and-AI-Use.pdf generator. `submission/Edition B.pdf` is preserved unchanged as submitted.
+- 2026-10-20: post-submission documentation cleanup; no model, input, or output changes; last on-time commit ca1ccb0.
+- 2026-10-20: final committee label, as stated by Pierce for the post-submission record: watch/defer with no initial position at the October 5 close of $189.40, matching the adopted Edition B. This is consistent with the "I adopt do not initiate" entry above: the model's price action is not to initiate at $189.40, and the portfolio keeps the name on watch. No position is taken either way.
+
+## Superseding decision and resubmission preparation, 2026-10-20
+The preceding watch/defer interpretation is superseded. Pierce's direct answer was "I adopt do not initiate" at $189.40. The revised memo and Edition B use **do not initiate** as the committee action. Monitoring reversal evidence does not change the action label. This is a post-submission revision and was not in the first Brightspace submission. A separate 2029 government-growth changed-input run is prepared for Pierce with AI closed; its prediction and result are not yet recorded.

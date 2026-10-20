@@ -1,13 +1,14 @@
 item,required,location_or_url,title,duration_or_as_of,timestamp_index,access_checked,frozen_or_commit_id,notes
-Research-Evolution.pdf,yes,PENDING,Research-Evolution.pdf,"October5,2026 valuation; October6,2026 preparation",,localverified; graderpending,postcomparison commit pending; independent890b973 preserved,Needs unchanged submitted EditionA PDF and adoptedEditionB
-Repository,yes,https://github.com/pierceappleton/palantir-corporate-finance,Repository,"October5,2026 valuation; October6,2026 preparation",,localverified; graderpending,postcomparison commit pending; independent890b973 preserved,Private; graderaccesspending
-Visible executed output,yes,outputs/review.html,Visible executed output,"October5,2026 valuation; October6,2026 preparation",,localverified; graderpending,postcomparison commit pending; independent890b973 preserved,Materialinputs/datedcases/comparisons/sensitivities
-Decision memo or deck,yes,submission/Decision-Memo.pdf,Decision memo or deck,"October5,2026 valuation; October6,2026 preparation",,localverified; graderpending,postcomparison commit pending; independent890b973 preserved,Two-page draft; finalhumanstrategylabelpending
-Validation-and-AI-Use.pdf,yes,submission/Validation-and-AI-Use.pdf,Validation-and-AI-Use.pdf,"October5,2026 valuation; October6,2026 preparation",,localverified; graderpending,postcomparison commit pending; independent890b973 preserved,Two-page draft; humanlockedgatepending
-Video 1,yes,PENDING actualrecordingURL,Palantir - Video1,maximum 3:00,PENDING actualrecordingindex,PENDING,PENDING,No fictionalvideo
-Transcript Video 1,yes,transcript-video-1.txt - PENDING,Transcript Video1,,,PENDING,PENDING,Must correct against actualrecording; not generatedbeforehand
-Video 2,yes,PENDING actualrecordingURL,Palantir - Video2,maximum 5:00,PENDING actualrecordingindex,PENDING,PENDING,No fictionalvideo
-Transcript Video 2,yes,transcript-video-2.txt - PENDING,Transcript Video2,,,PENDING,PENDING,Must correct against actualrecording; not generatedbeforehand
-Video 3,yes,PENDING actualrecordingURL,Palantir - Video3,maximum 5:00,PENDING actualrecordingindex,PENDING,PENDING,Video3 requires liveworkbench opening
-Transcript Video 3,yes,transcript-video-3.txt - PENDING,Transcript Video3,,,PENDING,PENDING,Must correct against actualrecording; not generatedbeforehand
-Optional deployed output,no,Not deployed,,,,,,Localworkbench meetsproductfloor
+Research-Evolution.pdf,yes,submission/Research-Evolution.pdf,Research Evolution,"Oct 5 valuation; revised Oct 20",A pages 1-5; dated addendum page 6; revised B pages 7-8; A-to-B page 9,local PDF reviewed; Brightspace resubmission pending,Edition A SHA-256 24087f84b272baba2eb9c6a3cb83f495c47e5e48f5270e833dd3fe3a2f4ba2b1,Unchanged official Edition A included; first-submitted Edition B preserved separately
+Repository,yes,https://github.com/pierceappleton/palantir-corporate-finance,Repository,"Oct 5 valuation cutoff",README and outputs,public access observed; revised push pending,independent freeze 890b973,Revised package not yet pushed
+Visible executed output,yes,outputs/review.html,Visible executed output,"Oct 5 valuation cutoff",material inputs; cases; sensitivities,local reviewed; revised push pending,pending final commit,Static review page
+Decision memo or deck,yes,submission/Decision-Memo.pdf,Decision memo,2 pages,decision page 1; price/peers/committee ask page 2,local PDF reviewed; Brightspace resubmission pending,pending final commit,Pierce adopted do not initiate at 189.40
+Validation-and-AI-Use.pdf,yes,submission/Validation-and-AI-Use.pdf,Validation and AI use,2 pages,checks page 1; AI use and human gate page 2,local PDF reviewed; Brightspace resubmission pending,pending human run,Rebuild after human locked run; currently correctly says pending
+Video 1,yes,replacement recording pending,Research evolution,maximum 3:00,see submission/video-scripts.md,pending,pending,Old Brightspace video1937749126.mp4 was 3:20 and exceeded limit
+Transcript Video 1,yes,replacement transcript pending,transcript-video-1.txt,,pending,pending,pending,Correct from actual replacement audio
+Video 2,yes,replacement recording pending,Code and validation,maximum 5:00,see submission/video-scripts.md,pending,pending,Old Brightspace video3047296660.mp4 was 5:27 and exceeded limit
+Transcript Video 2,yes,replacement transcript pending,transcript-video-2.txt,,pending,pending,pending,Correct from actual replacement audio
+Video 3,yes,replacement recording pending,Live committee defense,maximum 5:00,see submission/video-scripts.md,pending,pending,Old Brightspace video2591651386.mp4 was 7:57 and exceeded limit
+Transcript Video 3,yes,replacement transcript pending,transcript-video-3.txt,,pending,pending,pending,Correct from actual replacement audio
+Locked Changed-Input Record,yes,validation/locked/<actual-run-id>/,Human AI-off changed-input record,run time pending,prediction then result then human comparison,pending,pending,Separate 2029 government growth test; do not substitute earlier AI capex run
+Optional deployed output,no,Not deployed,,,,,,Local workbench meets product floor

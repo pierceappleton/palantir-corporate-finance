@@ -1,7 +1,7 @@
 # Palantir committee memo (working draft)
-Post-comparison revision, Claude Code, 2026-10-20. Generated 2026-10-20T00:18:39.805854+00:00. AI-generated after the official Edition A checkpoint. This is not the official Edition A and not Pierce's original judgment. The October 6 independent freeze (commit 890b973) and its memo (`submission/independent-memo.md`) are preserved unchanged.
+Post-comparison revision, Claude Code, 2026-10-20. Generated 2026-10-20T03:30:58.497300+00:00. AI-generated after the official Edition A checkpoint. This is not the official Edition A and not Pierce's original judgment. The October 6 independent freeze (commit 890b973) and its memo (`submission/independent-memo.md`) are preserved unchanged.
 
-**Conditional action: do not initiate at the October 5, 2026 regular close of $189.40 under this evidence and model.** The fundamental DCF case range is about **$17 to $66 per diluted economic share**, with the base near $30. Even the high case is below the price by more than the 120% do-not-initiate threshold. This is a judgment-dependent interval, not a statistical confidence interval. Pierce must still adopt or reject the material assumptions listed under "Decisions pending" before a final label (do not initiate vs. watch/defer) is chosen.
+**Pierce's adopted action: do not initiate at the October 5, 2026 regular close of $189.40 under this evidence and model.** The fundamental DCF case range is about **$17 to $66 per diluted economic share**, with the base near $30. Even the high case is below the price by more than the 120% do-not-initiate threshold. This is a judgment-dependent interval, not a statistical confidence interval. Pierce's action does not imply approval of every material model assumption listed under "Decisions pending."
 
 The fund has no position. Intended user: buy-side analyst group and portfolio manager. Decision horizon: 3-5 years. Security: NASDAQ PLTR Class A; USD; Class A/B/F economic ownership counted; point-in-time basic shares distinguished from weighted-average EPS shares. Palantir sells software and services with identifiable operating revenue, costs, working capital and reinvestment, so operating-company enterprise FCFF is appropriate.
 
@@ -67,7 +67,7 @@ Revisit after reported commercial and government revenue, collections and GAAP m
 - Beta: keep 1.25 or adopt a sourced estimate.
 - Final peer list under the revised rule.
 - Whether to adopt the NOL utilization schedule.
-- Final label: do not initiate vs. watch/defer.
+- Final action label was adopted by Pierce on October 20: do not initiate at $189.40. The material assumptions above still require review.
 
 ## Validation limits and human work
 Arithmetic and boundary tests pass; that is not proof of investment judgment. Still pending: Pierce's AI-off locked prediction and AI-closed locked run, the final partner review, the three recordings and corrected transcripts, the unchanged official Edition A PDF, the Brightspace deadline/header, the 300-point rubric and grader access. No complete course submission is claimed.

@@ -96,10 +96,10 @@ def memo_text(r, c, stresses, transition_price, now):
     fy23 = margins["2023"]
     award = r["existing_awards"]
     added = sum(award[k]["added_back_2026h2_to_2030"] for k in ["options", "sars", "rsus"])
-    return f"""# Palantir committee memo (working draft)
-{REVISION_LABEL}. Generated {now}. AI-generated after the official Edition A checkpoint. This is not the official Edition A and not Pierce's original judgment. The October 6 independent freeze (commit 890b973) and its memo (`submission/independent-memo.md`) are preserved unchanged.
+    return f"""# Palantir committee memo
+{REVISION_LABEL}. Generated {now}. AI-assisted after the official Edition A checkpoint. This is not the official Edition A. Pierce adopted the do-not-initiate action on October 20, 2026. The October 6 independent freeze (commit 890b973) and its memo (`submission/independent-memo.md`) are preserved unchanged.
 
-**Conditional action: do not initiate at the October 5, 2026 regular close of ${price:.2f} under this evidence and model.** The fundamental DCF case range is about **${low:.0f} to ${high:.0f} per diluted economic share**, with the base near ${base:.0f}. Even the high case is below the price by more than the {ceiling:.0%} do-not-initiate threshold. This is a judgment-dependent interval, not a statistical confidence interval. Pierce must still adopt or reject the material assumptions listed under "Decisions pending" before a final label (do not initiate vs. watch/defer) is chosen.
+**Pierce's adopted action: do not initiate at the October 5, 2026 regular close of ${price:.2f} under this evidence and model.** The fundamental DCF case range is about **${low:.0f} to ${high:.0f} per diluted economic share**, with the base near ${base:.0f}. Even the high case is below the price by more than the {ceiling:.0%} do-not-initiate threshold. This is a judgment-dependent interval, not a statistical confidence interval. The adopted action does not approve every material model assumption listed below.
 
 The fund has no position. Intended user: buy-side analyst group and portfolio manager. Decision horizon: 3-5 years. Security: NASDAQ PLTR Class A; USD; Class A/B/F economic ownership counted; point-in-time basic shares distinguished from weighted-average EPS shares. Palantir sells software and services with identifiable operating revenue, costs, working capital and reinvestment, so operating-company enterprise FCFF is appropriate.
 
@@ -160,10 +160,10 @@ Revisit after reported commercial and government revenue, collections and GAAP m
 - Beta: keep 1.25 or adopt a sourced estimate.
 - Final peer list under the revised rule.
 - Whether to adopt the NOL utilization schedule.
-- Final label: do not initiate vs. watch/defer.
+- Pierce's adopted action is do not initiate at the October 5 reference price; the material assumptions above remain subject to review.
 
 ## Validation limits and human work
-Arithmetic and boundary tests pass; that is not proof of investment judgment. Still pending: Pierce's AI-off locked prediction and AI-closed locked run, the final partner review, the three recordings and corrected transcripts, the unchanged official Edition A PDF, the Brightspace deadline/header, the 300-point rubric and grader access. No complete course submission is claimed.
+Arithmetic and boundary tests pass; that is not proof of investment judgment. A separate AI-off human prediction and AI-closed 2029 government-growth run are prepared but pending. Replacement videos within course limits, corrected transcripts, final partner review and grader access checks remain open. Official Edition A is preserved unchanged, and the due time and 300-point rubric were read from Brightspace. The first Brightspace submission is preserved as a historical record.
 """
 
 
@@ -216,16 +216,16 @@ def review_html(r, memo, low, high, price):
 def readme_text(low, base, high, price):
     """Repository README with setup commands for Windows, macOS and Linux."""
     return f"""# Palantir corporate finance - FIN439
-Project for Pierce Appleton (Purdue, Finance and Accounting). AI-generated post-checkpoint analysis with pending course and human gates.
+Project 1 for Pierce Appleton (Purdue, Finance and Accounting), built with AI assistance under Pierce's direction. AI use is disclosed in `docs/ai-use-record.md` and `submission/Validation-and-AI-Use.pdf`. The first submission was received through Brightspace at 12:00 AM October 20, 2026; post-deadline revisions are identified separately.
 
-**Edition A.** The official Edition A submitted through Brightspace is unchanged and is not in this repository. A repository copy of Pierce's Edition A draft (`data/reference/FIN439-Labs/labs/lab-03/Project1_EditionA_Palantir.md`) was read after the October 6 independent freeze, as part of the prior-work comparison. It is not assumed identical to the submitted PDF.
+**Pierce's adopted committee action: do not initiate at the October 5 close of ${price:.2f}.** DCF range about ${low:.0f}-${high:.0f} per diluted share (base ${base:.2f}). The range is judgment-dependent, not a statistical confidence interval; see the assumptions and limitations before relying on it.
 
-**Repository visibility.** The project plan called for a private repository, but on 2026-10-20 GitHub reported this repository as public. Pierce decides whether to change that, because it affects grader access. Making it private later does not undo copies already made while it was public.
+**First submission.** Brightspace received three videos, Edition A and the original Edition B. The official Edition A PDF is preserved unchanged at `submission/Edition A.pdf`; the original Edition B remains at `submission/Edition B.pdf`. The revised `submission/Research-Evolution.pdf` combines Edition A, a dated correction, revised Edition B and an A-to-B evidence map. A repository Markdown copy of Pierce's Edition A draft (`data/reference/FIN439-Labs/labs/lab-03/Project1_EditionA_Palantir.md`) was read after the October 6 independent freeze for comparison.
+
+**Repository visibility.** This repository was observed public on October 20. The project plan had called for a private repository; grader access if visibility changes must be checked.
 
 ## Visible results
-[Working memo](submission/current-model-memo.md), [static review page](outputs/review.html), [results and checks](outputs/results.json), [valuation bridge](docs/valuation-bridge-2026-10-20.md), [terminal conventions](outputs/terminal_conventions.csv), [base five-year statements](outputs/base_three_statements.csv), [WACC-growth sensitivity](outputs/wacc_growth.csv), [peer multiples](outputs/peer_multiples.csv), [named stresses](outputs/named_stresses.csv), [Claude Code revision summary](docs/claude-code-revision-summary.md). The two-page PDFs in `submission/` are working drafts.
-
-DCF range about ${low:.0f}-${high:.0f} per diluted share (base ${base:.2f}); conditional do-not-initiate at the October 5 close of ${price:.2f}. Read the assumptions, the pending verifications and the limitations before relying on this provisional decision.
+[Decision memo](submission/Decision-Memo.pdf), [validation and AI-use record](submission/Validation-and-AI-Use.pdf), [static review page](outputs/review.html), [results and checks](outputs/results.json), [valuation bridge](docs/valuation-bridge-2026-10-20.md), [terminal conventions](outputs/terminal_conventions.csv), [base five-year statements](outputs/base_three_statements.csv), [WACC-growth sensitivity](outputs/wacc_growth.csv), [peer multiples](outputs/peer_multiples.csv), [named stresses](outputs/named_stresses.csv).
 
 ## Setup and reproduction
 Tested with Python 3.14.7 (Windows, October 6) and Python 3.13 (Linux, October 20). Run from the repository root.
@@ -251,9 +251,15 @@ Tests alone: `python -m pytest -q`. Old-to-new bridge: `python -m validation.val
 The reproduction command uses the saved filings and inputs; it needs no live prices or SEC downloads. Market inputs carry source URLs and as-of dates; items not yet verified are listed in `docs/source-verification-2026-10-20.md`. No credentials are committed.
 
 ## Navigation and validation
-Read PROJECT_GUIDE.md, docs/STATUS.md, docs/HANDOFF.md, docs/requirements-matrix.csv, docs/normalization.md, docs/assumption-challenges.csv, docs/source_manifest.json and validation/STATUS.md. The financial engine is in `src/`; the interface is in `app/`. The designated locked capex change (1.2% to 2.0% of revenue) remains unexecuted. Pierce must write the prediction with AI closed and run `validation/locked_human_runner.py` (on Windows, `validation/Run-Locked-Test-With-AI-Closed.cmd`). The Lab 11 partner feedback supplied by Pierce is credited; the final partner review and the real recordings remain pending.
+Read PROJECT_GUIDE.md, docs/STATUS.md, docs/HANDOFF.md, docs/requirements-matrix.csv, docs/normalization.md, docs/assumption-challenges.csv, docs/source_manifest.json and validation/STATUS.md. The financial engine is in `src/`; the interface is in `app/`. The separate human locked-run instructions are in `submission/separate-human-run.md`. The Lab 11 partner feedback supplied by Pierce is credited.
 
-The official checklist and video/memo limits are preserved under `data/reference/official-course` (see docs/submission-compliance.md). The 300-point rubric and the Brightspace header remain unavailable. The submission is not complete.
+## Open items
+- Validation Gate D was not completed by the original deadline. A new human-only 2029 government-growth test is prepared; its prediction and result remain pending. The earlier AI-controlled capex sensitivity is separate and does not substitute for it.
+- Beta is an analyst assumption without a saved provider or regression source, and the peer set is narrow.
+- Treasury yield and equity risk premium evidence has limits, listed in `docs/source-verification-2026-10-20.md`.
+- Replacement videos under 3/5/5 minutes and corrected transcripts are pending.
+
+The official checklist and video/memo limits are preserved under `data/reference/official-course` (see docs/submission-compliance.md).
 """
 
 

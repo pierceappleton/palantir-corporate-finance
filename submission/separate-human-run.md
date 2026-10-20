@@ -1,0 +1,12 @@
+# Separate human locked changed-input run
+
+This is the handoff for Pierce. The prior 1.2% to 2.0% capex result was already shown in an AI session; do not reuse it as the separate human prediction. The new designated input is **base-case 2029 government revenue growth, 22% to 12% of prior-year government revenue**. All other model inputs, the October 5 valuation cutoff, the $189.40 reference price and share basis remain fixed. No predicted result is supplied here.
+
+1. Close Codex, ChatGPT, Claude, AI browser tabs and any AI assistant. Do not reopen one until after the result is saved.
+2. Open File Explorer to this project folder. Confirm `.venv\Scripts\python.exe` exists. Double-click `validation\Run-Separate-Human-Test-With-AI-Closed.cmd`. Alternatively, in a normal PowerShell window at the project root, run `& '.\validation\Run-Separate-Human-Test-With-AI-Closed.cmd'`.
+3. In the form, write your name, predicted direction for intrinsic value per diluted share, financial reasoning, and predicted action effect at $189.40. Use your own words and complete the AI-closed attestation. Do not consult the previous AI capex result while writing.
+4. Click **Commit my prediction, then run** once. The program saves `validation/locked/<timestamp>/prediction.json` in its own Git commit before calculating either case. It then saves `results.json` in a second Git commit. It does not alter the base assumptions file or call an AI service.
+5. Read the result shown in the form. Open the two JSON records and write your own comparison: did the direction and decision effect match, what explains any miss, what limitation remains, and whether your investment action changes. Include the two commit IDs and the run folder. You may write this to `validation/locked/<timestamp>/human-review.txt` while AI is still closed. Commit it with `git add -- 'validation/locked/<timestamp>/human-review.txt'` followed by `git commit -m 'Record human review of locked result'`.
+6. Reopen this chat and send the run folder path, both commit IDs and your comparison. I can then update the validation PDF and submission manifest to reflect what you actually did. If the form reports an error, stop and send the exact error after reopening this chat. Do not claim the gate passed.
+
+The run is after the original Brightspace deadline. Keep its actual timestamps; do not backdate it or imply it was part of the first submission. The earlier joint capex run remains disclosed separately.
