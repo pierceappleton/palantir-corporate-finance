@@ -211,5 +211,10 @@
     "multiplier_lower": 0.0,
     "multiplier_upper": 6.0,
     "bisection_steps": 80
+  },
+  "corrections": {
+    "cutoff_cash_rollforward": true,
+    "award_runoff_schedule": true,
+    "basis": "Post-comparison code corrections (Claude Code, 2026-10-20). Set false only to reproduce the frozen October 6 calculation in the valuation bridge."
   }
 }

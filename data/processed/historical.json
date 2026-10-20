@@ -76,10 +76,12 @@
     "unrecognized_option_comp": 361,
     "unrecognized_sar_comp": 136,
     "unrecognized_rsu_comp": 916,
-    "option_service_years": 5,
+    "option_service_years": 4.890868,
     "sar_service_years": 8,
     "rsu_service_years": 3,
-    "common_net_income": 1932.417
+    "common_net_income": 1932.417,
+    "option_service_years_text": 5,
+    "service_period_source": "2026Q2 10-Q stock-based compensation note: weighted-average remaining service periods. Narrative text rounds options to 'five' years; the filed XBRL fact is 4 years 10 months 21 days (used). SARs 8 years and RSUs 3 years in both."
   },
   "source_annual": "data/raw/pltr_2025_10k_issuer.html",
   "source_interim": "data/raw/pltr_2026q2_10q_issuer.html",
