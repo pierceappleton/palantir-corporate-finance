@@ -17,21 +17,21 @@ def named_stresses(results, data, c):
     """Return the named stress rows and the delayed-maturity per-share value."""
     base = c["cases"]["base"]
     stresses = []
+    conditional_price = c["recommendation_policy"]["conditional_entry_price"]
+    policy = c["recommendation_policy"]
+    stress = c["named_stresses"]["procurement_shock"]
     shock = copy.deepcopy(base)
-    shock["commercial_growth"] = [0, -0.10, 0.15, 0.20, 0.15]
-    shock["government_growth"] = [0, 0.05, 0.10, 0.12, 0.12]
-    shock["margins"] = [0.46, 0.25, 0.30, 0.34, 0.35]
-    shock["nwc_ratio"] = 0.12
-    shock["wacc"] = 0.12
-    for name, case in [("Procurement delay and AI deployment failure", shock), ("Commercial conversion slowdown", c["cases"]["low"])]:
+    for key in ["commercial_growth", "government_growth", "margins", "nwc_ratio", "wacc"]:
+        shock[key] = copy.deepcopy(stress[key])
+    for name, case in [(stress["label"], shock), ("Commercial conversion slowdown", c["cases"]["low"])]:
         v = value(forecast(case, data, c), case, data, c)
         stresses.append(
             dict(
                 scenario=name,
                 value=v["per_share"],
                 current_action=v["action"],
-                conditional_price=20,
-                conditional_action="do_not_initiate" if 20 > v["per_share"] * 1.2 else "watch_defer",
+                conditional_price=conditional_price,
+                conditional_action="do_not_initiate" if conditional_price > v["per_share"] * policy["defer_ceiling_fraction"] else "watch_defer",
             )
         )
     # Terminal-maturity challenge: continue transition cash flows inside terminal convention.
@@ -46,18 +46,18 @@ def named_stresses(results, data, c):
         nopat = last * margin * (1 - c["tax"])
         f = nopat * (1 - growth / roic)
         transition_pv += f / (1 + w) ** t
-    terminal = last * (1 + g) * 0.35 * (1 - c["tax"]) * (1 - g / roic) / (w - g) / (1 + w) ** 5
+    terminal = last * (1 + g) * c["terminal_fade"]["terminal_margin"] * (1 - c["tax"]) * (1 - g / roic) / (w - g) / (1 + w) ** 5
     at2030 = transition_pv + terminal
     b = bridge(data, c)
-    ev = results["cases"]["base"]["explicit_pv"] + at2030 / (1 + w) ** (c["remaining_days"] / 365 + 4)
+    ev = results["cases"]["base"]["explicit_pv"] + at2030 / (1 + w) ** (c["remaining_days"] / c["days_in_year"] + 4)
     transition_price = (ev + b.cash + b.investments - b.debt - b.other_claims) / b.shares
     stresses.append(
         dict(
             scenario="Maturity deferred to2035 with five-year fade",
             value=transition_price,
-            current_action="do_not_initiate" if c["price"] > 1.2 * transition_price else "watch_defer",
-            conditional_price=20,
-            conditional_action="initiate_candidate" if 20 < 0.8 * transition_price else "watch_defer",
+            current_action="do_not_initiate" if c["price"] > policy["defer_ceiling_fraction"] * transition_price else "watch_defer",
+            conditional_price=conditional_price,
+            conditional_action="initiate_candidate" if conditional_price < policy["initiate_fraction"] * transition_price else "watch_defer",
         )
     )
     return stresses, transition_price

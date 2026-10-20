@@ -148,7 +148,9 @@
       0.37,
       0.36,
       0.35
-    ]
+    ],
+    "terminal_margin": 0.35,
+    "basis": "Delayed-maturity comparison only (reported as a named stress); not the base-case terminal convention."
   },
   "recommendation_policy": {
     "initiate_fraction": 0.8,
@@ -160,5 +162,54 @@
     "Noncontrolling income/distributions set to zero prospectively; opening NCI held fixed.",
     "Current lease balances remain in aggregated accruals; expense stays operating.",
     "Other noncurrent operating balances held fixed; not a granular lease/revenue tax-asset forecast."
-  ]
+  ],
+  "days_in_year": 365,
+  "named_stresses": {
+    "procurement_shock": {
+      "label": "Procurement delay and AI deployment failure",
+      "commercial_growth": [
+        0,
+        -0.1,
+        0.15,
+        0.2,
+        0.15
+      ],
+      "government_growth": [
+        0,
+        0.05,
+        0.1,
+        0.12,
+        0.12
+      ],
+      "margins": [
+        0.46,
+        0.25,
+        0.3,
+        0.34,
+        0.35
+      ],
+      "nwc_ratio": 0.12,
+      "wacc": 0.12,
+      "basis": "Analyst stress path, not a forecast"
+    }
+  },
+  "sensitivity_grid": {
+    "wacc": [
+      0.08,
+      0.09,
+      0.105,
+      0.12,
+      0.13
+    ],
+    "growth": [
+      0.02,
+      0.03,
+      0.04
+    ]
+  },
+  "reverse_dcf": {
+    "multiplier_lower": 0.0,
+    "multiplier_upper": 6.0,
+    "bisection_steps": 80
+  }
 }

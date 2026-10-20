@@ -54,6 +54,8 @@ def forecast(case, data, config):
     government = config["base_2026_revenue"] - commercial
     working_capital = config["working_capital"]
     presentation = config["presentation"]
+    h2_days = config["cashflow_days_h2"]
+    h2_fraction = h2_days / config["days_in_year"]
     # Other assets/ROU, investments, noncurrent leases/contract liabilities and NCI held constant.
     # Cash is calculated from cash flows, never used to fix the balance residual.
     for i, year in enumerate(range(2026, 2031)):
@@ -68,12 +70,12 @@ def forecast(case, data, config):
         option_amort = h["unrecognized_option_comp"] / h["option_service_years"]
         sar_amort = h["unrecognized_sar_comp"] / h["sar_service_years"]
         rsu_amort = h["unrecognized_rsu_comp"] / h["rsu_service_years"] if i < h["rsu_service_years"] else 0
-        old_award_amort = (option_amort + sar_amort + rsu_amort) * (184 / 365 if i == 0 else 1)
+        old_award_amort = (option_amort + sar_amort + rsu_amort) * (h2_fraction if i == 0 else 1)
         ebit = raw_ebit + old_award_amort
 
         da = revenue * config["da_ratio"]
         capex = revenue * config["capex_ratio"]
-        period_fraction = 184 / 365 if i == 0 else 1
+        period_fraction = h2_fraction if i == 0 else 1
         # H2 normalized operations derived from full-year forecast less reported H1.
         ebit_period = ebit - h["ebit"] if i == 0 else ebit
         da_period = da - h["da"] if i == 0 else da
@@ -110,7 +112,7 @@ def forecast(case, data, config):
         fcff = ebit_period - tax_operating + da_period - capex_period - delta
         # First explicit FCFF includes only post-Oct5 portion of H2; uniform H2
         # cash timing is an approximation and is exposed for challenge.
-        valued_fcff = fcff * config["remaining_days"] / 184 if i == 0 else fcff
+        valued_fcff = fcff * config["remaining_days"] / h2_days if i == 0 else fcff
 
         cost_of_revenue = revenue * presentation["cost_of_revenue_ratio"]
         operating_cost = revenue - cost_of_revenue - raw_ebit
@@ -184,11 +186,12 @@ def bridge(data, config):
     )
 
 
-def action_for(price, per_share):
+def action_for(price, per_share, config):
     """Map price versus value to the recorded committee action thresholds."""
-    if price < per_share * 0.8:
+    policy = config["recommendation_policy"]
+    if price < per_share * policy["initiate_fraction"]:
         return "initiate_candidate"
-    if price > per_share * 1.2:
+    if price > per_share * policy["defer_ceiling_fraction"]:
         return "do_not_initiate"
     return "watch_defer"
 
@@ -201,14 +204,14 @@ def value(rows, case, data, config):
     terminal_fcff = nopat * (1 - case["growth"] / config["terminal_roic"])
     if terminal_fcff <= 0:
         raise ValueError("Terminal reinvestment incompatible with growth/ROIC")
-    periods = [config["remaining_days"] / 365 + i for i in range(5)]
+    periods = [config["remaining_days"] / config["days_in_year"] + i for i in range(5)]
     fcffs = [r["valued_fcff"] for r in rows]
     v = dcf(fcffs, periods, case["wacc"], case["growth"], terminal_fcff, bridge(data, config))
     v.update(
         terminal_revenue=terminal_revenue,
         terminal_nopat=nopat,
         terminal_fcff=terminal_fcff,
-        action=action_for(config["price"], v["per_share"]),
+        action=action_for(config["price"], v["per_share"], config),
     )
     return v
 
@@ -229,10 +232,11 @@ def reverse_dcf(data, config):
         case["commercial_growth"] = [x * multiplier for x in case["commercial_growth"]]
         return value(forecast(case, data, config), case, data, config)["per_share"]
 
-    lo, hi = 0.0, 6.0
+    settings = config["reverse_dcf"]
+    lo, hi = settings["multiplier_lower"], settings["multiplier_upper"]
     if implied(hi) < config["price"]:
         return {"status": "unbracketed", "max_multiplier": hi, "value": implied(hi)}
-    for _ in range(80):
+    for _ in range(settings["bisection_steps"]):
         mid = (lo + hi) / 2
         if implied(mid) < config["price"]:
             lo = mid
@@ -260,8 +264,8 @@ def run():
         dump_csv(f"outputs/{name}_three_statements.csv", rows)
 
     sensitivity = []
-    for wacc in [0.08, 0.09, 0.105, 0.12, 0.13]:
-        for growth in [0.02, 0.03, 0.04]:
+    for wacc in c["sensitivity_grid"]["wacc"]:
+        for growth in c["sensitivity_grid"]["growth"]:
             case = {**c["cases"]["base"], "wacc": wacc, "growth": growth}
             v = value(forecasts["base"], case, data, c)
             sensitivity.append(
