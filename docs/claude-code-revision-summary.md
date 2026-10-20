@@ -38,8 +38,10 @@ Other options (base, each alone, not adopted): flat 2026 margin $30.55; NOL 50%/
 ## Verification status
 Verified from saved filings: GAAP margins (Q2 2026 47.1%), cash instrument mix (realized yield ~3.5% vs 3.0% assumption), share bridge (June 30 count; the July 27 cover differs by 0.161M shares), NOL facts, and that the low tax rate is not a one-time item. **Pending** because the session's network blocked the hosts: Treasury 10-year on Oct 5, the Damodaran ERP date, a sourced beta, and wider peer data. Details and refresh steps: `docs/source-verification-2026-10-20.md`.
 
+Update after this summary: Pierce subsequently reported checking the Oct 5 10-year yield and Oct 1 Damodaran ERP; the report and remaining evidence qualifications are recorded in `docs/source-verification-2026-10-20.md` and commit `6380cd6`.
+
 ## Remaining human items
 Repository visibility; base fade length and margin path; beta; final peer list; NOL adoption; final label (do not initiate vs. watch/defer); deadline and possible Q3 refresh; AI-off locked prediction and AI-closed run; final partner review; three recordings and transcripts; unchanged Edition A PDF; rubric and grader access. Not submission-ready.
 
 ## Push status
-This session could not push to `pierceappleton/palantir-corporate-finance`: Claude's GitHub access for that repository refuses pushes. All commits exist only in this cloud session's clone until access is granted and the branch is pushed.
+The post-comparison branch was pushed to `pierceappleton/palantir-corporate-finance` at commit `6380cd6` and merged to `main` by PR #1. Later AI capex sensitivity follow-up commits are recorded on `main` separately.

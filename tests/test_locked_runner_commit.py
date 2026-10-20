@@ -6,6 +6,8 @@ from pathlib import Path
 
 from validation.locked_human_runner import commit_only
 
+ROOT = Path(__file__).resolve().parents[1]
+
 
 def git(root, *args):
     return subprocess.check_output(["git", *args], cwd=root, text=True).strip()
@@ -13,7 +15,9 @@ def git(root, *args):
 
 class LockedRunnerCommitTests(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory()
+        temp_root = ROOT / "tmp"
+        temp_root.mkdir(exist_ok=True)
+        self.temp = tempfile.TemporaryDirectory(prefix="locked-runner-", dir=temp_root)
         self.root = Path(self.temp.name)
         git(self.root, "init", "-q")
         git(self.root, "config", "user.email", "test@example.invalid")

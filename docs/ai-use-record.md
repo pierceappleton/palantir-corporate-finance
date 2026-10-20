@@ -11,5 +11,7 @@ Routine errors: AppTest relative path resolved under validation; corrected absol
 
 Existing-award service adjustment was corrected from full2026 annual cost to prospective H2 cost. No designated locked capex test has been executed; human prediction remains pending. No fictional challenge, recording, transcript, EditionA receipt or training-case answer was produced.
 
+Codex precommitted and executed a separately labeled AI-controlled capex sensitivity on 2026-10-20. Raising capex/revenue from 1.2% to 2.0% reduced modeled base value by $0.1884 per diluted share; the do-not-initiate action did not change. The precommit, result and regression test are preserved in `validation/ai-capex-precommit-2026-10-19.md`, `validation/ai-capex-sensitivity-2026-10-19.json` and `tests/test_accounting_corrections.py`. This was not an AI-off human prediction and does not satisfy the course's designated locked gate.
+
 ## Post-comparison revision, Claude Code, 2026-10-20
 Claude Code (Anthropic) worked in a cloud session on branch claude/post-comparison-revisions after a joint Claude/ChatGPT audit of the October 6 build. It wrote and ran all code changes; Pierce wrote no code. Accepted/corrected/qualified outputs are listed in docs/claude-code-revision-summary.md. The session's network policy blocked Treasury, SEC, FRED, NYU Stern and market-data hosts. Web-search snippets were used only as leads and were never entered as model inputs. No partner feedback, prediction, recording, transcript or market value was invented. The designated locked test was not run.

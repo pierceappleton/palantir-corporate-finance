@@ -86,5 +86,29 @@ class AwardRunoffTests(unittest.TestCase):
         self.assertAlmostEqual(sum(row["sars"] for row in schedule), self.h["unrecognized_sar_comp"])
 
 
+class CapexSensitivityTests(unittest.TestCase):
+    def setUp(self):
+        self.data, self.c = load()
+
+    def test_increased_capex_reduces_fcff_and_value_without_breaking_statements(self):
+        self.assertAlmostEqual(self.c["capex_ratio"], 0.012)
+        case = copy.deepcopy(self.c["cases"]["base"])
+        base_rows = forecast(case, self.data, self.c)
+        base_value = value(base_rows, case, self.data, self.c)
+
+        changed_config = copy.deepcopy(self.c)
+        changed_config["capex_ratio"] = 0.020
+        changed_rows = forecast(case, self.data, changed_config)
+        changed_value = value(changed_rows, case, self.data, changed_config)
+
+        self.assertLess(changed_value["per_share"], base_value["per_share"])
+        self.assertEqual(changed_value["action"], base_value["action"])
+        for base, changed in zip(base_rows, changed_rows):
+            self.assertGreater(changed["capex"], base["capex"])
+            self.assertLess(changed["fcff"], base["fcff"])
+            self.assertAlmostEqual(changed["balance_residual"], 0, places=7)
+            self.assertAlmostEqual(changed["cash_residual"], 0, places=7)
+
+
 if __name__ == "__main__":
     unittest.main()
