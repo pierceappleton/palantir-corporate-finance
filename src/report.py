@@ -5,7 +5,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-from src.model import bridge, dump_csv, forecast, load, value
+from src.model import action_for, dump_csv, forecast, load, value
 
 
 def save(path, text):
@@ -18,7 +18,6 @@ def named_stresses(results, data, c):
     base = c["cases"]["base"]
     stresses = []
     conditional_price = c["recommendation_policy"]["conditional_entry_price"]
-    policy = c["recommendation_policy"]
     stress = c["named_stresses"]["procurement_shock"]
     shock = copy.deepcopy(base)
     for key in ["commercial_growth", "government_growth", "margins", "nwc_ratio", "wacc"]:
@@ -31,33 +30,20 @@ def named_stresses(results, data, c):
                 value=v["per_share"],
                 current_action=v["action"],
                 conditional_price=conditional_price,
-                conditional_action="do_not_initiate" if conditional_price > v["per_share"] * policy["defer_ceiling_fraction"] else "watch_defer",
+                conditional_action=action_for(conditional_price, v["per_share"], c),
             )
         )
-    # Terminal-maturity challenge: continue transition cash flows inside terminal convention.
-    # These are explicit terminal-convention calculations, not an inconsistent separate five-year forecast.
-    last = forecast(base, data, c)[-1]["revenue"]
-    transition_pv = 0
-    w = base["wacc"]
-    g = base["growth"]
-    roic = c["terminal_roic"]
-    for t, (growth, margin) in enumerate(zip(c["terminal_fade"]["growth"], c["terminal_fade"]["margin"]), 1):
-        last *= 1 + growth
-        nopat = last * margin * (1 - c["tax"])
-        f = nopat * (1 - growth / roic)
-        transition_pv += f / (1 + w) ** t
-    terminal = last * (1 + g) * c["terminal_fade"]["terminal_margin"] * (1 - c["tax"]) * (1 - g / roic) / (w - g) / (1 + w) ** 5
-    at2030 = transition_pv + terminal
-    b = bridge(data, c)
-    ev = results["cases"]["base"]["explicit_pv"] + at2030 / (1 + w) ** (c["remaining_days"] / c["days_in_year"] + 4)
-    transition_price = (ev + b.cash + b.investments - b.debt - b.other_claims) / b.shares
+    # Terminal-maturity challenge: the October 6 five-year fade path, valued by the shared engine.
+    named = c["terminal_fade"]["named_path"]
+    v = value(forecast(base, data, c), base, data, c, fade_years=len(named["growth"]), fade_path=named)
+    transition_price = v["per_share"]
     stresses.append(
         dict(
-            scenario="Maturity deferred to2035 with five-year fade",
+            scenario=named["label"],
             value=transition_price,
-            current_action="do_not_initiate" if c["price"] > policy["defer_ceiling_fraction"] * transition_price else "watch_defer",
+            current_action=v["action"],
             conditional_price=conditional_price,
-            conditional_action="initiate_candidate" if conditional_price < policy["initiate_fraction"] * transition_price else "watch_defer",
+            conditional_action=action_for(conditional_price, transition_price, c),
         )
     )
     return stresses, transition_price

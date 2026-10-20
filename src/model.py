@@ -5,7 +5,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-from src.dcf import Bridge, dcf
+from src.dcf import Bridge, staged_dcf
 
 ASSET_KEYS = ["cash", "investments", "ar", "prepaid", "ppe", "rou", "other_assets"]
 LIABILITY_KEYS = [
@@ -331,24 +331,99 @@ def action_for(price, per_share, config):
     return "watch_defer"
 
 
-def value(rows, case, data, config):
-    """Value the forecast with a mature Gordon terminal and the shared equity bridge."""
-    final = rows[-1]["revenue"]
-    terminal_revenue = final * (1 + case["growth"])
+def interpolate(start, target, steps):
+    """Linear path from start toward target; step k of n lands at k/(n+1) of the way."""
+    return [start + (target - start) * k / (steps + 1) for k in range(1, steps + 1)]
+
+
+def fade_schedule(rows, case, data, config, years, path=None):
+    """Fade years between the 2030 forecast and the Gordon terminal.
+
+    Growth and margin move linearly from the final explicit year toward the terminal
+    values unless explicit lists are supplied. Reinvestment each year is growth / ROIC
+    of NOPAT. Remaining existing-award expense is added back in fade years exactly as in
+    the explicit forecast, so the cumulative add-back stays within the unrecognized balance.
+    """
+    fade = config["terminal_fade"]
+    roic = fade.get("roic", config["terminal_roic"])
+    final_growth = rows[-1]["revenue"] / rows[-2]["revenue"] - 1
+    if path is not None:
+        growths, margins = list(path["growth"]), list(path["margin"])
+        if len(growths) != years or len(margins) != years:
+            raise ValueError("Explicit fade path length must equal fade years")
+    else:
+        growths = interpolate(final_growth, case["growth"], years)
+        margins = interpolate(case["margins"][-1], case["terminal_margin"], years)
+    runoff = existing_award_runoff(data, config, 5 + years)[5:]
+    schedule = []
+    revenue = rows[-1]["revenue"]
+    for k, (growth, margin) in enumerate(zip(growths, margins)):
+        revenue *= 1 + growth
+        ebit = revenue * margin + runoff[k]["total"]
+        nopat = ebit * (1 - config["tax"])
+        reinvestment = nopat * growth / roic
+        schedule.append(
+            dict(
+                fade_year=rows[-1]["year"] + k + 1,
+                growth=growth,
+                margin=margin,
+                revenue=revenue,
+                existing_award_service_adjustment=runoff[k]["total"],
+                ebit=ebit,
+                nopat=nopat,
+                reinvestment=reinvestment,
+                fcff=nopat - reinvestment,
+            )
+        )
+    return schedule
+
+
+def value(rows, case, data, config, fade_years=None, fade_path=None):
+    """Value the forecast: explicit FCFF, optional fade years, mature Gordon terminal, shared bridge."""
+    if fade_years is None:
+        fade_years = case.get("fade_years", config["terminal_fade"]["base_years"])
+    schedule = fade_schedule(rows, case, data, config, fade_years, fade_path)
+    last_revenue = schedule[-1]["revenue"] if schedule else rows[-1]["revenue"]
+    terminal_revenue = last_revenue * (1 + case["growth"])
     nopat = terminal_revenue * case["terminal_margin"] * (1 - config["tax"])
     terminal_fcff = nopat * (1 - case["growth"] / config["terminal_roic"])
     if terminal_fcff <= 0:
         raise ValueError("Terminal reinvestment incompatible with growth/ROIC")
     periods = [config["remaining_days"] / config["days_in_year"] + i for i in range(5)]
     fcffs = [r["valued_fcff"] for r in rows]
-    v = dcf(fcffs, periods, case["wacc"], case["growth"], terminal_fcff, bridge(data, config, rows))
+    fade_fcffs = [x["fcff"] for x in schedule]
+    v = staged_dcf(fcffs, periods, case["wacc"], case["growth"], terminal_fcff, bridge(data, config, rows), fade_fcffs)
     v.update(
+        fade_years=fade_years,
+        fade=schedule,
         terminal_revenue=terminal_revenue,
         terminal_nopat=nopat,
         terminal_fcff=terminal_fcff,
         action=action_for(config["price"], v["per_share"], config),
     )
     return v
+
+
+def terminal_conventions(forecasts, data, config):
+    """Per-share value and terminal share for each case under each reported fade length."""
+    table = []
+    for name, case in config["cases"].items():
+        for years in config["terminal_fade"]["comparison_years"]:
+            v = value(forecasts[name], case, data, config, fade_years=years)
+            table.append(
+                dict(
+                    case=name,
+                    fade_years=years,
+                    maturity_year=forecasts[name][-1]["year"] + years,
+                    per_share=v["per_share"],
+                    explicit_pv=v["explicit_pv"],
+                    fade_pv=v["fade_pv"],
+                    terminal_pv=v["terminal_pv"],
+                    terminal_share=v["terminal_share"],
+                    action=v["action"],
+                )
+            )
+    return table
 
 
 def award_reconciliation_table(data, config, runoff):
@@ -431,6 +506,11 @@ def run():
             )
     dump_csv("outputs/wacc_growth.csv", sensitivity)
 
+    conventions = terminal_conventions(forecasts, data, c)
+    dump_csv("outputs/terminal_conventions.csv", conventions)
+    for name in results:
+        dump_csv(f"outputs/{name}_fade_schedule.csv", value(forecasts[name], c["cases"][name], data, c, fade_years=5)["fade"])
+
     runoff = existing_award_runoff(data, c, 40)
     dump_csv("outputs/existing_award_runoff.csv", runoff[:10])
     award_reconciliation = award_reconciliation_table(data, c, runoff)
@@ -445,6 +525,7 @@ def run():
             "final partner review and submission requirements pending"
         ),
         cases=results,
+        terminal_conventions=conventions,
         cutoff_cash={name: cutoff_cash(rows, data, c) for name, rows in forecasts.items()},
         existing_awards=award_reconciliation,
         reverse_dcf=reverse,

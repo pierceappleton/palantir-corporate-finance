@@ -135,22 +135,34 @@
     "contract_offset_ratio": 0.17
   },
   "terminal_fade": {
-    "growth": [
-      0.2,
-      0.15,
-      0.1,
-      0.07,
-      0.05
+    "base_years": 0,
+    "comparison_years": [
+      0,
+      5,
+      10
     ],
-    "margin": [
-      0.39,
-      0.38,
-      0.37,
-      0.36,
-      0.35
-    ],
-    "terminal_margin": 0.35,
-    "basis": "Delayed-maturity comparison only (reported as a named stress); not the base-case terminal convention."
+    "roic": 0.25,
+    "path": "linear from the 2030 forecast growth and input margin toward each case's terminal growth and terminal margin; fade year k of n is k/(n+1) of the way",
+    "basis": "Analyst assumption pending Pierce's decision. base_years 0 keeps the frozen immediate-maturity convention; 5 and 10 are reported comparisons. Fade ROIC equals the mature terminal ROIC (assumption).",
+    "named_path": {
+      "label": "Maturity deferred to2035 with five-year fade",
+      "growth": [
+        0.2,
+        0.15,
+        0.1,
+        0.07,
+        0.05
+      ],
+      "margin": [
+        0.39,
+        0.38,
+        0.37,
+        0.36,
+        0.35
+      ],
+      "basis": "Delayed-maturity comparison only (reported as a named stress); not the base-case terminal convention."
+    },
+    "terminal_margin_named_path_superseded": 0.35
   },
   "recommendation_policy": {
     "initiate_fraction": 0.8,

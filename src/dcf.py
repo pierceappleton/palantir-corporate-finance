@@ -53,3 +53,31 @@ def dcf(fcffs, periods, wacc, growth, terminal_fcff, bridge):
         per_share=equity / bridge.shares,
         terminal_share=terminal / enterprise_value if enterprise_value else None,
     )
+
+
+def staged_dcf(fcffs, periods, wacc, growth, terminal_fcff, bridge, fade_fcffs=()):
+    """Three-stage FCFF value: explicit forecast, optional fade years, then a Gordon terminal.
+
+    Fade year k is discounted at periods[-1] + k, and the terminal value sits at the end of
+    the last fade year, so every stage uses the same end-of-period timing. With no fade years
+    this returns exactly what dcf() returns.
+    """
+    base = dcf(fcffs, periods, wacc, growth, terminal_fcff, bridge)
+    if not all(isfinite(x) for x in fade_fcffs):
+        raise ValueError("Finite fade cash flows required")
+    last = periods[-1]
+    fade_pv = sum(fcff / (1 + wacc) ** (last + k) for k, fcff in enumerate(fade_fcffs, 1))
+    terminal_time = last + len(fade_fcffs)
+    terminal = terminal_fcff / (wacc - growth) / (1 + wacc) ** terminal_time
+    enterprise_value = base["explicit_pv"] + fade_pv + terminal
+    equity = enterprise_value + bridge.cash + bridge.investments - bridge.debt - bridge.other_claims
+    return dict(
+        explicit_pv=base["explicit_pv"],
+        fade_pv=fade_pv,
+        terminal_pv=terminal,
+        terminal_time=terminal_time,
+        enterprise_value=enterprise_value,
+        equity_value=equity,
+        per_share=equity / bridge.shares,
+        terminal_share=terminal / enterprise_value if enterprise_value else None,
+    )
